@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汽车评星系统-登录</title>
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<style type="text/css">
+		body{
+			min-width: 1200px;
+			margin: 0px;
+			background-image: url(../images/login_back.jpg);
+			background-size: cover;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		/*title的样式*/
+		.view_title{
+			width: 100%;
+			height: 70px;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			background:rgba(255,255,255,0);
+			margin: 0px;
+			padding: 0px;
+		}
+		.view_title_name{
+			width: 280px;
+			height: 99px;
+			display:flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			padding-left: 10px;
+		}
+		.img_title{
+			height: 40px;
+			width: 40px;
+			border-radius: 20px;
+			border: none;
+		}
+		.text_title{
+			font-size: 20px;
+			font-weight: 800;
+			font-family: Microsoft YaHei;
+			color: rgba(10,10,10,0.6);
+		}
+
+		/*内容*/
+		.view_content{
+			width: 500px;
+			background: rgba(255,255,255,0.7);
+			border: solid;
+			border-width: 1px;
+			border-radius: 4px;
+			border-color: #c0c0c0;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			margin-bottom: 50px;
+			padding-top: 30px;
+			position: relative;
+			z-index: 2;
+		}
+		.form_logupInfo{
+			margin-top: 50px;
+			display: flex;
+			flex-direction: column;
+			width: 500px;
+			justify-content: flex-start;
+			position: relative;
+			z-index: 2;
+		}
+		.listItem_logupInfo{
+			width: 332px;
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
+			justify-content: flex-start;
+			z-index: 2;
+		}
+		.text_itemName{
+			width: 90px;
+			height: 30px;
+			margin: 0px;
+			margin-top: 10px;
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #585858;
+			font-weight: 600;
+		}
+		.text_itemInput{
+			width: 220px;
+			height: 34px;
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			overflow: hidden;
+			border: solid;
+			border-color: #DBDBDB;
+			border-width: 1px;
+			border-radius: 4px;
+			padding-left: 20px;
+			margin-bottom: 42px;
+		}
+		.img_code_identify{
+			width: 80px;
+			height: 34px;
+			margin-right: 10px;
+			cursor: pointer;
+		}
+		.btn_logup{
+			width: 332px;
+			height: 38px;
+			background: #00B20B;
+			border: none;
+			border-radius: 4px;
+			color: #fff;
+			padding: 0px;
+			text-align: center;
+			font-size: 14.5px;
+			margin-bottom: 10px;
+			cursor: pointer;
+			z-index: 2;
+		}
+
+		/*登录btn下面的那些样式*/
+		.text_left{
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #027C04;
+			text-align: left;
+			float: left;
+			display: inline;
+			cursor: pointer;			
+		}
+		.text_right{
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #027C04;
+			text-align:right;
+			float: right;
+			display: inline;
+			cursor: pointer;
+		}
+		.icon_socialAccount{
+			width: 20px;
+			height: 20px;
+			margin-left: 16px;
+			margin-right: 16px;
+			cursor: pointer;
+		}
+		.cantLogin_box{
+			width: 180px;
+			height: 100px;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+			position: absolute;
+			right: -100px;
+			bottom: 54px;
+			display: flex;
+			z-index: 3;
+		}
+		.img_boxBorder{
+			width: 40px;
+			height: 40px;
+			margin: 0px;
+			padding: 0px;
+			position: relative;
+			left: 3px;
+			z-index: 3;
+			opacity: 0.9;
+		}
+		.box_cantLogin_content{
+			width: 140px;
+			height: 100px;
+			background: rgba(112,112,112,0.9);
+			border: none;
+			border-radius: 4px;
+			position: relative;
+			z-index: 3;
+		}
+		.btn_box{
+			width: 100px;
+			height: 34px;
+			background: #00B20B;
+			border: none;
+			border-radius: 4px;
+			color: #fff;
+			padding: 0px;
+			text-align: center;
+			font-size: 14.5px;
+			margin-top: 10px;
+			margin-left: 20px;
+			cursor: pointer;
+		}
+	</style>
+	<script type="text/javascript" src="../styles/myjs.js"></script>
+	<script type="text/javascript">
+		function wx_turnToGray(){
+			document.getElementById("icon_wx").src = "../images/wx_gray.png";
+		}
+		function qq_turnToGray(){
+			document.getElementById("icon_qq").src = "../images/qq_gray.png";
+		}
+		function weibo_turnToGray(){
+			document.getElementById("icon_weibo").src = "../images/weibo_gray.png";
+		}
+		function wx_turnToBlack(){
+			document.getElementById("icon_wx").src = "../images/wx_black.png";
+		}
+		function qq_turnToBlack(){
+			document.getElementById("icon_qq").src = "../images/qq_black.png";
+		}
+		function weibo_turnToBlack(){
+			document.getElementById("icon_weibo").src = "../images/weibo_black.png";
+		}
+		function changeVerifyCode(){
+			var verifyImg = document.getElementById("id_verifyImg");
+			verifyImg.src="../admin/getVerifyImage.php";
+		}
+		function mentionChangeImg(){
+
+		}
+	</script>
+</head>
+<body>
+	<div class="view_title">
+		<div class="view_title_name">
+			<img class="img_title" src="../images/login_back.jpg">
+			<p class="text_title">汽车评星系统 | 登录</p>
+		</div>
+	</div>
+	<div class="view_content">
+	<form id="id_loginForm" action="../admin/doLogin.php" method="post">
+		<ul class="form_LogupInfo" style="padding: 0px;">
+			<li class="listItem_logupInfo">
+				<p class="text_itemName">邮箱/手机号</p>
+				<input class="text_itemInput" type="text" name="user_emailPhone">
+			</li>
+			<li class="listItem_logupInfo">
+				<p class="text_itemName">密码</p>
+				<input class="text_itemInput" type="password" name="password" maxlength="18">
+			</li>
+			<li class="listItem_logupInfo">
+				<img id="id_verifyImg" class="img_code_identify" src="../admin/getVerifyImage.php" onclick="changeVerifyCode()" onmouseover="mentionChangeImg()">
+				<input class="text_itemInput" type="text" name="verifyCode" placeholder="验证码(不区分大小写)">
+			</li>
+		</ul>
+		<button class="btn_logup" id="btn_login_defualt" onmouseover="turnToBlur('btn_login_defualt')" onmouseout="turnToClear('btn_login_defualt')" onclick="submitForm('id_loginForm')">登录</button>
+	</form>
+
+		<div class="listItem_logupInfo" style="justify-content: space-between;"  >
+			<p class="text_left" id="txt_trunToPhone_login" onmouseover="turnToBlur('txt_trunToPhone_login')" onmouseout="turnToClear('txt_trunToPhone_login')">手机号快捷登录</p>
+			<p class="text_right" id="txt_cantLogin" onmouseover="turnToBlur('txt_cantLogin')" onmouseout="turnToClear('txt_cantLogin')" onclick="showOrHide('id_cantLoginBox')">无法登录？</p>
+		</div>
+		<div class="listItem_logupInfo" style="margin-bottom: 50px; align-items: center;">
+			<p class="text_left" id="txt_showOrHideAccounts" onmouseover="turnToBlur('txt_showOrHideAccounts')" onmouseout="turnToClear('txt_showOrHideAccounts')" onclick="showOrHide('id_box_accounts')">社交账号登陆</p>
+			<div id="id_box_accounts" class="listItem_logupInfo" style="width: 180px; display: none;">
+				<img  class="icon_socialAccount" id="icon_wx" style="margin-left: 40px;" src="../images/wx_gray.png" onmouseover="wx_turnToBlack()" onmouseout="wx_turnToGray()">
+				<img  class="icon_socialAccount" id="icon_qq" src="../images/qq_gray.png" onmouseover="qq_turnToBlack()" onmouseout="qq_turnToGray()">
+				<img  class="icon_socialAccount" id="icon_weibo" src="../images/weibo_gray.png" onmouseover="weibo_turnToBlack()" onmouseout="weibo_turnToGray()">
+			</div>
+		</div>
+		<div id="id_cantLoginBox" class="cantLogin_box" style="display: none;">
+			<img class="img_boxBorder" src="../images/dialogBorder3.png">
+			<div class="box_cantLogin_content">
+				<button class="btn_box" id="btn_turnTologup" onmouseover="turnToBlur('btn_turnTologup')" onmouseout="turnToClear('btn_turnTologup')">注册</button>
+				<button class="btn_box" id="btn_getbackPassword" onmouseover="turnToBlur('btn_getbackPassword')" onmouseout="turnToClear('btn_getbackPassword')">找回密码</button>
+			</div>
+		</div>
+	</div>
+	<div class="view_footer">
+		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汽车评星系统-注册</title>
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<script type="text/javascript" src="../styles/myjs.js"></script>
+	<style type="text/css">
+		/*内容*/
+		.view_container{
+			margin: 0px;
+			width: 600px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		.view_content{
+			width: 550px;
+			background: rgba(255,255,255,0.8);
+			border: solid;
+			border-width: 1px;
+			border-radius: 4px;
+			border-color: #c0c0c0;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			margin-bottom: 150px;
+			padding-top: 30px;
+			padding-bottom: 40px;
+		}
+		.img_icon{
+			width: 120px;
+			height: 120px;
+		}
+		.text{
+			font-size: 16px;
+			text-align: center;
+			width: 340px;
+			color: rgb(0,0,0);
+			cursor: none;
+			text-decoration: none;
+		}
+	
+	</style>
+	<script type="text/javascript">
+		function turnToBlur(objectID){
+			document.getElementById(objectID).style.opacity = 0.7;
+		}
+		function turnToClear(objectID){
+			document.getElementById(objectID).style.opacity = 1;
+		}
+	</script>
+</head>
+<body>
+	<div class="view_title">
+		<div class="view_title_name">
+			<img class="img_title" src="../images/login_back.jpg">
+			<p class="text_title">汽车评星系统 | 注册</p>
+		</div>
+		<div class="view_title_client">
+		<!-- 这里先留着，回来如果需要的话，可以加一个用户的图标，是space-between的效果 -->
+		</div>
+	</div>
+	<div class="view_container">
+	 	<!--tab页面-->
+		<ul class="view_tab">
+			<li class="text_tab" >
+				<h4>①注册账户</h4>
+			</li>
+			<li class="text_tab">
+				<h4>②完善信息</h4>
+			</li>
+			<li class="text_tab" style="margin-left:0px;color:#01CE3F;font-weight: 500;">
+				<h4>③通过验证</h4>
+			</li>
+		</ul>
+		<!--信息填写模块-->
+		<div class="view_content">
+			<img class="img_icon" src="../images/identifing.png">
+			<p class="text">已提交，等待信息审核。</p>
+		</div>
+	</div>
+	<div class="view_footer">
+		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+	</div>
+</body>
+</html>

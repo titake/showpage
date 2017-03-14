@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汽车评星系统-注册</title>
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<script type="text/javascript" src="../styles/myjs.js"></script>
+	<style type="text/css">
+		/*内容*/
+		.view_container{
+			margin: 0px;
+			width: 900px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		/*内容信息填写模块样式*/
+		.view_content{
+			width: 900px;
+			background: rgba(255,255,255,0.8);
+			border: solid;
+			border-width: 1px;
+			border-radius: 4px;
+			border-color: #c0c0c0;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			margin-bottom: 50px;
+			padding-top: 30px;
+		}
+		
+		/*子模块样式*/
+		.view_BigDiv_info{
+			display: flex;
+			flex-direction: column;
+			width: 820px;
+			justify-content: flex-start;
+			align-items: center;
+			border: dashed;
+			border-color: #a0a0a0;
+			border-width: 0px 0px 1px 0px;
+			padding-bottom: 50px;
+			padding-top: 14px;
+		}
+		.text_DivName{
+			width: 820px;
+			font-size: 14.5px;
+			font-family: 黑体;
+			color: #585858;
+			font-weight: 600;
+			margin-bottom: 30px;
+			text-align: center;			
+		}
+		/*子模块中每行div的样式*/
+		.view_ItemDiv_info{
+			width: 705px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+			margin-bottom: 28px;
+		}
+		.text_chexbox{
+			width: 110px;
+			height: 30px;
+			margin: 0px;
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #585858;
+			font-weight: 600;
+			display: inline;
+			text-align: left;
+		}
+		.checkbox_css{
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			margin-left: 8px;
+		}
+		.text_textarea{
+			width: 705px;
+			height: 80px;
+			padding: 10px;
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #585858;
+		}
+		.btn_logup{
+			width: 120px;
+			height: 38px;
+			background: #00B20B;
+			border: none;
+			border-radius: 4px;
+			color: #fff;
+			padding: 0px;
+			text-align: center;
+			font-size: 14.5px;
+			margin-bottom: 50px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="view_title">
+		<div class="view_title_name">
+			<img class="img_title" src="../images/login_back.jpg">
+			<p class="text_title">汽车评星系统 | 注册</p>
+		</div>
+		<div class="view_title_client">
+		<!-- 这里先留着，回来如果需要的话，可以加一个用户的图标，是space-between的效果 -->
+		</div>
+	</div>
+	<div class="view_container">
+		<ul class="view_tab">
+			<li class="text_tab" style="margin-left:0px;">
+				<h4>①注册账户</h4>
+			</li>
+			<li class="text_tab" style="color:#01CE3F;font-weight: 500;">
+				<h4>②完善信息</h4>
+			</li>
+			<li class="text_tab">
+				<h4>③通过验证</h4>
+			</li>
+		</ul>
+		<div class="view_content">
+			<!--企业基本信息模块-->
+			<div class="view_BigDiv_info">
+				<p class="text_DivName">企业基本信息</p>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName">企业名称</p>
+					<input required="required"  type="text"  class="text_itemInput" style="width: 150px;margin-right: 25px;">
+					<p class="text_inputName" >注册地址</p>
+					<input required="required" required="required" type="text"  class="text_itemInput" style="width: 350px;">
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName">注册金额</p>
+					<input required="required" type="text" class="text_itemInput" style="width: 105px;margin-right: 40px;">
+					<p class="text_inputName">注册日期</p>
+					<input required="required" type="date" class="text_itemInput" style="width: 135px;margin-right: 40px;padding-left:10px;">
+					<p class="text_inputName">有效期至</p>
+					<input required="required" type="date" class="text_itemInput" style="width: 135px;padding-left: 10px;">
+				</div>
+				<div class="view_ItemDiv_info" style="margin: 0px;">
+					<p class="text_inputName" style="width: 505px;">主要经营范围</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_chexbox"><input type="checkbox" name="E" class="checkbox_css"> 一级维护</p>
+					<p class="text_chexbox"><input type="checkbox" name="C3" class="checkbox_css"> 二级维护</p>
+					<p class="text_chexbox"><input type="checkbox" name="C2" class="checkbox_css"> 客运</p>
+					<p class="text_chexbox"><input type="checkbox" name="C1" class="checkbox_css"> 货运</p>
+					<p class="text_chexbox"><input type="checkbox" name="B2" class="checkbox_css"> 驾校</p>
+				</div>
+				<div class="view_ItemDiv_info" style="margin-bottom: 0px;">
+					<p class="text_inputName">有效资质</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<textarea required="required" class="text_textarea"></textarea>
+				</div>
+			</div>
+			<!--联系方式模块-->
+			<div class="view_BigDiv_info" style="border: none;">
+				<p class="text_DivName">企业联系方式</p>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName" style="width: 86px;margin-left: 45px">法人姓名</p>
+					<input required="required" type="text"  class="text_itemInput" style="width: 150px;margin-right: 49px;">
+					<p class="text_inputName">联系方式</p>
+					<input required="required" type="text"  class="text_itemInput">
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName" style="width: 86px;margin-left: 45px;">主要负责人</p>
+					<input required="required" type="text"  class="text_itemInput" style="width: 150px;margin-right: 49px;">
+					<p class="text_inputName">联系方式</p>
+					<input required="required" type="text"  class="text_itemInput">
+				</div>
+			</div>
+			<button class="btn_logup" id="id_logupInfo_step2_submit" onmouseover="turnToBlur('id_logupInfo_step2_submit')" onmouseout="turnToClear('id_logupInfo_step2_submit')">下一步</button>
+		</div>
+	</div>
+	<div class="view_footer">
+		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+	</div>
+</body>
+</html>

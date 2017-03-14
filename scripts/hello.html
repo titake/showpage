@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汽车评星系统</title>
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">  <!-- ./是当前目录   ../是上一级父目录    /是根目录  -->
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<style type="text/css">
+		.view_title{
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			height:50px;
+			justify-content: flex-end;
+			align-items: center;
+			background: transparent;
+		}
+		.view_title_left{
+			width: 50%;
+			height: 50px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+			float: left;
+		}
+		.view_title_right{
+			width: 50%;
+			height: 50px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+			align-items: center;
+			float: right;
+			background: rgba(255,255,255,0.8);
+		}
+		.view_tab_title{
+			width: 20%;
+			height: 50px;
+			display: inline;
+			background: rgba(255,255,255,0.8);
+			cursor: pointer;
+			justify-content: center;
+			align-items: center;
+		}
+		.text_title_tab{
+			font-size: 16px;
+			font-weight: 400;
+			font-family: 宋体;
+			text-align: center;
+			color: rgb(0,0,0);
+		}
+		.text_title{
+			font-size: 16px;
+			font-weight: 400;
+			font-family: 宋体;
+			text-align: center;
+			width: 80px;
+			color: rgb(0,0,0);
+			cursor: pointer;
+			text-decoration: none;
+		}
+		
+		/*首页主界面*/
+		#id_page_main{
+			width:100%;
+			height: 560px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-end;
+			position: absolute;
+			left: 0px;
+			top: 50px;
+		}
+		#text_main{
+			height: 60px;  
+			margin: 0px;
+			font-size: 50px;
+			color: rgb(25,26,27);
+			cursor: default;  
+			margin-bottom: 250px;  
+		}
+
+		.page{
+			position: absolute;
+			top: 50px;
+			left: 0px;
+			width: 100%;
+		}
+	</style>
+	<script type="text/javascript" src="../styles/myjs.js"></script>
+	<script type="text/javascript">
+		
+		function click_tab(Id_tab,Id_page){
+			document.getElementById(MyID_tab).style.background="rgba(255,255,255,0.8)";
+			document.getElementById(MyID_page).style.display="none";
+			document.getElementById(Id_tab).style.background="transparent";
+			document.getElementById(Id_page).style.display=flex;
+			MyID_tab=Id_tab;
+			MyID_page=Id_page;
+		}
+		function click_tabMain(){
+			document.getElementById('id_tab_main').style.background="transparent";
+			document.getElementById('id_page_main').style.display=""
+			document.getElementById('id_tab_transforCom').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_maintainCom').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_driver').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_maintainer').style.background="rgba(255,255,255,0.8)";
+		}
+		function click_tabTransCom(){
+			document.getElementById('id_tab_main').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_transforCom').style.background="transparent";
+			document.getElementById('id_tab_maintainCom').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_driver').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_maintainer').style.background="rgba(255,255,255,0.8)";
+		}
+		function click_tabMaintCom(){
+			document.getElementById('id_tab_main').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_transforCom').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_maintainCom').style.background="transparent";
+			document.getElementById('id_tab_driver').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_maintainer').style.background="rgba(255,255,255,0.8)";
+		}
+		function click_tabDriver(){
+			document.getElementById('id_tab_main').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_transforCom').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_maintainCom').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_driver').style.background="transparent";
+			document.getElementById('id_tab_maintainer').style.background="rgba(255,255,255,0.8)";
+		}
+		function click_tabMainer(){
+			document.getElementById('id_tab_main').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_transforCom').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_maintainCom').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_driver').style.background="rgba(255,255,255,0.8)";
+			document.getElementById('id_tab_maintainer').style.background="transparent";
+		}
+	</script>
+</head>
+<body>
+	<script type="text/javascript">
+		var MyID_tab="id_tab_main";
+		var MyID_page="id_page_main";
+	</script>
+	<!--titleBar-->
+	<div class="view_title">
+		<div class="view_title_left">
+			<div id="id_tab_main" class="view_tab_title" style="background: transparent;" onmouseover="turnToBlur('id_tab_main')" onmouseout="turnToClear('id_tab_main')" onclick="click_tab('id_tab_main','id_page_main')">
+				<p class="text_title_tab">首页</p>
+			</div>
+			<div id="id_tab_transforCom" class="view_tab_title"  onmouseover="turnToBlur('id_tab_transforCom')" onmouseout="turnToClear('id_tab_transforCom')" onclick="click_tab('id_tab_transforCom','id_page_transforCom')">
+				<p class="text_title_tab">运输公司</p>
+			</div>
+			<div id="id_tab_maintainCom" class="view_tab_title"  onmouseover="turnToBlur('id_tab_maintainCom')" onmouseout="turnToClear('id_tab_maintainCom')" onclick="click_tab('id_tab_maintainCom','id_page_maintainCom')">
+				<p class="text_title_tab">维护公司</p>
+			</div>
+			<div id="id_tab_driver" class="view_tab_title" onmouseover="turnToBlur('id_tab_driver')" onmouseout="turnToClear('id_tab_driver')" onclick="click_tab('id_tab_driver','id_page_driver')">
+				<p class="text_title_tab">驾驶员</p>
+			</div>
+			<div id="id_tab_maintainer" class="view_tab_title" onmouseover="turnToBlur('id_tab_maintainer')" onmouseout="turnToClear('id_tab_maintainer')" onclick="click_tab('id_tab_maintainer','id_page_maintainer')">
+				<p class="text_title_tab">维修员</p>
+			</div>
+		</div>
+		<div class="view_title_right">
+			<a class="text_title" href="file:///D:/lastYear/homework/showpage/scripts/login.html" id="id_btn_login" style="margin-right: 10px" onmouseover="turnToBlur('id_btn_login')" onmouseout="turnToClear('id_btn_login')">登录</a>
+			<a class="text_title" href="file:///D:/lastYear/homework/showpage/scripts/logup_Step1.html" id="id_btn_logup" style="margin:0px 100px 0px 20px" onmouseover="turnToBlur('id_btn_logup')" onmouseout="turnToClear('id_btn_logup')">注册</a> 
+		</div>
+	</div>
+	<!--首页-->
+	<div id="id_page_main">
+		<p id="text_main">titake的汽车评星系统</p>
+		<div class="view_footer">
+			<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+		</div>
+	</div>
+	<!--运输公司-->
+	<div class="page" id="id_page_transforCom" style="display: none;">
+		<div class="view_footer">
+			<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+		</div>
+	</div>
+	<!--维护公司-->
+	<div class="page" id="id_page_maintainCom" style="display: none;">
+		<div class="view_footer">
+			<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+		</div>
+	</div>
+	<!--驾驶员/教练员-->
+	<div class="page" id="id_page_driver" style="display: none;">
+		<div class="view_footer">
+			<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+		</div>
+	</div>
+	<!--维修员-->
+	<div class="page" id="id_page_maintainer" style="display: none;">
+		<div class="view_footer">
+			<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+		</div>
+	</div>
+</body>
+</html>

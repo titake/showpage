@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汽车评星系统-注册</title>
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<script type="text/javascript" src="../styles/myjs.js"></script>
+	<style type="text/css">
+		/*内容*/
+		.view_container{
+			margin: 0px;
+			width: 900px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		/*内容信息填写模块样式*/
+		.view_content{
+			width: 900px;
+			background: rgba(255,255,255,0.8);
+			border: solid;
+			border-width: 1px;
+			border-radius: 4px;
+			border-color: #c0c0c0;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			margin-bottom: 50px;
+			padding-top: 30px;
+		}
+		/*驾驶员信息模块样式*/
+		.view_driverInfo{
+			display: flex;
+			flex-direction: column;
+			width: 960px;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		/*子模块样式*/
+		.view_BigDiv_info{
+			display: flex;
+			flex-direction: column;
+			width: 820px;
+			justify-content: flex-start;
+			align-items: center;
+			border: dashed;
+			border-color: #a0a0a0;
+			border-width: 0px 0px 1px 0px;
+			padding-bottom: 50px;
+			padding-top: 14px;
+		}
+		.text_DivName{
+			width: 820px;
+			font-size: 14.5px;
+			font-family: 黑体;
+			color: #585858;
+			font-weight: 600;
+			margin-bottom: 30px;
+			text-align: center;			
+		}
+		/*子模块中每行div的样式*/
+		.view_ItemDiv_info{
+			width: 705px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+			margin-bottom: 28px;
+		}
+		.text_input{
+			width: 220px;
+			height: 34px;
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			padding-left: 20px;
+			overflow: hidden;
+			border: solid;
+			border-color: #DBDBDB;
+			border-width: 1px;
+			border-radius: 4px;
+			margin: 0px 40px 0px 5px;
+		}
+		.text_chexbox{
+			width: 55px;
+			height: 30px;
+			margin: 0px;
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #585858;
+			font-weight: 600;
+			display: inline;
+			text-align: left;
+		}
+		.checkbox_css{
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			margin-left: 8px;
+		}
+		.content_item_column{
+			display: flex;
+			flex-direction: column;
+			width: 120px;
+			align-items: flex-start;
+			justify-content: flex-start;
+		}
+		.content_item_row{
+			display: flex;
+			flex-direction: row;
+			width: 276px;
+			align-items: flex-start;
+		}
+		.img_driver{
+			width: 140px;
+			height: 140px;
+			margin-left: 10px;
+		}
+		.textPs_item{
+			font-size: 14.5px;
+			color: #959595;
+			margin-top: 8px;
+		}
+		.text_option{
+			width: 180px;
+			height: 34px;
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			padding-left: 20px;
+			overflow: hidden;
+			border: solid;
+			border-color: #DBDBDB;
+			border-width: 1px;
+			border-radius: 4px;
+			margin-left: 5px;
+		}
+		.btn_logup{
+			width: 120px;
+			height: 38px;
+			background: #00B20B;
+			border: none;
+			border-radius: 4px;
+			color: #fff;
+			padding: 0px;
+			text-align: center;
+			font-size: 14.5px;
+			margin-bottom: 50px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="view_title">
+		<div class="view_title_name">
+			<img class="img_title" src="../images/login_back.jpg">
+			<p class="text_title">汽车评星系统 | 注册</p>
+		</div>
+		<div class="view_title_client">
+		<!-- 这里先留着，回来如果需要的话，可以加一个用户的图标，是space-between的效果 -->
+		</div>
+	</div>
+	<div class="view_container">
+		<ul class="view_tab">
+			<li class="text_tab" style="margin-left:0px;">
+				<h4>①注册账户</h4>
+			</li>
+			<li class="text_tab" style="color:#01CE3F;font-weight: 500;">
+				<h4>②完善信息</h4>
+			</li>
+			<li class="text_tab">
+				<h4>③通过验证</h4>
+			</li>
+		</ul>
+		<div class="view_content">
+
+			<!--司机的信息完善-->
+			<div class="view_driverInfo">
+				<!--基本信息模块-->
+				<div class="view_BigDiv_info">
+					<p class="text_DivName">基本信息</p>
+					<div class="view_ItemDiv_info">
+						<p class="text_inputName">姓名</p>
+						<input type="text" name="driver_name" class="text_input" style="width: 80px">
+						<p class="text_inputName" style="text-align: center;">性别</p>
+						<input type="text" name="driver_sex" class="text_input" style="width: 40px;">
+						<p class="text_inputName">身份证号</p>
+						<input type="text" name="driver_IDnumber" class="text_input" style="margin-right: 0px;">
+					</div>
+					<div class="view_ItemDiv_info">
+						<p class="text_inputName">联系电话</p>
+						<input type="text" name="driver_phone1" class="text_input" style="margin-right: 76.8px;">
+						<p class="text_inputName">固定电话</p>
+						<input type="text" name="driver_phone2" class="text_input" style="margin-right: 0px;">
+					</div>
+					<div class="view_ItemDiv_info">
+						<p class="text_inputName">通讯地址</p>
+						<input type="text" name="driver_address" class="text_input" style="width:611px; margin-right: 0px; ">
+					</div>
+					<div class="view_ItemDiv_info">
+						<div class="content_item_column">
+							<p class="text_inputName">照片</p>
+							<p class="textPs_item" style="margin-bottom: 40px;">两寸免冠近照</p>
+						</div>
+						<img class="img_driver" src="../images/up.png">
+					</div>
+				</div>
+				<!--驾驶信息模块-->
+				<div class="view_BigDiv_info">
+					<p class="text_DivName">驾驶证信息</p>
+					<div class="view_ItemDiv_info">
+						<p class="text_inputName">驾驶证号</p>
+						<input type="text" name="driver_phone1" class="text_input" style="margin-right: 33.8px;">
+						<p class="text_inputName" style="width: 113px;">初次领证日期</p>
+						<input class="text_input" type="date" name="driverLicense_gainTime" style="margin-right: 0px;">
+					</div>
+					<div class="view_ItemDiv_info">
+						<p class="text_inputName">档案编号</p>
+						<input type="text" name="driver_phone1" class="text_input" style="margin-right: 33.8px;">
+						<div class="content_item_column" style="width: 80px;">
+							<p class="text_inputName">准驾车型</p>
+							<p class="textPs_item" style="margin-top: 0px;">多选</p>
+						</div>
+						<div class="content_item_column" style="width: 250px;">
+							<div class="content_item_row">
+								<p class="text_chexbox"><input type="checkbox" name="E" class="checkbox_css"> E</p>
+								<p class="text_chexbox"><input type="checkbox" name="C3" class="checkbox_css"> C3</p>
+								<p class="text_chexbox"><input type="checkbox" name="C2" class="checkbox_css"> C2</p>
+								<p class="text_chexbox"><input type="checkbox" name="C1" class="checkbox_css"> C1</p>
+								<p class="text_chexbox"><input type="checkbox" name="B2" class="checkbox_css"> B2</p>
+							</div>
+							<div class="content_item_row">
+								<p class="text_chexbox"><input type="checkbox" name="B1" class="checkbox_css"> B1</p>
+								<p class="text_chexbox"><input type="checkbox" name="A3" class="checkbox_css"> A3</p>
+								<p class="text_chexbox"><input type="checkbox" name="A2" class="checkbox_css"> A2</p>
+								<p class="text_chexbox"><input type="checkbox" name="A1" class="checkbox_css"> A1</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--从业资格证信息模块-->
+				<div class="view_BigDiv_info" style="border-bottom: none;">
+					<p class="text_DivName">从业资格证信息</p>
+					<div class="view_ItemDiv_info">
+						<p class="text_inputName" style="width: 113px;">从业资格证号</p>
+						<input type="text" name="driver_phone1" class="text_input" >
+						<p class="text_inputName">有效期至</p>
+						<input class="text_input" type="date" name="driverLicense_gainTime" style="margin-right: 0px;">
+					</div>
+					<div class="view_ItemDiv_info">
+						<p class="text_inputName" style="width: 113px;">从业资格类别</p>
+						<select class="text_option">
+							<option class="text_option">旅客运输</option>
+							<option class="text_option">货物运输</option>
+							<option class="text_option">危险货物运输</option>
+							<option class="text_option">危险品押运员</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<button class="btn_logup" id="id_btnlogstep2_driv" onmouseover="turnToBlur('id_btnlogstep2_driv')" onmouseout="turnToClear('id_btnlogstep2_driv')">下一步</button>
+		</div>
+	</div>
+	<div class="view_footer">
+		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+	</div>
+</body>
+</html>

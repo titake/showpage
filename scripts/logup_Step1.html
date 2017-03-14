@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汽车评星系统-注册</title>
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<style type="text/css">
+		/*内容*/
+		.view_container{
+			margin: 0px;
+			width: 600px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		
+		.view_content{
+			width: 550px;
+			background: rgba(255,255,255,0.8);
+			border: solid;
+			border-width: 1px;
+			border-radius: 4px;
+			border-color: #c0c0c0;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			margin-bottom: 50px;
+			padding-top: 30px;
+		}
+		.form_logupInfo{
+			margin-top: 50px;
+			display: flex;
+			flex-direction: column;
+			width: 550px;
+			padding:40px;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		.listItem_logupInfo{
+			width: 430px;
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
+			justify-content: flex-start;
+		}
+		.content_item{
+			display: flex;
+			flex-direction: column;
+			width: 160px;
+			margin-left: 5px;
+			align-items: flex-start;
+			justify-content: flex-start;
+		}
+		.text_option{
+			width: 110px;
+			height: 34px;
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			padding-left: 10px;
+			overflow: hidden;
+			border: solid;
+			border-color: #DBDBDB;
+			border-width: 1px;
+			border-radius: 4px;
+		}
+		
+	</style>
+	<script type="text/javascript">
+		function turnToBlur(objectID){
+			document.getElementById(objectID).style.opacity = 0.7;
+		}
+		function turnToClear(objectID){
+			document.getElementById(objectID).style.opacity = 1;
+		}
+	</script>
+</head>
+<body>
+	<div class="view_title">
+		<div class="view_title_name">
+			<img class="img_title" src="../images/login_back.jpg">
+			<p class="text_title">汽车评星系统 | 注册</p>
+		</div>
+		<div class="view_title_client">
+		<!-- 这里先留着，回来如果需要的话，可以加一个用户的图标，是space-between的效果 -->
+		</div>
+	</div>
+	<div class="view_container">
+	 	<!--tab页面-->
+		<ul class="view_tab">
+			<li class="text_tab" style="margin-left:0px;color:#01CE3F;font-weight: 500;">
+				<h4>①注册账户</h4>
+			</li>
+			<li class="text_tab">
+				<h4>②完善信息</h4>
+			</li>
+			<li class="text_tab">
+				<h4>③通过验证</h4>
+			</li>
+		</ul>
+		<!--信息填写模块-->
+		<div class="view_content">
+			<ul class="form_LogupInfo" style="padding: 0px; width: 600px;display: flex;flex-direction: column;align-items: center;justify-content: flex-start;">
+				<li class="listItem_logupInfo">
+					<p class="text_inputName">邮箱</p>
+					<input class="text_itemInput" style="margin-left: 5px;margin-bottom: 50px;" type="text" name="email">
+				</li>
+				<li class="listItem_logupInfo">
+					<p class="text_inputName">用户名</p>
+					<div class="content_item">
+						<input class="text_itemInput" type="text" name="name" maxlength="20" style="width: 120px;">
+						<p class="textPs_item">中文、数字、英文或字符，最长20位</p>
+					</div>
+					<p class="text_inputName" >用户类型</p>
+					<div class="content_item" style="width: 120px;">
+						<select class="text_option">
+							<option class="text_option">驾驶员/教练</option>
+							<option class="text_option">维修工人</option>
+							<option class="text_option">运输公司</option>
+							<option class="text_option">维护公司</option>
+							<option class="text_option">管理部门</option>
+						</select>
+						<p class="textPs_item"></p>
+					</div>
+				</li>
+				<li class="listItem_logupInfo">
+					<p class="text_inputName">密码</p>
+					<div class="content_item" style="width: 300px;">
+						<input class="text_itemInput" type="password" name="password" maxlength="18">
+						<p class="textPs_item">数字、英文或字符，至少8位，最长18位</p>
+					</div>
+				</li>
+				<li class="listItem_logupInfo">
+					<p class="text_inputName">确认密码</p>
+					<div class="content_item">
+						<input class="text_itemInput" type="password" name="password_sure" maxlength="18">
+						<p class="textPs_item" >请再输入密码</p>
+					</div>
+				</li>
+			</ul>
+			<button class="btn_logup" id="id_btn_logupStep1" onmouseover="turnToBlur('id_btn_logupStep1')" onmouseout="turnToClear('id_btn_logupStep1')" >注册</button>
+		</div>
+	</div>
+	<div class="view_footer">
+		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+	</div>
+</body>
+</html>
