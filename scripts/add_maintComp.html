@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汽车评星系统-注册</title>
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<script type="text/javascript" src="../styles/myjs.js"></script>
+	<script type="text/javascript" src="../lib/jquery-3.2.0.js"></script>
+	<style type="text/css">
+		/*内容*/
+		.view_container{
+			margin: 0px;
+			width: 900px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		
+		/*子模块样式*/
+		.view_BigDiv_info{
+			display: flex;
+			flex-direction: column;
+			width: 820px;
+			justify-content: flex-start;
+			align-items: center;
+			border: dashed;
+			border-color: #a0a0a0;
+			border-width: 0px 0px 1px 0px;
+			padding-bottom: 50px;
+			padding-top: 14px;
+		}
+		.text_DivName{
+			width: 820px;
+			font-size: 14.5px;
+			font-family: 黑体;
+			color: #585858;
+			font-weight: 600;
+			margin-bottom: 30px;
+			text-align: center;			
+		}
+		/*子模块中每行div的样式*/
+		.text_chexbox{
+			width: 110px;
+			height: 30px;
+			margin: 0px;
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #585858;
+			font-weight: 500;
+			display: inline;
+			text-align: left;
+		}
+		.checkbox_css{
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			margin-left: 8px;
+		}
+		.text_textarea{
+			width: 705px;
+			height: 80px;
+			padding: 10px;
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #585858;
+		}
+		.btn_logup{
+			width: 120px;
+			height: 38px;
+			background: #00B20B;
+			border: none;
+			border-radius: 4px;
+			color: #fff;
+			padding: 0px;
+			text-align: center;
+			font-size: 14.5px;
+			margin-bottom: 50px;
+		}
+		.img_icon{
+			width: 18px;
+			height: 18px;
+			padding: 0px;
+			margin: 0px;
+		}
+		#id_compName_last{
+			width: 120px;
+			height: 37.33px;
+			border: solid 1px #DBDBDB;
+			border-left: dashed 1px #ccc;
+			border-radius: 0px 4px 4px 0px;
+			padding-left: 2px;
+			background: rgba(255,255,255,0.9);
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #585858;
+			font-weight: 450;
+		}
+	</style>
+</head>
+<body>
+	<div class="view_title">
+		<div class="view_title_name">
+			<img class="img_title" src="../images/login_back.jpg">
+			<p class="text_title">汽车评星系统 | 注册</p>
+		</div>
+		<div class="view_title_client">
+		<!-- 这里先留着，回来如果需要的话，可以加一个用户的图标，是space-between的效果 -->
+		</div>
+	</div>
+	<div class="view_container">
+		<ul class="view_tab">
+			<li class="text_tab" style="margin-left:0px;">
+				<h4>①步骤一</h4>
+			</li>
+			<li class="text_tab" style="color:#01CE3F;font-weight: 500;">
+				<h4>②步骤二</h4>
+			</li>
+			<li class="text_tab">
+				<h4>③步骤三</h4>
+			</li>
+		</ul>
+		<div class="view_content_column">
+			<!--企业基本信息模块-->
+			<div class="view_BigDiv_info">
+				<p class="text_DivName">企业基本信息</p>
+				<div class="view_ItemDiv_info" style="margin-bottom: 5px;">
+					<p class="text_inputName">企业名称</p>
+					<input id="id_compName" type="text"  class="text_itemInput" style="width: 160px;margin-right: 0px;border-right: none; padding-left: 4px;border-radius: 4px 0px 0px 4px;" onblur="checkIfExist()">
+					<select id="id_compName_last">
+						<option>有限责任公司</option>
+						<option>股份有限公司</option>
+					</select>
+					<div class="div_warn" id="id_div_star">
+						<p class="text_inputName" style="width: 36px;margin-left: 50px;">星级</p>
+						<img class="img_icon" id="id_star1" onmouseover="wantToselect('id_star1')" onmouseout="cancelWant('id_star1')" onclick="selectStar('id_star1')" src="../images/star_gray.png">
+						<img class="img_icon" id="id_star2" onmouseover="wantToselect('id_star2')" onmouseout="cancelWant('id_star2')" onclick="selectStar('id_star2')" src="../images/star_gray.png">
+						<img class="img_icon" id="id_star3" onmouseover="wantToselect('id_star3')" onmouseout="cancelWant('id_star3')" onclick="selectStar('id_star3')" src="../images/star_gray.png">
+						<img class="img_icon" id="id_star4"  onmouseover="wantToselect('id_star4')" onmouseout="cancelWant('id_star4')" onclick="selectStar('id_star4')" src="../images/star_gray.png">
+						<img class="img_icon" id="id_star5"  onmouseover="wantToselect('id_star5')" onmouseout="cancelWant('id_star5')" onclick="selectStar('id_star5')" src="../images/star_gray.png">
+					</div>
+					<p class="text_warn" id="id_warn_compName" style="display: none;">*</p>
+				</div>
+				<div class="div_warn" id="id_warn_exist" style="width: 705px;display: none;">
+					<img src="../images/error.png" class="img_warn">
+					<p class="text_warn">此企业已注册过！</p>
+				</div>
+				<div class="view_ItemDiv_info" style="margin-bottom: 28px; margin-top: 23px;">
+					<p class="text_inputName">注册地址</p>
+					<input id="id_registe_address" type="text"  class="text_itemInput" style="width: 615px;">
+					<p class="text_warn" id="id_warn_location" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName">注册金额</p>
+					<input placeholder="单位为万" id="id_registe_money" type="text" class="text_itemInput" style="width: 105px;">
+					<p class="text_inputName" style="width: 14px;margin-right: 33px;">万</p>
+					<p class="text_inputName">注册日期</p>
+					<input type="date" id="id_registe_date" class="text_itemInput" style="width: 135px;margin-right: 34px;padding-left:10px;">
+					<p class="text_inputName">有效期至</p>
+					<input type="date" id="id_registe_valid_date" class="text_itemInput" style="width: 135px;padding-left: 10px;">
+					<p class="text_warn" id="id_warn_date" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info" style="margin-bottom: 28px; margin-top: 23px;">
+					<p class="text_inputName">员工人数</p>
+					<input id="id_staff_num" type="text"  class="text_itemInput" style="width: 615px;">
+					<p class="text_warn" id="id_warn_staff_num" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info" style="margin-bottom: 28px; margin-top: 23px;">
+					<p class="text_inputName" style="width: 100px;">主要经营范围</p>
+					<input id="id_scope" type="text"  class="text_itemInput" style="width: 585px;">
+					<p class="text_warn" id="id_warn_scope" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info" style="margin: 0px;">
+					<p class="text_inputName" style="width: 92px;">维护级别</p>
+					<p class="text_warn" id="id_warn_classify" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_chexbox"><input id="id_classify1" type="checkbox" name="E" class="checkbox_css"> 一级维护</p>
+					<p class="text_chexbox"><input id="id_classify2" type="checkbox" name="C3" class="checkbox_css"> 二级维护</p>
+				</div>
+				<div class="view_ItemDiv_info" style="margin-bottom: 0px;">
+					<p class="text_inputName">有效资质</p>
+					<p class="text_warn" id="id_warn_qualification" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<textarea class="text_textarea" id="id_qualification"></textarea>
+				</div>
+			</div>
+			<!--联系方式模块-->
+			<div class="view_BigDiv_info" style="border: none;">
+				<p class="text_DivName">企业联系方式</p>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName" style="width: 86px;margin-left: 45px">法人姓名</p>
+					<input type="text" id="id_corporation" class="text_itemInput" style="width: 150px;margin-right: 49px;">
+					<p class="text_inputName">联系电话</p>
+					<input type="text" id="id_corporation_phone" maxlength="11" class="text_itemInput">
+					<p class="text_warn" id="id_warn_corporation" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName" style="width: 86px;margin-left: 45px;">主要负责人</p>
+					<input type="text" id="id_charge_person" class="text_itemInput" style="width: 150px;margin-right: 49px;">
+					<p class="text_inputName">联系电话</p>
+					<input type="text" id="id_charge_phone" maxlength="11" class="text_itemInput">
+					<p class="text_warn" id="id_warn_charge" style="display: none;">*</p>
+				</div>
+			</div>
+
+			<div class="view_ItemDiv_info" style="justify-content: space-around;">
+				<button class="btn_logup" id="id_btn_goBefore" onmouseover="turnToBlur('id_btn_goBefore')" onmouseout="turnToClear('id_btn_goBefore')" onclick="window.location='logup_Step2_comp.html'">上一步</button>
+				<button class="btn_logup" id="id_logupInfo_step2_submit" onmouseover="turnToBlur('id_logupInfo_step2_submit')" onmouseout="turnToClear('id_logupInfo_step2_submit')" onclick="addComp()">完成</button>
+			</div>
+
+		</div>
+	</div>
+	<div class="view_footer">
+		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+	</div>
+	<script type="text/javascript">
+		exist = true;
+		userType = window.location.search.split("?")[1].split("=")[1];
+		if (userType=="super") {
+			$(function(){
+				$("#id_div_star").show();
+			});
+		}else{
+			$(function(){
+				$("#id_div_star").hide();
+			});
+		}
+		starSelected = 0;
+		function selectStar(starID){
+			var i = starID.substr(starID.length-1,1);
+			i = parseInt(i);
+			starSelected = i;
+			i++;
+			while(i<=5){
+				var id = "id_star"+i;
+				document.getElementById(id).src = "../images/star_gray.png";
+				i++;
+			}
+			i = starSelected;
+			while(i>0){
+				var id = "id_star"+i;
+				document.getElementById(id).src = "../images/star_gold.png";
+				i--;
+			}
+		}
+		function wantToselect(starID){
+			var i = starID.substr(starID.length-1,1);
+			i = parseInt(i);
+			var wantStar = i;
+			i++;
+			while(i<=5){
+				var id = "id_star"+i;
+				document.getElementById(id).src = "../images/star_gray.png";
+				i++;
+			}
+			i = wantStar;
+			while(i>0){
+				var id = "id_star"+i;
+				document.getElementById(id).src = "../images/star_gold.png";
+				i--;
+			}
+		}
+		function cancelWant(starID){
+			var i = parseInt(starID.substr(starID.length-1,1));
+			if (!starSelected) {
+				while(i>0){
+					var id = "id_star"+i;
+					document.getElementById(id).src = "../images/star_gray.png";
+					i--;
+				}
+			}else if (i!=starSelected) {
+				while(i>starSelected){
+					var id = "id_star"+i;
+					document.getElementById(id).src = "../images/star_gray.png";
+					i--;
+				}
+				i=starSelected;
+				while(i>0){
+					var id = "id_star"+i;
+					document.getElementById(id).src = "../images/star_gold.png";
+					i--;
+				}
+			}
+		}
+		function checkInfo() {
+			var done = 0;
+			if(!document.getElementById("id_classify1").checked && !document.getElementById("id_classify2").checked ) {
+				document.getElementById("id_warn_classify").style.display = "block";
+			}else{
+				document.getElementById("id_warn_classify").style.display = "none";
+				done++;
+			}
+
+			if (document.getElementById("id_compName").value=="") {
+				document.getElementById("id_warn_compName").style.display = "block";
+			}else{
+				done ++;
+				document.getElementById("id_warn_compName").style.display = "none";
+			}
+
+			if(document.getElementById("id_registe_address").value==""){
+				document.getElementById("id_warn_location").style.display = "block";
+			}else{
+				done ++;
+				document.getElementById("id_warn_location").style.display = "none";
+			}
+
+			if (document.getElementById("id_registe_money").value==""||document.getElementById("id_registe_date").value==""||document.getElementById("id_registe_valid_date").value=="") {
+				document.getElementById("id_warn_date").style.display = "block";
+			}else{
+				document.getElementById("id_warn_date").style.display = "none";
+				done ++;
+			}
+
+			if (document.getElementById("id_staff_num").value=="") {
+				document.getElementById("id_warn_staff_num").style.display = "block";
+			}else{
+				document.getElementById("id_warn_staff_num").style.display = "none";
+				done ++;
+			}
+			if (document.getElementById("id_scope").value=="") {
+				document.getElementById("id_warn_scope").style.display = "block";
+			}else{
+				document.getElementById("id_warn_scope").style.display = "none";
+				done ++;
+			}
+
+			if (document.getElementById("id_qualification").value=="") {
+				document.getElementById("id_warn_qualification").style.display = "block";
+			}else{
+				done ++;
+				document.getElementById("id_warn_qualification").style.display = "none";
+			} 
+
+			if(document.getElementById("id_corporation").value==""||document.getElementById("id_corporation_phone").value=="") {
+				document.getElementById("id_warn_corporation").style.display = "block";
+			}else{
+				done ++;
+				document.getElementById("id_warn_corporation").style.display = "none";
+			} 
+
+			if(document.getElementById("id_charge_person").value==""||document.getElementById("id_charge_phone").value=="") {
+				document.getElementById("id_warn_charge").style.display = "block";
+			}else{
+				done ++;
+				document.getElementById("id_warn_charge").style.display = "none";
+			}
+			if (userType=="super") {
+				if (!starSelected) {
+					document.getElementById("id_warn_compName").style.display = "block";
+				}else{
+					done ++;
+					document.getElementById("id_warn_compName").style.display = "none";
+				}
+				if (done===10) {
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				if (done===9) {
+					return true;
+				}else{
+					return false;
+				}
+			}
+		}
+		function checkIfExist(){
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/ifExist.php?flag=compName&compType=tb_maincomp&compName="+document.getElementById("id_compName").value);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						if (result.length==0) {
+							exist = false;
+							$(function(){
+								$("#id_warn_exist").hide();
+							});
+						}else{
+							exist = true;
+							$(function(){
+								$("#id_warn_exist").show();
+							});
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		function addComp(){
+			var done = checkInfo();
+			if (done && (!exist)) {
+				function getClassify(){
+					var classify = "";
+					var classifyNum=0;
+					if (document.getElementById("id_classify1").checked) {
+						classify = "1";
+						classifyNum++;
+					}
+					if (document.getElementById("id_classify2").checked) {
+						if (classifyNum) {
+							classify+=",2";
+						}
+						classify = "2";
+					}
+					return classify;
+				}
+				var compLastNames = document.getElementById("id_compName_last");
+				var sindex = compLastNames.selectedIndex;
+				var compName = document.getElementById("id_compName").value;
+				compName+=compLastNames.options[sindex].value;
+				var request = new XMLHttpRequest;
+				request.open("POST","../ajax/WriteDB.php",true);
+				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				request.send("flag=add_maintComp&compName="+compName+
+					"&registe_money="+parseFloat(document.getElementById("id_registe_money").value)+
+					"&registe_address="+document.getElementById("id_registe_address").value+
+					"&registe_date="+document.getElementById("id_registe_date").value+
+					"&registe_valid_date="+document.getElementById("id_registe_valid_date").value+
+					"&staff_num="+parseInt(document.getElementById("id_staff_num").value)+
+					"&corporation="+document.getElementById("id_corporation").value+
+					"&corporation_phone="+document.getElementById("id_corporation_phone").value+
+					"&charge_person="+document.getElementById("id_charge_person").value+
+					"&charge_phone="+document.getElementById("id_charge_phone").value+
+					"&scope="+document.getElementById("id_scope").value+
+					"&qualification="+document.getElementById("id_qualification").value+
+					"&main_classify="+getClassify()+
+					"&star="+starSelected);
+				request.onreadystatechange = function(){
+					if (request.readyState===4) {
+						if (request.status===200) {
+							console.log(request.responseText);
+							var result = JSON.parse(request.responseText);
+							if (result.success) {
+								window.location.href ="logup_Step3_administer.html?compName="+document.getElementById("id_compName").value+"&usertype=mainComp";
+							}else{
+								alert("添加出错！错误原因："+result.reason);
+							}
+						}else{
+							alert("error:"+request.status);
+						}
+					}
+				}
+			}
+		}
+	</script>
+</body>
+</html>

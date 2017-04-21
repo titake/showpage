@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汽车评星系统-注册</title>
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<script type="text/javascript" src="../styles/myjs.js"></script>
+	<script type="text/javascript" src="../lib/jquery-3.2.0.js"></script>
+	<style type="text/css">
+		/*内容*/
+		.view_container{
+			margin: 0px;
+			width: 900px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		/*内容信息填写模块样式*/
+		.view_content{
+			width: 720px;
+			background: rgba(255,255,255,0.8);
+			border: solid;
+			border-width: 1px;
+			border-radius: 4px;
+			border-color: #c0c0c0;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			margin-bottom: 50px;
+			padding-top: 30px;
+		}
+		
+		/*子模块样式*/
+		.view_BigDiv_info{
+			display: flex;
+			flex-direction: column;
+			width: 720px;
+			justify-content: flex-start;
+			align-items: center;
+			border: dashed;
+			border-color: #a0a0a0;
+			border-width: 0px 0px 1px 0px;
+			padding-bottom: 50px;
+			padding-top: 14px;
+		}
+		.text_DivName{
+			width: 720px;
+			font-size: 14.5px;
+			font-family: 黑体;
+			color: #585858;
+			font-weight: 600;
+			margin-bottom: 30px;
+			text-align: center;			
+		}
+		/*子模块中每行div的样式*/
+		.view_ItemDiv_info{
+			width: 480px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		.text_chexbox{
+			width: 110px;
+			height: 30px;
+			margin: 0px;
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #585858;
+			font-weight: 600;
+			display: inline;
+			text-align: left;
+		}
+		.checkbox_css{
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			margin-left: 8px;
+		}
+		.text_textarea{
+			width: 705px;
+			height: 80px;
+			padding: 10px;
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #585858;
+		}
+		.btn_logup{
+			width: 120px;
+			height: 38px;
+			background: #00B20B;
+			border: none;
+			border-radius: 4px;
+			color: #fff;
+			padding: 0px;
+			text-align: center;
+			font-size: 14.5px;
+			margin-bottom: 50px;
+		}
+		.div_warn{
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		.img_icon{
+			width: 18px;
+			height: 18px;
+			padding: 0px;
+			margin: 0px;
+		}
+	</style>
+</head>
+<body>
+	<div class="view_title">
+		<div class="view_title_name">
+			<img class="img_title" src="../images/login_back.jpg">
+			<p class="text_title">汽车评星系统 | 注册</p>
+		</div>
+		<div class="view_title_client">
+		<!-- 这里先留着，回来如果需要的话，可以加一个用户的图标，是space-between的效果 -->
+		</div>
+	</div>
+	<div class="view_container">
+		<ul class="view_tab">
+			<li class="text_tab" style="margin-left:0px;">
+				<h4>①步骤一</h4>
+			</li>
+			<li class="text_tab" style="color:#01CE3F;font-weight: 500;">
+				<h4>②步骤二</h4>
+			</li>
+			<li class="text_tab">
+				<h4>③步骤三</h4>
+			</li>
+		</ul>
+		<div class="view_content">
+			<!--企业基本信息模块-->
+			<div class="view_BigDiv_info">
+				<p class="text_DivName">客运站基本信息</p>
+				<div class="view_ItemDiv_info" style="margin-bottom: 5px;">
+					<p class="text_inputName" style="width: 90px;">客运站名称</p>
+					<input id="id_compName" type="text"  class="text_itemInput" onblur="checkIfExist()" style="width: 150px;">
+					<div class="div_warn" id="id_div_star" style="margin-left: 25px;margin-right: 20px;">
+						<p class="text_inputName" style="width: 36px;">星级</p>
+						<img class="img_icon" id="id_star1" onmouseover="wantToselect('id_star1')" onmouseout="cancelWant('id_star1')" onclick="selectStar('id_star1')" src="../images/star_gray.png">
+						<img class="img_icon" id="id_star2" onmouseover="wantToselect('id_star2')" onmouseout="cancelWant('id_star2')" onclick="selectStar('id_star2')" src="../images/star_gray.png">
+						<img class="img_icon" id="id_star3" onmouseover="wantToselect('id_star3')" onmouseout="cancelWant('id_star3')" onclick="selectStar('id_star3')" src="../images/star_gray.png">
+						<img class="img_icon" id="id_star4"  onmouseover="wantToselect('id_star4')" onmouseout="cancelWant('id_star4')" onclick="selectStar('id_star4')" src="../images/star_gray.png">
+						<img class="img_icon" id="id_star5"  onmouseover="wantToselect('id_star5')" onmouseout="cancelWant('id_star5')" onclick="selectStar('id_star5')" src="../images/star_gray.png">
+					</div>
+					<p id="id_warn_compName" class="text_warn" style="display: none;">*</p>
+				</div>
+				<div class="div_warn" id="id_warn_exist" style="display: none;">
+					<img src="../images/error.png" class="img_warn">
+					<p class="text_warn">此客运站已注册过！</p>
+				</div>
+				<div class="view_ItemDiv_info" style="margin-top: 23px;">
+					<p class="text_inputName" style="width: 115px;" >客运站地理位置</p>
+					<input id="id_location" type="text"  class="text_itemInput" style="width: 365px;">
+					<p class="text_warn" id="id_warn_location" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName">创立日期</p>
+					<input id="id_registe_date" type="date" class="text_itemInput" style="width: 145px;margin-right: 20px;padding-left:10px;">   <!--值是2017-01-03的形式-->
+					<p class="text_inputName" style="width: 100px;">经营有效期至</p>
+					<input id="id_registe_valid_date" type="date" class="text_itemInput" style="width: 145px;padding-left: 10px;">
+					<p class="text_warn" id="id_warn_date" style="display: none;">*</p>
+				</div>
+			</div>
+			<!--联系方式模块-->
+			<div class="view_BigDiv_info" style="border: none;">
+				<p class="text_DivName">客运站联系方式</p>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName" style="width: 86px;">主要负责人</p>
+					<input id="id_charge_person"  type="text"  class="text_itemInput" style="width: 90px;">
+					<p class="text_inputName" maxlength="11" style="margin-left: 10px; width: 40px;">电话</p>
+					<input id="id_charge_phone"  type="text"  class="text_itemInput" maxlength="11">
+					<p class="text_warn" id="id_warn_charge" style="display: none;">*</p>
+				</div>
+			</div>
+			
+			<div class="view_ItemDiv_info" style="justify-content: space-around;">
+				<button class="btn_logup" id="id_btn_goBefore" onmouseover="turnToBlur('id_btn_goBefore')" onmouseout="turnToClear('id_btn_goBefore')" onclick="window.location='logup_Step2_comp.html'">上一步</button>
+				<button class="btn_logup" id="id_logupInfo_step2_submit" onmouseover="turnToBlur('id_logupInfo_step2_submit')" onmouseout="turnToClear('id_logupInfo_step2_submit')" onclick="addComp()">完成</button>
+			</div>
+
+		</div>
+	</div>
+	<div class="view_footer">
+		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+	</div>
+	<script type="text/javascript">
+		exist = false;
+		userType = window.location.search.split("?")[1].split("=")[1];
+		starSelected = 0;
+		if (userType=="super") {
+			$(function(){
+				$("#id_div_star").show();
+			});
+		}else{
+			$(function(){
+				$("#id_div_star").hide();
+			});
+		}
+		function selectStar(starID){
+			var i = starID.substr(starID.length-1,1);
+			i = parseInt(i);
+			starSelected = i;
+			i++;
+			while(i<=5){
+				var id = "id_star"+i;
+				document.getElementById(id).src = "../images/star_gray.png";
+				i++;
+			}
+			i = starSelected;
+			while(i>0){
+				var id = "id_star"+i;
+				document.getElementById(id).src = "../images/star_gold.png";
+				i--;
+			}
+		}
+		function wantToselect(starID){
+			var i = starID.substr(starID.length-1,1);
+			i = parseInt(i);
+			var wantStar = i;
+			i++;
+			while(i<=5){
+				var id = "id_star"+i;
+				document.getElementById(id).src = "../images/star_gray.png";
+				i++;
+			}
+			i = wantStar;
+			while(i>0){
+				var id = "id_star"+i;
+				document.getElementById(id).src = "../images/star_gold.png";
+				i--;
+			}
+		}
+		function cancelWant(starID){
+			var i = parseInt(starID.substr(starID.length-1,1));
+			if (!starSelected) {
+				while(i>0){
+					var id = "id_star"+i;
+					document.getElementById(id).src = "../images/star_gray.png";
+					i--;
+				}
+			}else if (i!=starSelected) {
+				while(i>starSelected){
+					var id = "id_star"+i;
+					document.getElementById(id).src = "../images/star_gray.png";
+					i--;
+				}
+				i=starSelected;
+				while(i>0){
+					var id = "id_star"+i;
+					document.getElementById(id).src = "../images/star_gold.png";
+					i--;
+				}
+			}
+		}
+		function checkIfExist(){
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/ifExist.php?flag=compName&compType=tb_transport&compName="+document.getElementById("id_compName").value,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						if (result.length==0) {
+							exist = false;
+							$(function(){
+								$("#id_warn_exist").hide();
+							});
+						}else{
+							exist = true;
+							$(function(){
+								$("#id_warn_exist").show();
+							});
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		function addComp(){
+			var doneNum = 0;
+			var done = false;
+			var compName = document.getElementById("id_compName").value;
+			var location = document.getElementById("id_location").value;
+			var charge_phone = document.getElementById("id_charge_phone").value;
+			var charge_person = document.getElementById("id_charge_person").value;
+			var registe_date = document.getElementById("id_registe_date").value;
+			var registe_valid_date=document.getElementById("id_registe_valid_date").value;
+			if (compName==""){
+				document.getElementById("id_warn_compName").style.display = "block";
+				console.log("compName_warn");
+			}else{
+				doneNum++;
+				document.getElementById("id_warn_compName").style.display = "none";
+			}
+			if(location==""){
+				document.getElementById("id_warn_location").style.display = "block";
+			}else{
+				doneNum++;
+				document.getElementById("id_warn_location").style.display = "none";
+			} 
+			if(charge_phone=""||charge_person==""){
+				document.getElementById("id_warn_charge").style.display = "block";
+			}else{
+				document.getElementById("id_warn_charge").style.display = "none";
+				doneNum++;
+			} 
+			if(registe_date==""||registe_valid_date==""){
+				document.getElementById("id_warn_date").style.display = "block";
+			}else{
+				document.getElementById("id_warn_date").style.display = "none";
+				doneNum ++;
+			}
+			if (userType=="super") {
+				if (!starSelected) {
+					document.getElementById("id_warn_compName").style.display = "block";
+				}else{
+					doneNum ++;
+					document.getElementById("id_warn_compName").style.display = "none";
+				}
+				if (doneNum===5) {
+					done = true;
+				}else{
+					done = false;
+				}
+			}else{
+				if (doneNum===4) {
+					done = true;
+				}else{
+					done = false;
+				}
+			}
+			console.log(done);
+			if (done && (!exist)) {
+				var request = new XMLHttpRequest;
+				request.open("POST","../ajax/WriteDB.php",true);
+				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				request.send("flag=add_transport&compName="+compName+"&location="+location+"&charge_phone="+charge_phone+"&charge_person="+charge_person+"&registe_date="+registe_date+"&registe_valid_date="+registe_valid_date+"&star="+starSelected);
+				request.onreadystatechange = function(){
+					if (request.readyState===4) {
+						if (request.status===200) {
+							var result = JSON.parse(request.responseText);
+							if (result.success) {
+								window.location.href ="logup_Step3_administer.html?compName="+document.getElementById("id_compName").value+"&userType=transport";
+							}else{
+								alert("添加出错！错误原因："+result.reason);
+							}
+						}else{
+							alert("error:"+request.status);
+						}
+					}
+				}
+			}
+		}
+	</script>
+</body>
+</html>

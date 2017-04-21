@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汽车评星系统-注册</title>
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<script type="text/javascript" src="../styles/myjs.js">
+	</script>
+	<style type="text/css">
+		/*内容*/
+		.view_container{
+			margin: 0px;
+			width: 600px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		.view_content{
+			width: 800px;
+			background: rgba(255,255,255,0.8);
+			border: solid;
+			border-width: 1px;
+			border-radius: 4px;
+			border-color: #c0c0c0;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			margin-bottom: 150px;
+			padding-top: 30px;
+		}
+		.view_row{
+			width: 600px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			align-items: center;
+		}
+		.item_row_space{
+			margin-bottom: 30px;
+			width: 550px;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+		}
+		.text_select{
+			height: 33.33px;
+			width: 140px;
+			padding-left: 4px;
+			font-size: 14.5px;
+			font-family: 宋体;
+			font-weight: 500;
+			overflow: hidden;
+			border: solid;
+			border-color: #DBDBDB;
+			border-width: 1px;
+			border-radius: 0px 4px 4px 0px;
+			border-left: dashed 1px #ccc;
+		}
+		.input_mini{
+			width: 50px;
+			height: 30px;
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			padding-left: 5px;
+			overflow: hidden;
+			border: solid;
+			border-color: #DBDBDB;
+			border-width: 1px;
+			border-radius: 4px;
+		}
+		.text_mini{
+			height: 20px;
+			width: 20px;
+			font-size: 14.5px;
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			padding: 0px;
+			margin: 0px;
+		}
+		.text{
+			font-size: 16px;
+			text-align: center;
+			width: 340px;
+			color: rgb(0,0,0);
+			cursor: none;
+			text-decoration: none;
+		}	
+	</style>
+</head>
+<body>
+	<div class="view_title">
+		<div class="view_title_name">
+			<img class="img_title" src="../images/login_back.jpg">
+			<p class="text_title">汽车评星系统 | 注册</p>
+		</div>
+		<div class="view_title_client">
+		<!-- 这里先留着，回来如果需要的话，可以加一个用户的图标，是space-between的效果 -->
+		</div>
+	</div>
+	<div class="view_container">
+	 	<!--tab页面-->
+		<ul class="view_tab">
+			<li class="text_tab" >
+				<h4>①步骤一</h4>
+			</li>
+			<li class="text_tab">
+				<h4>②步骤二</h4>
+			</li>
+			<li class="text_tab" style="margin-left:0px;color:#01CE3F;font-weight: 500;">
+				<h4>③步骤三</h4>
+			</li>
+		</ul>
+		<!--信息填写模块-->
+		<div class="view_content">
+			<div class="item_row_space" style="margin-bottom: 0px;">
+				<p class="text_inputName" >公司名:</p>
+				<input class="input_mini" type="text" id="id_compName" style="margin-right: 0px;width: 120px;border-right: none;border-radius: 4px 0px 0px 4px;" onblur="checkIFexist()">
+				<select class="text_select" id="id_complastName">
+					<option class="text_select">有限责任公司</option>
+					<option class="text_select">股份有限公司</option>
+				</select>
+				<p class="text_warn" id="id_warn_comp" style="display: none;">*</p>
+			</div>
+			<div class="item_row_space" id="id_warn" style="display: none; margin-top: 0px;margin-bottom: 0px;" >
+				<p style="font-size: 14.5px;color: #ff0000; margin-left: 70px;">此公司还未在该网站上注册，请返回上一步注册</p>
+			</div>
+			<div class="item_row_space" style="margin-top:25px;">
+				<p class="text_inputName">姓名:</p>
+				<input class="text_itemInput" type="text" id="id_name" style="width: 150px;">
+				<p class="text_warn" id="id_warn_name" style="display: none;">*</p>
+			</div>
+			<div class="item_row_space" id="id_div_nickname">
+				<p class="text_inputName">手机号:</p>
+				<input class="text_itemInput" type="text" id="id_phoneNum" maxlength="11" style="width: 220px;">
+					<p class="text_warn" id="id_warn_phone" style="display: none;">*</p>
+			</div>
+			<div class="view_row">
+				<button class="btn_logup" id="id_btnBack_logupStep3" onmouseover="turnToBlur('id_btnBack_logupStep3')" onmouseout="turnToClear('id_btnBack_logupStep3')" onclick="openWindow('logup_Step2_comp.html')">上一步</button>
+				<button class="btn_logup" id="id_btnOK_logupStep3" onmouseover="turnToBlur('id_btnOK_logupStep3')" onmouseout="turnToClear('id_btnOK_logupStep3')" onclick="addUser()">完成</button>
+			</div>
+		</div>
+	</div>
+	<div class="view_footer">
+		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+	</div>
+
+	<script type="text/javascript">
+		exist = false;
+		var urlInfo = window.location.search.split("?")[1];
+		compName = urlInfo.split("&")[0].split("=")[1];
+		userType=urlInfo.split("&")[1].split("=")[1];
+		console.log("usertype "+userType);
+		if (userType=="transport") {
+			document.getElementById("id_complastName").style.display="none";
+		}else{
+			document.getElementById("id_complastName").style.display="block";
+		}
+		document.getElementById("id_compName").value = compName;
+		if (compName.length>0) {checkIFexist();}
+		function checkIFexist(){
+			var request = new XMLHttpRequest();
+			var compName;
+			if (userType!="transport") {
+				var compLastNames = document.getElementById("id_complastName");
+				var sindex = compLastNames.selectedIndex;
+				compName = document.getElementById("id_compName").value+compLastNames.options[sindex].value;
+			}else{
+				compName = document.getElementById("id_compName").value;
+			}
+			request.open("GET","../ajax/ifExist.php?compName="+compName+"&flag=compName");
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState ===4) {
+					if (request.status ===200) {
+						var response = JSON.parse(request.responseText);
+						if (response.length>0) {
+							document.getElementById("id_warn").style.display="none";
+							turnToClear('id_btnOK_logupStep3');
+							document.getElementById("id_btnOK_logupStep3").disabled = false;
+							exist = true;
+						}else{
+							document.getElementById("id_warn").style.display="flex";
+							turnToBlur('id_btnOK_logupStep3');
+							document.getElementById("id_btnOK_logupStep3").disabled = true;
+							exist = false;
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		function checkInfo(){
+			var done = 0;
+			if (document.getElementById("id_compName").value.length==0) {
+				document.getElementById("id_warn_comp").style.display="block";
+			}else{
+				document.getElementById("id_warn_comp").style.display="none";
+				done++;
+			}
+			if (document.getElementById("id_name").value.length==0) {
+				document.getElementById("id_warn_name").style.display="block";
+			}else{
+				document.getElementById("id_warn_name").style.display="none";
+				done++;
+			}
+			if (document.getElementById("id_phoneNum").value.length==0) {
+				document.getElementById("id_warn_phone").style.display="block";
+			}else{
+				document.getElementById("id_warn_phone").style.display="none";
+				done++;
+			}
+			if (done===3) {
+				return true;
+			}else{
+				return false;
+			}
+		}
+		function addUser(){
+			if (checkInfo() && exist) {
+				var compLastNames = document.getElementById("id_complastName");
+				var sindex = compLastNames.selectedIndex;
+				var compName = document.getElementById("id_compName").value+compLastNames.options[sindex].value;
+				
+				var request = new XMLHttpRequest;
+				request.open("POST","../ajax/WriteDB.php",true);
+				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				request.send("username="+document.getElementById("id_name").value+"&phonenum="+document.getElementById("id_phoneNum").value+"&institution="+compName+"&flag=add_administer");
+				request.onreadystatechange = function(){
+					if (request.readyState===4) {
+						if (request.status===200) {
+							console.log("response:"+request.responseText);
+							var response = JSON.parse(request.responseText);
+							if (response.success) {
+								console.log("注册成功");
+								openWindow("hello.html");
+							}else{
+								alert("注册失败："+response.reason);
+							}
+						}else{
+							alert("error:"+request.status);
+						}
+					}
+				}
+			}
+		}
+	</script>
+</body>
+</html>

@@ -40,22 +40,22 @@
 			align-items: center;
 		}
 		.listItem_logupInfo{
-			width: 430px;
+			width: 350px;
 			display: flex;
 			flex-direction: row;
 			align-items: flex-start;
-			justify-content: flex-start;
+			justify-content: center;
 		}
 		.content_item{
 			display: flex;
 			flex-direction: column;
-			width: 160px;
+			width: 260px;
 			margin-left: 5px;
 			align-items: flex-start;
 			justify-content: flex-start;
 		}
 		.text_option{
-			width: 110px;
+			width: 220px;
 			height: 34px;
 			font-family: 宋体;
 			font-size: 14.5px;
@@ -67,16 +67,8 @@
 			border-width: 1px;
 			border-radius: 4px;
 		}
-		
 	</style>
-	<script type="text/javascript">
-		function turnToBlur(objectID){
-			document.getElementById(objectID).style.opacity = 0.7;
-		}
-		function turnToClear(objectID){
-			document.getElementById(objectID).style.opacity = 1;
-		}
-	</script>
+	<script type="text/javascript" src="../styles/myjs.js"></script>
 </head>
 <body>
 	<div class="view_title">
@@ -92,60 +84,194 @@
 	 	<!--tab页面-->
 		<ul class="view_tab">
 			<li class="text_tab" style="margin-left:0px;color:#01CE3F;font-weight: 500;">
-				<h4>①注册账户</h4>
+				<h4>①步骤一</h4>
 			</li>
 			<li class="text_tab">
-				<h4>②完善信息</h4>
+				<h4>②步骤二</h4>
 			</li>
-			<li class="text_tab">
-				<h4>③通过验证</h4>
+			<li class="text_tab" id="id_label_step3">
+				<h4>③步骤三</h4>
 			</li>
 		</ul>
 		<!--信息填写模块-->
 		<div class="view_content">
-			<ul class="form_LogupInfo" style="padding: 0px; width: 600px;display: flex;flex-direction: column;align-items: center;justify-content: flex-start;">
+			<ul class="form_LogupInfo" style="padding: 0px; width: 550px;display: flex;flex-direction: column;align-items: center;justify-content: flex-start;">
 				<li class="listItem_logupInfo">
-					<p class="text_inputName">邮箱</p>
-					<input class="text_itemInput" style="margin-left: 5px;margin-bottom: 50px;" type="text" name="email">
-				</li>
-				<li class="listItem_logupInfo">
-					<p class="text_inputName">用户名</p>
-					<div class="content_item">
-						<input class="text_itemInput" type="text" name="name" maxlength="20" style="width: 120px;">
-						<p class="textPs_item">中文、数字、英文或字符，最长20位</p>
-					</div>
 					<p class="text_inputName" >用户类型</p>
-					<div class="content_item" style="width: 120px;">
-						<select class="text_option">
-							<option class="text_option">驾驶员/教练</option>
+					<div class="content_item">
+						<select class="text_option" id="id_user_type" onchange="selectDivtoShow()" >
+							<option class="text_option">驾驶员/教练员</option>
 							<option class="text_option">维修工人</option>
-							<option class="text_option">运输公司</option>
-							<option class="text_option">维护公司</option>
-							<option class="text_option">管理部门</option>
+							<option class="text_option">客运站员工</option>
+							<option class="text_option">运输公司/驾校管理人员</option>
+							<option class="text_option">维护公司管理人员</option>
+							<option class="text_option">客运站管理人员</option>
+							<option class="text_option">超级管理员</option>
+							<option class="text_option">乘客/学员</option>
 						</select>
 						<p class="textPs_item"></p>
 					</div>
 				</li>
 				<li class="listItem_logupInfo">
+					<p class="text_inputName">邮箱</p>
+					<div class="content_item">
+						<input class="text_itemInput" type="email" id="id_email" style="width: 220px;" onblur="judgeIfloged('email')">
+						<p class="textPs_item" id="id_email_warn"></p>
+					</div>
+				</li>
+				<li class="listItem_logupInfo" id="id_div_nickname" style="display: none;">
+					<p class="text_inputName">用户名</p>
+					<div class="content_item">
+						<input class="text_itemInput" type="text" id="id_nickname" maxlength="20" style="width: 220px;" onblur="judgeIfExist()">
+						<p class="textPs_item" id="id_nickname_warn">中文、数字、英文或字符，最长20位</p>
+					</div>
+				</li>
+				<li class="listItem_logupInfo" id="id_div_idnum" style="display: flex;">
+					<p class="text_inputName">身份证号</p>
+					<div class="content_item">
+						<input class="text_itemInput" type="text" id="id_idnum" maxlength="20" style="width: 220px;" onblur="judgeIfloged('idnum')">
+						<p class="textPs_item" style="color: #ff0000;" id="id_idnum_warn"></p>
+					</div>
+				</li>
+				<li class="listItem_logupInfo">
 					<p class="text_inputName">密码</p>
-					<div class="content_item" style="width: 300px;">
-						<input class="text_itemInput" type="password" name="password" maxlength="18">
+					<div class="content_item">
+						<input class="text_itemInput" type="password" id="id_password" maxlength="18">
 						<p class="textPs_item">数字、英文或字符，至少8位，最长18位</p>
 					</div>
 				</li>
 				<li class="listItem_logupInfo">
 					<p class="text_inputName">确认密码</p>
 					<div class="content_item">
-						<input class="text_itemInput" type="password" name="password_sure" maxlength="18">
-						<p class="textPs_item" >请再输入密码</p>
+						<input class="text_itemInput" type="password" id="id_password_sure" maxlength="18">
+						<p class="textPs_item" style="margin-bottom: 20px;">请再输入密码</p>
 					</div>
 				</li>
 			</ul>
-			<button class="btn_logup" id="id_btn_logupStep1" onmouseover="turnToBlur('id_btn_logupStep1')" onmouseout="turnToClear('id_btn_logupStep1')" >注册</button>
+			<div class="listItem_logupInfo" style="width: 100px;align-items: center;">
+				<input type="checkbox" id="id_check_agreement" checked="checked">
+				<p class="text_ps" style="font-size: 12px;">我同意<a href="../scripts/xxxAgreement.html" target="_blank">xxx协议</a></p>
+			</div>
+			<button class="btn_logup" id="id_btn_logupStep1" onmouseover="turnToBlur('id_btn_logupStep1')" onmouseout="turnToClear('id_btn_logupStep1')" onclick="submitForm()">注册</button>
 		</div>
 	</div>
 	<div class="view_footer">
 		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
 	</div>
+	<script type="text/javascript">
+		warn = false;
+		function submitForm(){
+			if (document.getElementById('id_check_agreement').checked==false) {
+				alert("请先同意xxx协议");
+			}else if(document.getElementById('id_password').value=="" || document.getElementById('id_email').value=="" || (document.getElementById("id_nickname").value=="" && document.getElementById("id_idnum").value=="")){
+				alert("请输入注册信息");
+			}else if (document.getElementById('id_password').value!=document.getElementById('id_password_sure').value) {
+				alert("两次输入的密码不一样");
+			}else if (!warn) {
+				var request = new XMLHttpRequest;
+				request.open("POST","../ajax/dologup.php",true);
+				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				var sform = document.getElementById("id_user_type");
+				var sIndex = sform.selectedIndex;
+				var usertype = sform.options[sIndex].value;
+				request.send("user-type="+usertype+"&password="+document.getElementById("id_password").value+"&email="+document.getElementById("id_email").value+"&nickname="+document.getElementById("id_nickname").value+"&idnum="+document.getElementById("id_idnum").value+"&step=step1");
+				request.onreadystatechange = function(){
+					if (request.readyState===4) {
+						if (request.status===200) {
+							var response = request.responseText;
+							console.log(request.responseText);
+							//成功，跳转到响应的html页面中去
+							window.location.href=response;
+						}else{
+							alert("error:"+request.status);
+						}
+					}
+				}
+			}
+		}
+		//选择显示用户名还是身份证号
+		function selectDivtoShow(){
+			var userTypeForm = document.getElementById('id_user_type');
+			var sIndex = userTypeForm.selectedIndex;
+			if (userTypeForm.options[sIndex].value=="乘客/学员") {
+				document.getElementById('id_div_nickname').style.display = "flex";
+				document.getElementById('id_label_step3').style.display="none";
+				document.getElementById("id_div_idnum").style.display="none"; 
+			}else if (document.getElementById('id_div_nickname').style.display=="flex"){
+				document.getElementById('id_div_nickname').style.display = "none";
+				document.getElementById('id_label_step3').style.display="flex";
+				document.getElementById("id_div_idnum").style.display="flex";  
+			}
+		}
+		//判断用户名是否已经存在
+		function judgeIfExist(){
+			var request = new XMLHttpRequest();
+			request.open("GET","../ajax/ifExist.php?nickname="+document.getElementById("id_nickname").value+"&flag=nickname");
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState ===4) {
+					if (request.status ===200) {
+						//服务器端查询成功
+						var response = JSON.parse(request.responseText);
+						var nicknameWarn = document.getElementById('id_nickname_warn');
+						nicknameWarn.style.color = response.color;
+						nicknameWarn.innerHTML = response.value;
+						warn = response.warning;
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		//判断是否已经注册过
+		function judgeIfloged(key){
+			var request = new XMLHttpRequest;
+			if (key=="email") {
+				request.open("GET","../ajax/ifExist.php?email="+document.getElementById("id_email").value+"&flag=email");
+				request.send();
+				request.onreadystatechange = function(){
+					if (request.readyState===4) {
+						if (request.status===200) {
+							var response = JSON.parse(request.responseText);
+							var emailWarn = document.getElementById("id_email_warn");
+							if (response.exist) {
+								emailWarn.innerHTML = '您已注册过请<a href="login.html">登录</a>';
+								emailWarn.style.color = "#ff0000";
+								warn = true;
+							}else{
+								emailWarn.innerHTML = '';
+								warn = false;
+							}
+						}else{
+							alert("error"+request.status);
+						}
+					}
+				}
+			}else if(key =="idnum") {
+				var sform = document.getElementById("id_user_type");
+				var sIndex = sform.selectedIndex;
+				var usertype = sform.options[sIndex].value;
+				request.open("GET","../ajax/ifExist.php?idnum="+document.getElementById("id_idnum").value+"&userType="+usertype+"&flag=idnumber");
+				request.send();
+				request.onreadystatechange = function(){
+					if (request.readyState===4) {
+						if (request.status===200) {
+							console.log(request.responseText);
+							response = JSON.parse(request.responseText);
+							if (response.exist) {
+								document.getElementById("id_idnum_warn").innerHTML = '您已注册过请<a href="login.html">登录</a>';
+								warn = true;
+							}else{
+								document.getElementById("id_idnum_warn").innerHTML = "";
+								warn = false;
+							}
+						}else{
+							alert("error:"+request.status);
+						}
+					}
+				}
+			 }
+		}
+	</script>
 </body>
 </html>

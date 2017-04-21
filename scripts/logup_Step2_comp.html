@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汽车评星系统-注册</title>
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<style type="text/css">
+		/*内容*/
+		.view_container{
+			margin: 0px;
+			width: 600px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		.view_column{
+			width: 550px;
+			background: rgba(255,255,255,0.8);
+			border: solid;
+			border-width: 1px;
+			border-radius: 4px;
+			border-color: #c0c0c0;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			margin-bottom: 150px;
+			padding-top: 30px;
+			padding-bottom: 10px;
+		}
+		.view_row{
+			width: 420px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.view_row_start{
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			margin: 0px;
+		}
+		.view_columnItem{
+			width: 550px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		.block_prompt{
+			width: 347px;
+			border: 1px solid #ccc;
+		}
+		.li_prompt{
+			margin: 0px;
+			padding:0px;
+			width: 343px;
+			height: 26px;
+			font-size: 14px;
+			color: rgba(100,100,100,0.9);
+			text-align: start;
+			padding-top: 4px;
+			padding-left: 4px;
+			text-decoration: none;  /*下划线*/
+			list-style: none;
+		}
+		#id_ul_prompt{
+			margin:0px;
+			padding: 0px;
+		}
+		#id_result{
+			width: 420px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			content: start;
+			background: rgba(255,255,255,0.9);
+			border:solid 1px #aaa;
+		}
+		.ul_result{
+			width: 420px;
+			border: solid 1px #999;
+			color: rgba(100,100,100,0.9);
+			font-size: 14px;
+			margin:0px;
+			padding: 0px;
+		}
+		.li_result{
+			height: 30px;
+			padding-left: 4px;
+			padding-top: 6px;
+			font-size: 15px;
+			color: rgba(90,90,90,1);
+			font-family: 宋体;
+			text-align: start;
+			list-style: none;
+			border-bottom: dotted 1px #ccc;
+		}
+		.text_p{
+			font-size: 15px;
+			color: rgba(90,90,90,1);
+			font-family: 宋体;
+			text-align: center;
+			margin-top: 10px;
+		}
+		.text{
+			font-size: 16px;
+			text-align: center;
+			width: 340px;
+			color: rgb(0,0,0);
+			text-decoration: none;
+		}
+		.btn_search{
+			width: 60px;
+			height: 37px;
+			border: none;
+			background: rgba(100,100,100,1);
+			color: rgba(255,255,255,1);
+		}
+	</style>
+	<script type="text/javascript" src="../lib/jquery-3.2.0.js"></script>
+	<script type="text/javascript" src="../styles/myjs.js"></script>
+</head>
+<body>
+	<div class="view_title">
+		<div class="view_title_name">
+			<img class="img_title" src="../images/login_back.jpg">
+			<p class="text_title">汽车评星系统 | 注册</p>
+		</div>
+		<div class="view_title_client">
+		<!-- 这里先留着，回来如果需要的话，可以加一个用户的图标，是space-between的效果 -->
+		</div>
+	</div>
+	<div class="view_container">
+	 	<!--tab页面-->
+		<ul class="view_tab">
+			<li class="text_tab" >
+				<h4>①步骤一</h4>
+			</li>
+			<li class="text_tab" style="color:#01CE3F;font-weight: 500;">
+				<h4>②步骤二</h4>
+			</li>
+			<li class="text_tab" style="margin-left:0px;">
+				<h4>③步骤三</h4>
+			</li>
+		</ul>
+		<!--信息填写模块-->
+		<div class="view_column">
+			<p class="text">您所在公司是否已在该网站上注册？</p>
+			<div class="view_columnItem">
+				<div class="view_row_start">
+					<input class="text_itemInput" style="width: 280px; border-radius: 0px; padding-left: 6px;" type="text" id="id_search_compName" placeholder="不确定请在此搜索" onkeyup="checkOntime()">
+					<button class="btn_search" onclick="checkIfExist()"> 搜索 </button>	
+				</div>
+				<div id="view_prompt_info" class="block_prompt" style="display: none;">
+					<ul id="id_ul_prompt">
+					</ul>
+				</div>
+				<p class="text_footer" style="text-align: center;">仅输入公司名，不要加地区名称，责任有限公司等字样</p>
+			</div>
+			<!--查询结果-->
+			<div id="id_result" style="display: none">
+			</div>
+			<div class="view_row" style="margin-top: 40px;">
+				<button class="btn_logup" id="id_btnOK_logupStep2" onmouseover="turnToBlur('id_btnOK_logupStep2')" onmouseout="turnToClear('id_btnOK_logupStep2')" onclick="tologup3_administer()">已注册</button>
+				<button class="btn_logup" id="id_btnNOT_logupStep2" onmouseover="turnToBlur('id_btnNOT_logupStep2')" onmouseout="turnToClear('id_btnNOT_logupStep2')" onclick="choseWindow()">还没有</button>
+			</div>
+		</div>
+	</div>
+	<div class="view_footer">
+		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+	</div>
+
+	<script type="text/javascript">
+		userType="";
+		var request = new XMLHttpRequest;
+		request.open("GET","../ajax/querySESSION.php?queryName=userType",true);
+		request.send();
+		request.onreadystatechange = function(){
+			if (request.readyState===4) {
+				if (request.status===200) {
+					userType = request.responseText;
+				}else{
+					alert("error:"+request.status);
+				}
+			}
+		}
+		function tologup3_administer(){
+			if (userType=="客运站管理人员") {
+				window.open('logup_Step3_administer.html?compName=&userType=transport','_self');
+			}else{
+				window.open('logup_Step3_administer.html?compName=&userType=others','_self');
+			}
+		}
+		function choseWindow(){
+			if (userType=="运输公司/驾校管理人员") {
+				window.location.href='add_transComp.html?userType='+userType;
+			}else if (userType=="维护公司管理人员"){
+				window.location.href='add_maintComp.html?userType='+userType;
+			}else{
+				window.location.href='add_transport.html?userType='+userType; //客运站
+			}
+		}
+		function checkIfExist(){
+			$(function(){
+				$("#view_prompt_info").hide();
+			});
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/ifExist.php?flag=compName&compName="+document.getElementById('id_search_compName').value,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var exist = JSON.parse(request.responseText);
+						if (exist.length>0) {
+							//将查询到的信息在ul表中显示出来
+							var innerHtml = '<ul class="ul_result">';
+							for(var i=0; i<exist.length;i++){
+								innerHtml = innerHtml+'<li class="li_result">'+exist[i]+"</li>";
+							}
+							innerHtml+='</ul>';
+							$(function(){
+								$("#id_result").html(innerHtml);
+								$(".li_result:odd").css('backgroundColor','#eee');
+								$(".li_result:odd").mouseover(function(){
+									$(this).css('backgroundColor','#ddd');
+								});
+								$(".li_result:odd").mouseout(function(){
+									$(this).css('backgroundColor','#eee');
+								});
+								$(".li_result:even").mouseover(function(){
+									$(this).css('backgroundColor','#ccc');
+								});
+								$(".li_result:even").mouseout(function(){
+									$(this).css('backgroundColor','rgba(255,255,255,0)');
+								});
+								$(".li_result").click(function(){
+									if (userType=="运输公司/驾校管理人员") {
+										window.open(encodeURI("show_transComp_one.html?compName="+$(this).html()),'_blank'); 
+									}else if (userType=="维护公司管理人员"){
+										window.open(encodeURI("show_mainComp_one.html?compName="+$(this).html()),'_blank'); 
+									}else{
+										window.open(encodeURI("show_transport_one.html?compName="+$(this).html()),'_blank');  //客运站
+									}
+								});
+								$("#id_result").show();
+							});
+						}else{
+							$(function(){
+								$("#id_result").html('<p class="text_p">未查询到该公司！</p>');
+								$("#id_result").css('display','block');
+							});
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		function checkOntime(){
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/ifExist.php?flag=compName&compName="+document.getElementById('id_search_compName').value,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var exist = JSON.parse(request.responseText);
+						if (exist.length>0) {
+							//将查询到的信息在prompt输入提示框中显示出来
+							var innerHtml = '';
+							for(var i=0; i<exist.length;i++){
+								innerHtml = innerHtml+'<li class="li_prompt">'+exist[i]+"</li>";
+							}
+							$(function(){
+								$("#id_ul_prompt").html(innerHtml);
+								$("#id_ul_prompt > li").mouseover(function(){
+									$(this).css('backgroundColor','#ddd');
+								});
+								$("#id_ul_prompt > li").mouseout(function(){
+									$(this).css('backgroundColor','rgba(255,255,255,0)');
+								});
+								$("#id_ul_prompt > li").click(function(){
+									if (userType=="运输公司/驾校管理人员") {
+										window.open(encodeURI("show_transComp_one.html?compName="+$(this).html()),'_blank'); 
+									}else if (userType=="维护公司管理人员"){
+										window.open(encodeURI("show_mainComp_one.html?compName="+$(this).html()),'_blank'); 
+									}else{
+										window.open(encodeURI("show_transport_one.html?compName="+$(this).html()),'_blank');  //客运站
+									} 
+								});
+								$("#view_prompt_info").css('display','block');
+							});
+						}else{
+							$(function(){
+								$("#view_prompt_info").hide();
+							});
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				} 
+			}
+		}
+	</script>
+</body>
+</html>

@@ -61,7 +61,7 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-start;
-			align-items: center;
+			align-items: flex-start;
 			margin-bottom: 50px;
 			padding-top: 30px;
 			position: relative;
@@ -77,6 +77,7 @@
 			z-index: 2;
 		}
 		.listItem_logupInfo{
+			margin-left: 84px;
 			width: 332px;
 			display: flex;
 			flex-direction: row;
@@ -107,6 +108,7 @@
 			border-radius: 4px;
 			padding-left: 20px;
 			margin-bottom: 42px;
+			margin-left: 0px;
 		}
 		.img_code_identify{
 			width: 80px;
@@ -125,6 +127,7 @@
 			text-align: center;
 			font-size: 14.5px;
 			margin-bottom: 10px;
+			margin-left: 84px;
 			cursor: pointer;
 			z-index: 2;
 		}
@@ -200,9 +203,24 @@
 			margin-left: 20px;
 			cursor: pointer;
 		}
+		.icon_warn{
+			width: 16px;
+			height: 16px;
+			margin-top: 10px;
+			margin-left: 10px;
+		}
+		.text_warn{
+			margin-top: 10px;
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #CD0000;
+			font-weight: 600;
+		}
 	</style>
-	<script type="text/javascript" src="../styles/myjs.js"></script>
+	<script type="text/javascript" src="../styles/myjs.js">
+	</script>
 	<script type="text/javascript">
+		checkpass = false;
 		function wx_turnToGray(){
 			document.getElementById("icon_wx").src = "../images/wx_gray.png";
 		}
@@ -225,9 +243,6 @@
 			var verifyImg = document.getElementById("id_verifyImg");
 			verifyImg.src="../admin/getVerifyImage.php";
 		}
-		function mentionChangeImg(){
-
-		}
 	</script>
 </head>
 <body>
@@ -238,31 +253,32 @@
 		</div>
 	</div>
 	<div class="view_content">
-	<form id="id_loginForm" action="../admin/doLogin.php" method="post">
 		<ul class="form_LogupInfo" style="padding: 0px;">
 			<li class="listItem_logupInfo">
-				<p class="text_itemName">邮箱/手机号</p>
-				<input class="text_itemInput" type="text" name="user_emailPhone">
+				<p class="text_warn" id="id_warnText"></p>
+			</li>
+			<li class="listItem_logupInfo">
+				<p class="text_itemName">邮箱</p>
+				<input class="text_itemInput" type="text" id="id_email">
 			</li>
 			<li class="listItem_logupInfo">
 				<p class="text_itemName">密码</p>
-				<input class="text_itemInput" type="password" name="password" maxlength="18">
+				<input class="text_itemInput" type="password" id="id_password" maxlength="18">
 			</li>
-			<li class="listItem_logupInfo">
-				<img id="id_verifyImg" class="img_code_identify" src="../admin/getVerifyImage.php" onclick="changeVerifyCode()" onmouseover="mentionChangeImg()">
-				<input class="text_itemInput" type="text" name="verifyCode" placeholder="验证码(不区分大小写)">
+			<li class="listItem_logupInfo" style="width: 380px;">
+				<img id="id_verifyImg" class="img_code_identify" src="../admin/getVerifyImage.php" onclick="changeVerifyCode()" title="换一张">
+				<input class="text_itemInput" type="text" placeholder="验证码(不区分大小写)" id="id_verifyCode" onkeyup="checkVerify()">
+				<img class="icon_warn" src="../images/null.png" id="id_imgWarn">
 			</li>
 		</ul>
-		<button class="btn_logup" id="btn_login_defualt" onmouseover="turnToBlur('btn_login_defualt')" onmouseout="turnToClear('btn_login_defualt')" onclick="submitForm('id_loginForm')">登录</button>
-	</form>
-
+	<button class="btn_logup" id="btn_login_defualt" onmouseover="turnToBlur('btn_login_defualt')" onmouseout="turnToClear('btn_login_defualt')" onclick="submitForm()">登录</button>
 		<div class="listItem_logupInfo" style="justify-content: space-between;"  >
 			<p class="text_left" id="txt_trunToPhone_login" onmouseover="turnToBlur('txt_trunToPhone_login')" onmouseout="turnToClear('txt_trunToPhone_login')">手机号快捷登录</p>
 			<p class="text_right" id="txt_cantLogin" onmouseover="turnToBlur('txt_cantLogin')" onmouseout="turnToClear('txt_cantLogin')" onclick="showOrHide('id_cantLoginBox')">无法登录？</p>
 		</div>
 		<div class="listItem_logupInfo" style="margin-bottom: 50px; align-items: center;">
 			<p class="text_left" id="txt_showOrHideAccounts" onmouseover="turnToBlur('txt_showOrHideAccounts')" onmouseout="turnToClear('txt_showOrHideAccounts')" onclick="showOrHide('id_box_accounts')">社交账号登陆</p>
-			<div id="id_box_accounts" class="listItem_logupInfo" style="width: 180px; display: none;">
+			<div id="id_box_accounts" class="listItem_logupInfo" style="width: 180px; display: none;margin-left: 0px;">
 				<img  class="icon_socialAccount" id="icon_wx" style="margin-left: 40px;" src="../images/wx_gray.png" onmouseover="wx_turnToBlack()" onmouseout="wx_turnToGray()">
 				<img  class="icon_socialAccount" id="icon_qq" src="../images/qq_gray.png" onmouseover="qq_turnToBlack()" onmouseout="qq_turnToGray()">
 				<img  class="icon_socialAccount" id="icon_weibo" src="../images/weibo_gray.png" onmouseover="weibo_turnToBlack()" onmouseout="weibo_turnToGray()">
@@ -271,7 +287,7 @@
 		<div id="id_cantLoginBox" class="cantLogin_box" style="display: none;">
 			<img class="img_boxBorder" src="../images/dialogBorder3.png">
 			<div class="box_cantLogin_content">
-				<button class="btn_box" id="btn_turnTologup" onmouseover="turnToBlur('btn_turnTologup')" onmouseout="turnToClear('btn_turnTologup')">注册</button>
+				<button class="btn_box" id="btn_turnTologup" onmouseover="turnToBlur('btn_turnTologup')" onmouseout="turnToClear('btn_turnTologup')" onclick="openWindow('logup_Step1.html')" >注册</button>
 				<button class="btn_box" id="btn_getbackPassword" onmouseover="turnToBlur('btn_getbackPassword')" onmouseout="turnToClear('btn_getbackPassword')">找回密码</button>
 			</div>
 		</div>
@@ -279,5 +295,67 @@
 	<div class="view_footer">
 		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
 	</div>
+	<script type="text/javascript">
+		function checkVerify(){
+			var verifyCode = document.getElementById('id_verifyCode').value;
+			if (verifyCode.length==4) {
+				var request = new XMLHttpRequest();
+				request.open("GET","../ajax/LoginVerify.php?verifyCode="+verifyCode,true);
+				request.send();
+				request.onreadystatechange = function(){
+					if (request.readyState===4) {
+						if (request.status===200) {
+							if (request.responseText=="pass") {
+								document.getElementById("id_imgWarn").src = "../images/right.png";
+								checkpass=true;
+							}else{
+								document.getElementById("id_imgWarn").src = "../images/error.png";
+								checkpass=false;
+							}
+						}else{
+							alert("error"+request.status);
+						}
+					}
+				}
+			}
+		}
+		function submitForm(){
+			if (document.getElementById("id_email").value.length==0 ||document.getElementById("id_password").value.length==0) {
+				alert("请填写登录信息！");
+			}else if (checkpass) {
+				turnToBlur('btn_login_defualt');
+				document.getElementById("btn_login_defualt").disabled =true;
+				var request = new XMLHttpRequest();
+				request.open("POST","../ajax/doLogin.php",true);
+				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				request.send("email="+document.getElementById("id_email").value+"&password="+document.getElementById("id_password").value);
+				request.onreadystatechange = function(){
+					if (request.readyState===4) {
+						if (request.status===200) {
+							console.log(request.responseText);
+							switch(request.responseText){
+								case "dologup":
+									document.getElementById('id_warnText').innerHTML = "您还未注册，请先注册！";
+									document.getElementById("id_cantLoginBox").style.display = "flex";
+									changeVerifyCode();
+									break;
+								case "pass":
+									window.location.href = "hello.html";
+									break;
+								case "error":
+									document.getElementById('id_warnText').innerHTML = "密码错误！";
+									changeVerifyCode();
+									break;
+							}
+						}else{
+							alert("error:"+request.status);
+						}
+					}
+				}
+				turnToClear('btn_login_defualt');
+				document.getElementById("btn_login_defualt").disabled =false;
+			}
+		}
+	</script>
 </body>
 </html>

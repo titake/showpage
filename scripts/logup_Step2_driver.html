@@ -6,6 +6,7 @@
 	<link rel="icon" type="image/png" href="../images/icon_star2.png">
 	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
 	<script type="text/javascript" src="../styles/myjs.js"></script>
+	<script type="text/javascript" src="../lib/jquery-3.2.0.js"></script>
 	<style type="text/css">
 		/*内容*/
 		.view_container{
@@ -15,21 +16,6 @@
 			flex-direction: column;
 			justify-content: flex-start;
 			align-items: center;
-		}
-		/*内容信息填写模块样式*/
-		.view_content{
-			width: 900px;
-			background: rgba(255,255,255,0.8);
-			border: solid;
-			border-width: 1px;
-			border-radius: 4px;
-			border-color: #c0c0c0;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-start;
-			align-items: center;
-			margin-bottom: 50px;
-			padding-top: 30px;
 		}
 		/*驾驶员信息模块样式*/
 		.view_driverInfo{
@@ -46,9 +32,8 @@
 			width: 820px;
 			justify-content: flex-start;
 			align-items: center;
-			border: dashed;
-			border-color: #a0a0a0;
-			border-width: 0px 0px 1px 0px;
+			border: none;
+			border-bottom: dashed 1px #a0a0a0;
 			padding-bottom: 50px;
 			padding-top: 14px;
 		}
@@ -62,14 +47,6 @@
 			text-align: center;			
 		}
 		/*子模块中每行div的样式*/
-		.view_ItemDiv_info{
-			width: 705px;
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
-			align-items: center;
-			margin-bottom: 28px;
-		}
 		.text_input{
 			width: 220px;
 			height: 34px;
@@ -118,6 +95,8 @@
 			width: 140px;
 			height: 140px;
 			margin-left: 10px;
+			background-image: url('../images/up.png');
+			background-size: cover;
 		}
 		.textPs_item{
 			font-size: 14.5px;
@@ -150,7 +129,40 @@
 			font-size: 14.5px;
 			margin-bottom: 50px;
 		}
-
+		.view_left{
+			width: 352.5px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-end;
+		}
+		.view_right{
+			width: 352.5px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			border-left: dotted 1px #999;
+		}
+		.btn_block{
+			height: 40px;
+			width: 120px;
+			background: rgba(90,90,90,0.9);
+			color: rgba(255,255,255,0.9);
+			font-family: 黑体;
+			font-size: 14.5px;
+			border-radius: 2px;
+			border: none;
+			margin-right: 35px;
+		}
+		.div_star{
+			margin-left: 35px;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: flex-end;
+		}
 	</style>
 </head>
 <body>
@@ -166,16 +178,16 @@
 	<div class="view_container">
 		<ul class="view_tab">
 			<li class="text_tab" style="margin-left:0px;">
-				<h4>①注册账户</h4>
+				<h4>①步骤一</h4>
 			</li>
 			<li class="text_tab" style="color:#01CE3F;font-weight: 500;">
-				<h4>②完善信息</h4>
+				<h4>②步骤二</h4>
 			</li>
 			<li class="text_tab">
-				<h4>③通过验证</h4>
+				<h4>③步骤三</h4>
 			</li>
 		</ul>
-		<div class="view_content">
+		<div class="view_content_column">
 
 			<!--司机的信息完善-->
 			<div class="view_driverInfo">
@@ -183,29 +195,36 @@
 				<div class="view_BigDiv_info">
 					<p class="text_DivName">基本信息</p>
 					<div class="view_ItemDiv_info">
-						<p class="text_inputName">姓名</p>
-						<input type="text" name="driver_name" class="text_input" style="width: 80px">
-						<p class="text_inputName" style="text-align: center;">性别</p>
-						<input type="text" name="driver_sex" class="text_input" style="width: 40px;">
-						<p class="text_inputName">身份证号</p>
-						<input type="text" name="driver_IDnumber" class="text_input" style="margin-right: 0px;">
-					</div>
-					<div class="view_ItemDiv_info">
-						<p class="text_inputName">联系电话</p>
-						<input type="text" name="driver_phone1" class="text_input" style="margin-right: 76.8px;">
-						<p class="text_inputName">固定电话</p>
-						<input type="text" name="driver_phone2" class="text_input" style="margin-right: 0px;">
-					</div>
-					<div class="view_ItemDiv_info">
-						<p class="text_inputName">通讯地址</p>
-						<input type="text" name="driver_address" class="text_input" style="width:611px; margin-right: 0px; ">
-					</div>
-					<div class="view_ItemDiv_info">
 						<div class="content_item_column">
 							<p class="text_inputName">照片</p>
 							<p class="textPs_item" style="margin-bottom: 40px;">两寸免冠近照</p>
 						</div>
-						<img class="img_driver" src="../images/up.png">
+						<div class="img_driver" id="id_div_photo">
+							<form action="../admin/uploadDriverPhoto.php" enctype="multipart/form-data" method="post" id="id_form_img">
+								<input type="file" style="opacity: 0;filter: alpha(opacity=10);width: 150px;height: 150px;" name="photo_driver" onchange="document.getElementById('id_form_img').submit()">
+							</form>
+						</div>
+						<p class="text_warn" id="id_warn_photo" style="display: none;margin-left: 20px;"></p>
+					</div>
+					<div class="view_ItemDiv_info">
+						<p class="text_inputName">姓名</p>
+						<input type="text" id="id_username" name="driver_name" onfocus="checkPhoto()" class="text_input" style="width: 80px">
+						<p class="text_inputName" style="text-align: center;">性别</p>
+						<select class="text_option" style="width: 50px;padding-left: 6px;margin-right: 47px;" id="id_sex">
+							<option class="text_option" style="width: 50px;padding-left: 6px;">男</option>
+							<option class="text_option" style="width: 50px;padding-left: 6px;">女</option>
+						</select>
+						<p class="text_warn" id="id_warn_name" style="display: none;">*</p>
+					</div>
+					<div class="view_ItemDiv_info">
+						<p class="text_inputName">联系电话</p>
+						<input type="text" name="driver_phone1" id="id_phonenum" maxlength="11" class="text_input" style="margin-right: 76.8px;">
+						<p class="text_warn" id="id_warn_phone" style="display: none;">*</p>
+					</div>
+					<div class="view_ItemDiv_info">
+						<p class="text_inputName">通讯地址</p>
+						<input type="text" id="id_address" name="driver_address" maxlength="80" class="text_input" style="width:611px; margin-right: 0px; ">
+						<p class="text_warn" id="id_warn_address" style="display: none;">*</p>
 					</div>
 				</div>
 				<!--驾驶信息模块-->
@@ -213,60 +232,522 @@
 					<p class="text_DivName">驾驶证信息</p>
 					<div class="view_ItemDiv_info">
 						<p class="text_inputName">驾驶证号</p>
-						<input type="text" name="driver_phone1" class="text_input" style="margin-right: 33.8px;">
+						<input id="id_driveLicence_id" maxlength="20" type="text" name="driver_phone1" class="text_input" style="margin-right: 33.8px;">
 						<p class="text_inputName" style="width: 113px;">初次领证日期</p>
-						<input class="text_input" type="date" name="driverLicense_gainTime" style="margin-right: 0px;">
+						<input id="id_date_getLice" class="text_input" type="date" name="driverLicense_gainTime" style="margin-right: 0px;">
+						<p class="text_warn" id="id_warn_driveLicence" style="display: none;">*</p>
 					</div>
 					<div class="view_ItemDiv_info">
 						<p class="text_inputName">档案编号</p>
-						<input type="text" name="driver_phone1" class="text_input" style="margin-right: 33.8px;">
+						<input id="id_driverLicence_num" type="text" name="driver_phone1" class="text_input" style="margin-right: 33.8px;">
 						<div class="content_item_column" style="width: 80px;">
 							<p class="text_inputName">准驾车型</p>
 							<p class="textPs_item" style="margin-top: 0px;">多选</p>
 						</div>
 						<div class="content_item_column" style="width: 250px;">
 							<div class="content_item_row">
-								<p class="text_chexbox"><input type="checkbox" name="E" class="checkbox_css"> E</p>
-								<p class="text_chexbox"><input type="checkbox" name="C3" class="checkbox_css"> C3</p>
-								<p class="text_chexbox"><input type="checkbox" name="C2" class="checkbox_css"> C2</p>
-								<p class="text_chexbox"><input type="checkbox" name="C1" class="checkbox_css"> C1</p>
-								<p class="text_chexbox"><input type="checkbox" name="B2" class="checkbox_css"> B2</p>
+								<p class="text_chexbox"><input type="checkbox" id="id_E" class="checkbox_css"> E</p>
+								<p class="text_chexbox"><input type="checkbox" id="id_C3" class="checkbox_css"> C3</p>
+								<p class="text_chexbox"><input type="checkbox" id="id_C2" class="checkbox_css"> C2</p>
+								<p class="text_chexbox"><input type="checkbox" id="id_C1" class="checkbox_css"> C1</p>
+								<p class="text_chexbox"><input type="checkbox" id="id_B2" class="checkbox_css"> B2</p>
 							</div>
 							<div class="content_item_row">
-								<p class="text_chexbox"><input type="checkbox" name="B1" class="checkbox_css"> B1</p>
-								<p class="text_chexbox"><input type="checkbox" name="A3" class="checkbox_css"> A3</p>
-								<p class="text_chexbox"><input type="checkbox" name="A2" class="checkbox_css"> A2</p>
-								<p class="text_chexbox"><input type="checkbox" name="A1" class="checkbox_css"> A1</p>
+								<p class="text_chexbox"><input type="checkbox" id="id_B1" class="checkbox_css"> B1</p>
+								<p class="text_chexbox"><input type="checkbox" id="id_A3" class="checkbox_css"> A3</p>
+								<p class="text_chexbox"><input type="checkbox" id="id_A2" class="checkbox_css"> A2</p>
+								<p class="text_chexbox"><input type="checkbox" id="id_A1" class="checkbox_css"> A1</p>
 							</div>
 						</div>
+						<p class="text_warn" id="id_warn_permi" style="display: none;">*</p>
 					</div>
 				</div>
 				<!--从业资格证信息模块-->
-				<div class="view_BigDiv_info" style="border-bottom: none;">
+				<div class="view_BigDiv_info" id="id_div_permi" style="border-bottom: none;">
 					<p class="text_DivName">从业资格证信息</p>
 					<div class="view_ItemDiv_info">
 						<p class="text_inputName" style="width: 113px;">从业资格证号</p>
-						<input type="text" name="driver_phone1" class="text_input" >
+						<input id="id_job_permi_id" type="text" name="driver_phone1" class="text_input" >
 						<p class="text_inputName">有效期至</p>
-						<input class="text_input" type="date" name="driverLicense_gainTime" style="margin-right: 0px;">
+						<input id="id_job_permi_date" class="text_input" type="date" name="driverLicense_gainTime" style="margin-right: 0px;">
+						<p class="text_warn" id="id_warn_jobPermi" style="display: none;">*</p>
 					</div>
 					<div class="view_ItemDiv_info">
 						<p class="text_inputName" style="width: 113px;">从业资格类别</p>
-						<select class="text_option">
+						<select class="text_option" id="id_classify"> 
 							<option class="text_option">旅客运输</option>
 							<option class="text_option">货物运输</option>
 							<option class="text_option">危险货物运输</option>
 							<option class="text_option">危险品押运员</option>
 						</select>
+						<p class="text_warn" id="id_warn_jobClassify" style="display: none;">*</p>
+					</div>
+				</div>
+				<!--评星模块-->
+				<div class="view_BigDiv_info" style="border-bottom: none;" id="id_div_star">
+					<p class="text_DivName">评星信息</p>
+					<div class="view_ItemDiv_info">
+						<div class="view_left">
+							<button class="btn_block" id="id_btn_block" onmouseover="turnToBlur('id_btn_block')" onmouseout="turnToClear('id_btn_block')" onclick="turnBlock()">加入黑名单</button>
+						</div>
+						<div class="view_right">
+							<div class="div_star" id="id_star_polite">
+								<p class="text_inputName" style="width: 36px;color:#444;">文明星</p>
+								<img class="img_icon" id="id_star_polite1" onmouseover="wantToselect('id_star_polite1')" onmouseout="cancelWant('id_star_polite1')" onclick="selectStar('id_star_polite1')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_polite2" onmouseover="wantToselect('id_star_polite2')" onmouseout="cancelWant('id_star_polite2')" onclick="selectStar('id_star_polite2')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_polite3" onmouseover="wantToselect('id_star_polite3')" onmouseout="cancelWant('id_star_polite3')" onclick="selectStar('id_star_polite3')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_polite4"  onmouseover="wantToselect('id_star_polite4')" onmouseout="cancelWant('id_star_polite4')" onclick="selectStar('id_star_polite4')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_polite5"  onmouseover="wantToselect('id_star_polite5')" onmouseout="cancelWant('id_star_polite5')" onclick="selectStar('id_star_polite5')" src="../images/star_gray.png">
+								<p class="text_warn" id="id_warn_star_polite" style="display: none;">*</p>
+							</div>
+							<div class="div_star" id="id_star_safe">
+								<p class="text_inputName" style="width: 36px;color:#444;">安全星</p>
+								<img class="img_icon" id="id_star_safe1" onmouseover="wantToselect('id_star_safe1')" onmouseout="cancelWant('id_star_safe1')" onclick="selectStar('id_star_safe1')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_safe2" onmouseover="wantToselect('id_star_safe2')" onmouseout="cancelWant('id_star_safe2')" onclick="selectStar('id_star_safe2')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_safe3" onmouseover="wantToselect('id_star_safe3')" onmouseout="cancelWant('id_star_safe3')" onclick="selectStar('id_star_safe3')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_safe4"  onmouseover="wantToselect('id_star_safe4')" onmouseout="cancelWant('id_star_safe4')" onclick="selectStar('id_star_safe4')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_safe5"  onmouseover="wantToselect('id_star_safe5')" onmouseout="cancelWant('id_star_safe5')" onclick="selectStar('id_star_safe5')" src="../images/star_gray.png">
+								<p class="text_warn" id="id_warn_star_safe" style="display: none;">*</p>
+							</div>
+							<div class="div_star" id="id_star_law">
+								<p class="text_inputName" style="width: 36px;color:#444;">守法星</p>
+								<img class="img_icon" id="id_star_law1" onmouseover="wantToselect('id_star_law1')" onmouseout="cancelWant('id_star_law1')" onclick="selectStar('id_star_law1')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_law2" onmouseover="wantToselect('id_star_law2')" onmouseout="cancelWant('id_star_law2')" onclick="selectStar('id_star_law2')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_law3" onmouseover="wantToselect('id_star_law3')" onmouseout="cancelWant('id_star_law3')" onclick="selectStar('id_star_law3')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_law4"  onmouseover="wantToselect('id_star_law4')" onmouseout="cancelWant('id_star_law4')" onclick="selectStar('id_star_law4')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_law5"  onmouseover="wantToselect('id_star_law5')" onmouseout="cancelWant('id_star_law5')" onclick="selectStar('id_star_law5')" src="../images/star_gray.png">
+								<p class="text_warn" id="id_warn_star_law" style="display: none;">*</p>
+							</div>
+							<div class="div_star" id="id_star_honest">
+								<p class="text_inputName" style="width: 36px;color:#444;">诚信星</p>
+								<img class="img_icon" id="id_star_honest1" onmouseover="wantToselect('id_star_honest1')" onmouseout="cancelWant('id_star_honest1')" onclick="selectStar('id_star_honest1')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_honest2" onmouseover="wantToselect('id_star_honest2')" onmouseout="cancelWant('id_star_honest2')" onclick="selectStar('id_star_honest2')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_honest3" onmouseover="wantToselect('id_star_honest3')" onmouseout="cancelWant('id_star_honest3')" onclick="selectStar('id_star_honest3')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_honest4"  onmouseover="wantToselect('id_star_honest4')" onmouseout="cancelWant('id_star_honest4')" onclick="selectStar('id_star_honest4')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_honest5"  onmouseover="wantToselect('id_star_honest5')" onmouseout="cancelWant('id_star_honest5')" onclick="selectStar('id_star_honest5')" src="../images/star_gray.png">
+								<p class="text_warn" id="id_warn_star_honest" style="display: none;">*</p>
+							</div>
+							<div class="div_star" id="id_star_server">
+								<p class="text_inputName" style="width: 36px;color:#444;">服务星</p>
+								<img class="img_icon" id="id_star_server1" onmouseover="wantToselect('id_star_server1')" onmouseout="cancelWant('id_star_server1')" onclick="selectStar('id_star_server1')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_server2" onmouseover="wantToselect('id_star_server2')" onmouseout="cancelWant('id_star_server2')" onclick="selectStar('id_star_server2')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_server3" onmouseover="wantToselect('id_star_server3')" onmouseout="cancelWant('id_star_server3')" onclick="selectStar('id_star_server3')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_server4"  onmouseover="wantToselect('id_star_server4')" onmouseout="cancelWant('id_star_server4')" onclick="selectStar('id_star_server4')" src="../images/star_gray.png">
+								<img class="img_icon" id="id_star_server5"  onmouseover="wantToselect('id_star_server5')" onmouseout="cancelWant('id_star_server5')" onclick="selectStar('id_star_server5')" src="../images/star_gray.png">
+								<p class="text_warn" id="id_warn_star_server" style="display: none;">*</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 
-			<button class="btn_logup" id="id_btnlogstep2_driv" onmouseover="turnToBlur('id_btnlogstep2_driv')" onmouseout="turnToClear('id_btnlogstep2_driv')">下一步</button>
+			<button class="btn_logup" id="id_btnlogstep2_driv" onmouseover="turnToBlur('id_btnlogstep2_driv')" onmouseout="turnToClear('id_btnlogstep2_driv')" onclick="addDriver()">下一步</button>
 		</div>
 	</div>
 	<div class="view_footer">
 		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
 	</div>
+	<script type="text/javascript">
+		userType = window.location.search.split("?")[1].split("&")[0].split("=")[1];  //?usertype=  &upload= 顺序不可以变
+		if (userType=="super") {
+			$(function(){
+				$("#id_div_star").show();
+				$("#id_div_permi").css("border-bottom","dashed 1px #a0a0a0");
+			});
+		}else{
+			$(function(){
+				$("#id_div_star").hide();
+				$("#id_div_permi").css("border-bottom","none");
+			});
+		}
+		block = false;
+
+		uploadSuccess = location.search.split("?")[1].split("&")[1].split("=")[1];
+		if (uploadSuccess=="failed") {
+			$(function(){
+				$("#id_div_photo").css("background-image","url('../images/failed.png')");
+				$("#id_warn_photo").html("上传失败，请重试");
+				$("#id_warn_photo").show();
+			});
+		}else if (uploadSuccess!="") {
+			$(function(){
+				$("#id_div_photo").css("background-image","url('../images/success.png')");
+				$("#id_warn_photo").hide();
+			});
+
+		}
+
+		star_politeSelected = 0;
+		star_safeSelected=0;
+		star_lawSelected=0;
+		star_honestSelected=0;
+		star_serverSelected=0;
+		function selectStar(starID){
+			if (!block) {
+				var i = starID.substr(starID.length-1,1);
+				i = parseInt(i);
+				var starSelected = i;
+				i++;
+				while(i<=5){
+					var id = starID.substr(0,starID.length-1)+i;
+					document.getElementById(id).src = "../images/star_gray.png";
+					i++;
+				}
+				i = starSelected;
+				while(i>0){
+					var id = starID.substr(0,starID.length-1)+i;
+					document.getElementById(id).src = "../images/star_gold.png";
+					i--;
+				}
+				switch(starID.substr(0,starID.length-1)){
+					case "id_star_polite":
+						star_politeSelected=starSelected;
+						break;
+					case "id_star_safe":
+						star_safeSelected=starSelected;
+						break;
+					case "id_star_law":
+						star_lawSelected=starSelected;
+						break;
+					case "id_star_honest":
+						star_honestSelected=starSelected;
+						break;
+					case "id_star_server":
+						star_serverSelected=starSelected;
+						break;
+				}
+			}   //这个函数的封装性不好，回头改一下
+		}
+		function wantToselect(starID){
+			if (!block) {
+				var i = starID.substr(starID.length-1,1);
+				i = parseInt(i);
+				var wantStar = i;
+				i++;
+				while(i<=5){
+					var id = starID.substr(0,starID.length-1)+i;
+					document.getElementById(id).src = "../images/star_gray.png";
+					i++;
+				}
+				i = wantStar;
+				while(i>0){
+					var id = starID.substr(0,starID.length-1)+i;
+					document.getElementById(id).src = "../images/star_gold.png";
+					i--;
+				}
+			} //这个函数的封装性不好，回头改一下
+		}
+		function cancelWant(starID){
+			if (!block) {
+				var starSelected=0;
+				switch(starID.substr(0,starID.length-1)){
+					case "id_star_polite":
+						starSelected = star_politeSelected;
+						break;
+					case "id_star_safe":
+						starSelected = star_safeSelected;
+						break;
+					case "id_star_law":
+						starSelected =star_lawSelected;
+						break;
+					case "id_star_honest":
+						starSelected =star_honestSelected;
+						break;
+					case "id_star_server":
+						starSelected =star_serverSelected;
+						break;
+				}
+				var i = parseInt(starID.substr(starID.length-1,1));
+				if (!starSelected) {
+					while(i>0){
+						var id = starID.substr(0,starID.length-1)+i;
+						document.getElementById(id).src = "../images/star_gray.png";
+						i--;
+					}
+				}else if (i!=starSelected) {
+					while(i>starSelected){
+						var id = starID.substr(0,starID.length-1)+i;
+						document.getElementById(id).src = "../images/star_gray.png";
+						i--;
+					}
+					i=starSelected;
+					while(i>0){
+						var id = starID.substr(0,starID.length-1)+i;
+						document.getElementById(id).src = "../images/star_gold.png";
+						i--;
+					}
+				}
+			}  //这个函数的封装性不好，回头改一下
+		}
+		function turnBlock(){
+			if (block) {
+				block = false;
+				$(function(){
+					$(".div_star > p").css("color","#444");
+					$(".btn_block").html("加入黑名单");
+				});
+			}else{
+				block = true;
+				$(function(){
+					$(".div_star > p").css("color","#bbb");
+					$(".btn_block").html("取消加入黑名单");
+				});
+			}
+		}
+		function checkStar(){
+			var donuNum = 0;
+			if (star_politeSelected==0) {
+				document.getElementById("id_warn_star_polite").display = "block";
+			}else{
+				doneNum++;
+				document.getElementById("id_warn_star_polite").display = "none";
+			}
+			if (star_safeSelected==0) {
+				document.getElementById("id_warn_star_safe").display = "block";
+			}else{
+				doneNum++;
+				document.getElementById("id_warn_star_safe").display = "none";
+			}
+			if (star_lawSelected==0) {
+				document.getElementById("id_warn_star_law").display = "block";
+			}else{
+				doneNum++;
+				document.getElementById("id_warn_star_law").display = "none";
+			}
+			if (star_honestSelected==0) {
+				document.getElementById("id_warn_star_honest").display = "block";
+			}else{
+				doneNum++;
+				document.getElementById("id_warn_star_honest").display = "none";
+			}
+			if (star_serverSelected==0) {
+				document.getElementById("id_warn_star_server").display = "block";
+			}else{
+				doneNum++;
+				document.getElementById("id_warn_star_server").display = "none";
+			}
+
+			if (doneNum===5) {  
+				return true;
+			}else{
+				return false;
+			}
+		}
+		function checkPhoto(){
+			if (uploadSuccess=="") {
+				$(function(){
+					$("#id_warn_photo").html("请先上传照片！");
+					$("#id_warn_photo").show();
+				});
+			}
+		}
+		function getCarsPermi(){
+			var permi = "";
+			var permiNum = 0;
+			if (document.getElementById("id_A1").checked) {
+				permi = "A1";
+				permiNum++;
+			}
+			if (document.getElementById("id_A2").checked) {
+				if (permiNum>0) {
+					permi = permi+",A2";
+				}else{
+					permi = "A2";
+				}
+				permiNum++;
+			}
+			if (document.getElementById("id_A3").checked) {
+				if (permiNum>0) {
+					permi = permi+",A3";
+				}else{
+					permi = "A3";
+				}
+				permiNum++;
+			}
+			if (document.getElementById("id_B1").checked) {
+				if (permiNum>0) {
+					permi = permi+",B1";
+				}else{
+					permi = "B1";
+				}
+				permiNum++;
+			}
+			if (document.getElementById("id_B2").checked) {
+				if (permiNum>0) {
+					permi = permi+",B2";
+				}else{
+					permi = "B2";
+				}
+				permiNum++;
+			}
+			if (document.getElementById("id_C1").checked) {
+				if (permiNum>0) {
+					permi = permi+",C1";
+				}else{
+					permi = "C1";
+				}
+				permiNum++;
+			}
+			if (document.getElementById("id_C2").checked) {
+				if (permiNum>0) {
+					permi = permi+",C2";
+				}else{
+					permi = "C2";
+				}
+				permiNum++;
+			}
+			if (document.getElementById("id_C3").checked) {
+				if (permiNum>0) {
+					permi = permi+",C3";
+				}else{
+					permi = "C3";
+				}
+				permiNum++;
+			}
+			if (document.getElementById("id_E").checked) {
+				if (permiNum>0) {
+					permi = permi+",E";
+				}else{
+					permi = "E";
+				}
+				permiNum++;
+			}
+			return permi;
+		}
+		function addDriver(){
+			var done = false;
+			var doneNum = 0;
+
+			if (uploadSuccess=="") {
+				document.getElementById("id_warn_photo").innerHtml = "*";
+				document.getElementById("id_warn_photo").style.display = "block";
+			}else if (uploadSuccess!="failed") {}{
+				doneNum++;
+				document.getElementById("id_warn_photo").style.display = "none";
+			}
+
+			var username = document.getElementById("id_username").value;
+			if (username.length==0) {
+				document.getElementById("id_warn_name").style.display = "block";
+			}else{
+				document.getElementById("id_warn_name").style.display ="none";
+				doneNum++;
+			}
+			var sindex;
+			var sexs = document.getElementById("id_sex");
+			sindex = sexs.selectedIndex;
+			var sex = sexs.options[sindex].value;
+
+			var phonenum = document.getElementById("id_phonenum").value;
+			if (phonenum.length==0) {
+				document.getElementById("id_warn_phone").style.display = "block";
+			}else{
+				document.getElementById("id_warn_phone").style.display ="none";
+				doneNum++;
+			}
+
+			var address = document.getElementById("id_address").value;
+			if (address.length==0) {
+				document.getElementById("id_warn_address").style.display = "block";
+			}else{
+				document.getElementById("id_warn_address").style.display ="none";
+				doneNum++;
+			}
+
+			var driveLicence_id = document.getElementById("id_driveLicence_id").value;
+			var date_getLice = document.getElementById("id_date_getLice").value;
+			if (driveLicence_id.length==0 ||date_getLice==0) {
+				document.getElementById("id_warn_driveLicence").style.display = "block";
+			}else{
+				document.getElementById("id_warn_driveLicence").style.display ="none";
+				doneNum++;
+			}
+
+			var driverLicence_num = document.getElementById("id_driverLicence_num").value;
+			var cars_permi = getCarsPermi();
+			if (driverLicence_num=="" || cars_permi=="") {
+				document.getElementById("id_warn_permi").style.display = "block";
+			}else{
+				document.getElementById("id_warn_permi").style.display ="none";
+				doneNum++;
+			}
+
+			var job_permi_id = document.getElementById("id_job_permi_id").value;
+			var job_permi_date = document.getElementById("id_job_permi_date").value;
+			if (job_permi_id=="" || job_permi_date=="") {
+				document.getElementById("id_warn_jobPermi").style.display = "block";
+			}else{
+				document.getElementById("id_warn_jobPermi").style.display ="none";
+				doneNum++;
+			}
+
+			var job_classifys = document.getElementById("id_classify");
+			sindex = job_classifys.selectedIndex;
+			var job_permi_classify = job_classifys.options[sindex].value;
+			if (job_permi_classify=="") {
+				document.getElementById("id_warn_jobClassify").style.display = "block";
+			}else{
+				document.getElementById("id_warn_jobClassify").style.display ="none";
+				doneNum++;
+			}
+
+			if (doneNum===8) {
+				done = true;
+			}else{
+				done = false;
+			}
+
+			if (userType=="super") {
+				if (!block) {
+					done = done & checkStar();
+				}
+			}
+			if (block) {
+				var ifblock = 1;
+			}else{
+				var ifblock = 0;
+			}
+			if (done) {
+				var request = new XMLHttpRequest;
+				request.open("POST","../ajax/WriteDB.php",true);
+				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				request.send("username="+username+
+					"&sex="+sex+
+					"&driveLicence_id="+driveLicence_id+
+					"&driverLicence_num="+driverLicence_num+
+					"&date_getLice="+date_getLice+
+					"&cars_permi="+cars_permi+
+					"&job_permi_id="+job_permi_id+
+					"&job_permi_classify="+job_permi_classify+
+					"&job_permi_date="+job_permi_date+
+					"&phonenum="+phonenum+
+					"&address="+address+
+					"&picture="+uploadSuccess+
+					"&ifblock="+ifblock+
+					"&star_polite="+star_politeSelected+
+					"&star_safe="+star_safeSelected+
+					"&star_law="+star_lawSelected+
+					"&star_honest="+star_honestSelected+
+					"&star_server="+star_serverSelected+
+					"&flag=add_driver");
+				request.onreadystatechange = function(){
+					if (request.readyState===4) {
+						if (request.status===200) {
+							console.log("response:"+request.responseText);
+							var response = JSON.parse(request.responseText);
+							if (response.success) {
+								console.log("注册成功");
+								openWindow("hello.html");
+							}else{
+								alert("注册失败："+response.reason);
+							}
+						}else{
+							alert("error:"+request.status);
+						}
+					}
+				}
+			}
+		}
+	</script>
 </body>
 </html>

@@ -214,7 +214,7 @@
 							<p class="textPs_item" style="margin-bottom: 40px;">两寸免冠近照</p>
 						</div>
 						<div class="img_driver" id="id_div_photo">
-							<form action="../admin/uploadMainPhoto.php" enctype="multipart/form-data" method="post" id="id_form_img">
+							<form action="../admin/uploadStaffPhoto.php" enctype="multipart/form-data" method="post" id="id_form_img">
 								<input type="file" style="opacity: 0;filter: alpha(opacity=10);width: 150px;height: 150px;" name="photo_driver" onchange="document.getElementById('id_form_img').submit()">
 							</form>
 						</div>
@@ -365,7 +365,7 @@
 		exist = false;
 		function checkOntime(){
 			var request = new XMLHttpRequest;
-			request.open("GET","../ajax/ifExist.php?flag=compName&compName="+document.getElementById('id_compName').value+"&compType=tb_maincomp",true);
+			request.open("GET","../ajax/ifExist.php?flag=compName&compName="+document.getElementById('id_compName').value+"&compType=tb_others",true);
 			request.send();
 			request.onreadystatechange = function(){
 				if (request.readyState===4) {
@@ -467,7 +467,7 @@
 					"&picture="+uploadSuccess+
 					"&companyName="+document.getElementById("id_compName").value+
 					"&star="+starSelected+
-					"&flag=add_maintainer");
+					"&flag=add_staff");
 				request.onreadystatechange = function(){
 					if (request.readyState===4) {
 						if (request.status===200) {

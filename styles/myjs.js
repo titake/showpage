@@ -12,6 +12,20 @@ function showOrHide(objectID){
 		accounts_style.display = "none";
 	}
 }
-function submitForm(formID){
-	document.getElementById(formID).submit();
+function openWindow(url){
+	window.location.href=url;
+}
+function logout(){
+	var request = new XMLHttpRequest;
+	request.open("GET","../ajax/editCookie.php?flag=delete&name=user_email",true);
+	request.send();
+	request.onreadystatechange = function(){
+		if (request.readyState===4) {
+			if (request.status===200) {
+				history.go(0);
+			}else{
+				alert("error:"+request.status);
+			}
+		}
+	}
 }

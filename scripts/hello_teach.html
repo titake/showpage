@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<title>汽车评星系统</title>
 	<link rel="icon" type="image/png" href="../images/icon_star2.png">  <!-- ./是当前目录   ../是上一级父目录    /是根目录  -->
-	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
 	<link rel="stylesheet" type="text/css" href="../styles/mainCss.css">
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
 	<style type="text/css">
 		.view_title{
 			width: 100%;
@@ -61,6 +61,7 @@
 			cursor: pointer;
 			text-decoration: none;
 		}
+		
 		/*首页主界面*/
 		#id_page_main{
 			width:100%;
@@ -68,7 +69,7 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			justify-content: end;
+			justify-content: flex-end;
 			position: absolute;
 			left: 0px;
 			top: 50px;
@@ -81,12 +82,6 @@
 			cursor: default;  
 			margin-bottom: 250px;  
 		}
-		/*.page{
-			position: absolute;
-			top: 50px;
-			left: 0px;
-			width: 100%;
-		}*/
 	</style>
 	<script type="text/javascript" src="../styles/myjs.js"></script>
 	<script type="text/javascript" src="../lib/jquery-3.2.0.js"></script>
@@ -95,13 +90,13 @@
 	<!--titleBar-->
 	<div class="view_title">
 		<div class="view_title_left">
-			<div id="id_tab_main" class="view_tab_title" style="background: transparent;" onmouseover="turnToBlur('id_tab_main')" onmouseout="turnToClear('id_tab_main')" onclick="window.location.href = 'hello.html'">
+			<div id="id_tab_main" class="view_tab_title"  onmouseover="turnToBlur('id_tab_main')" onmouseout="turnToClear('id_tab_main')" onclick="window.location.href = 'hello.html'">
 				<p class="text_title_tab">首页</p>
 			</div>
 			<div id="id_tab_transform" class="view_tab_title"  onmouseover="turnToBlur('id_tab_transform')" onmouseout="turnToClear('id_tab_transform')" onclick="window.location.href = 'hello_transform.html'">
 				<p class="text_title_tab">道路运输</p>
 			</div>
-			<div id="id_tab_teach" class="view_tab_title" onmouseover="turnToBlur('id_tab_teach')" onmouseout="turnToClear('id_tab_teach')" onclick="window.location.href = 'hello_teach.html'">
+			<div id="id_tab_teach" class="view_tab_title" style="background: transparent;" onmouseover="turnToBlur('id_tab_teach')" onmouseout="turnToClear('id_tab_teach')" onclick="window.location.href = 'hello_teach.html'">
 				<p class="text_title_tab">驾校</p>
 			</div>
 			<div id="id_tab_maintain" class="view_tab_title"  onmouseover="turnToBlur('id_tab_maintain')" onmouseout="turnToClear('id_tab_maintain')" onclick="window.location.href = 'hello_maintain.html'">
@@ -119,6 +114,7 @@
 			<a class="text_user" id="id_icon_user"  style="margin-right: 50px;" onmouseover="turnToBlur('id_btn_login')" onmouseout="turnToClear('id_btn_login')" onclick="toggleAdmin()"></a>
 		</div>
 	</div>
+
 	<ul id="id_div_userAdmin" class="view_userAdmin" style="display: none;">
 		<li id="id_user_edit" class="option_userAdmin" onclick="turnToEdit()"> 
 			<img class="img_icon" src="../images/set.png"><p class="text_user" style="width: 80px;">个人设置</p>
@@ -130,13 +126,20 @@
 			<img class="img_icon" src="../images/logout.png"><p class="text_user" style="width: 80px;">退出登录</p>
 		</li>
 	</ul>
-	<!--首页-->
+	<!--内容-->
 	<div class="view_main">
+		<div class="view_cards">
+			<div class="view_card" onclick="window.open('show_transcomps.html?compType=teach','_blank');">
+				<p>星级驾校</p>
+			</div>
+			<div class="view_card" onclick="window.open('show_drivers.html?compType=teach','_blank');">
+				<p>星级教练员</p>
+			</div>
+		</div>
 	</div>
-	<div class="view_footer">
+	<div class="view_footer" style="margin-top: 200px;">
 		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
 	</div>
-	
 	<script type="text/javascript">
 		user_email="";
 		usertype = "";

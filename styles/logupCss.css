@@ -1,143 +1,201 @@
 body{
-			min-width: 1200px;
-			margin: 0px;
-			background-image: url(../images/login_back.jpg);
-			background-size: cover;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-start;
-			align-items: center;
-		}
+	min-width: 1200px;
+	margin: 0px;
+	background-image: url(../images/login_back.jpg);
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	cursor: default;
+}
+button{
+	cursor: pointer;
+}
 
-		
-		/*title的样式*/
-		.view_title{
-			width: 100%;
-			height: 70px;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
-			background:rgba(255,255,255,0);
-			margin: 0px;
-			padding: 0px;
-		}
-		.view_title_name{
-			width: 400px;
-			height: 99px;
-			float: left;
-			display:flex;
-			flex-direction: row;
-			justify-content: flex-start;
-			align-items: center;
-			padding-left: 10px;
-		}
-		.view_title_client{
-			width: 150px;
-			float: right;
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-end;
-			align-items: center;
-			padding-right: 40px;
-		}
-		.img_title{
-			height: 40px;
-			width: 40px;
-			border-radius: 20px;
-			border: none;
-		}
-		.text_title{
-			padding-left: 10px;
-			font-size: 20px;
-			font-weight: 800;
-			font-family: Microsoft YaHei;
-			color: rgba(10,10,10,0.6);
-		}
+/*title的样式*/
+.view_title{
+	width: 100%;
+	height: 70px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	background:rgba(255,255,255,0);
+	margin: 0px;
+	padding: 0px;
+}
+.view_title_name{
+	width: 400px;
+	height: 99px;
+	float: left;
+	display:flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	padding-left: 10px;
+}
+.view_title_client{
+	width: 150px;
+	float: right;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+	padding-right: 40px;
+}
+.img_title{
+	height: 40px;
+	width: 40px;
+	border-radius: 20px;
+	border: none;
+}
+.img_icon{
+	width: 18px;
+	height: 18px;
+}
+.text_title{
+	padding-left: 10px;
+	font-size: 20px;
+	font-weight: 800;
+	font-family: Microsoft YaHei;
+	color: rgba(10,10,10,0.6);
+}
 
-		/*tab的样式*/
-		.view_tab{
-			margin-top: 50px;
-			margin-bottom: 4px;
-			width: 600px;
-			height: 40px;
-			background-color: transparent;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: center;
-		}
-		.text_tab{
-			width: 121px;
-			font-size: 14.5px;
-			font-family: 宋体;
-			text-align: left;
-			display: inline-block;
-			font-weight: 100;
-			color: #818080;
-		}
+/*tab的样式*/
+.view_tab{
+	margin-top: 50px;
+	margin-bottom: 4px;
+	width: 600px;
+	height: 40px;
+	background-color: transparent;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+.text_tab{
+	width: 121px;
+	font-size: 14.5px;
+	font-family: 宋体;
+	text-align: left;
+	display: inline-block;
+	font-weight: 100;
+	color: #818080;
+}
 
-		/*内容中的样式*/
-		.text_inputName{
-			width: 70px;
-			height: 30px;
-			margin: 0px;
-			margin-top: 10px;
-			font-size: 14.5px;
-			font-family: 宋体;
-			color: #585858;
-			font-weight: 600;
-			display: inline;
-		}
-		.text_itemInput{
-			width: 220px;
-			height: 34px;
-			font-family: 宋体;
-			font-size: 14.5px;
-			color: #585858;
-			padding-left: 20px;
-			overflow: hidden;
-			border: solid;
-			border-color: #DBDBDB;
-			border-width: 1px;
-			border-radius: 4px;
-		}
-		.textPs_item{
-			font-size: 14.5px;
-			color: #898989;
-			margin-top: 8px;
-			margin-bottom: 50px;
-		}
-		.btn_logup{
-			width: 120px;
-			height: 38px;
-			background: #00B20B;
-			border: none;
-			border-radius: 4px;
-			color: #fff;
-			padding: 0px;
-			text-align: center;
-			font-size: 14.5px;
-			margin-bottom: 50px;
-		}
+/*内容中的样式*/
+.view_content_column{
+	width: 900px;
+	background: rgba(255,255,255,0.8);
+	border: solid;
+	border-width: 1px;
+	border-radius: 4px;
+	border-color: #c0c0c0;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	margin-bottom: 50px;
+	padding-top: 30px;
+}
+.view_content_row{
+	background: rgba(255,255,255,0.8);
+	border: solid;
+	border-width: 1px;
+	border-radius: 4px;
+	border-color: #c0c0c0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 50px;
+	padding-top: 20px;
+}
 
-		/*footer*/
-		.view_footer{
-			display: flex;
-			width: 1200px;
-			flex-direction: column;
-			justify-content: flex-start;
-		}
-		.hr_row{
-			width: 90%;
-			border: solid;
-			border-width: 1px 0px 0px 0px;
-			border-color: #E5E5E5;
-			height: 1px;
-		}
-		.text_footer{
-			width: 100%;
-			font-size: 14.5px;
-			color: #B5B5B5;
-			text-align: right;
-		}
+.text_inputName{
+	width: 70px;
+	height: 30px;
+	margin: 0px;
+	margin-top: 10px;
+	font-size: 14.5px;
+	font-family: 宋体;
+	color: #585858;
+	font-weight: 450;
+	display: inline;
+}
+.view_ItemDiv_info{
+	width: 705px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	margin-bottom: 28px;
+}
+.text_itemInput{
+	width: 220px;
+	height: 34px;
+	font-family: 宋体;
+	font-size: 14.5px;
+	color: #585858;
+	padding-left: 20px;
+	overflow: hidden;
+	border: solid;
+	border-color: #DBDBDB;
+	border-width: 1px;
+	border-radius: 4px;
+	background: rgba(255,255,255,0.9);
+}
+.textPs_item{
+	font-size: 14.5px;
+	color: #898989;
+	margin-top: 8px;
+	margin-bottom: 50px;
+}
+.btn_logup{
+	width: 120px;
+	height: 38px;
+	background: #00B20B;
+	border: none;
+	border-radius: 4px;
+	color: #fff;
+	padding: 0px;
+	text-align: center;
+	font-size: 14.5px;
+	margin-bottom: 50px;
+}
+.img_warn{
+	height: 16px;
+	width: 16px;
+	padding: 0px;
+	margin: 0px;
+}
+.text_warn{
+	margin-left: 4px;
+	font-size: 14.5px;
+	font-family: 宋体;
+	color: #ff0000;
+	font-weight: 600;
+	display: inline;
+	text-align: left;
+}
+/*footer*/
+.view_footer{
+	display: flex;
+	width: 1200px;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+.hr_row{
+	width: 90%;
+	border: solid;
+	border-width: 1px 0px 0px 0px;
+	border-color: #E5E5E5;
+	height: 1px;
+}
+.text_footer{
+	width: 100%;
+	font-size: 14.5px;
+	color: #B5B5B5;
+	text-align: right;
+}
