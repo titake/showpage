@@ -26,6 +26,9 @@ switch ($_POST["flag"]) {
 	case 'add_super':
 		addSuper();
 		break;
+	case 'delete_transComp':
+		deleteTansComp();
+		break;
 }
 function addTransport(){
 	$mysqli = connectDb();
@@ -183,4 +186,14 @@ function addSuper(){
 		}
 	}
 	$mysqli->close();
+}
+function deleteTansComp(){
+	$mysqli = connectDb();
+	$sql = "delete from tb_transcomp where name='{$_GET["name"]}'";
+	$result = $mysqli->query($sql);
+	if ($result==true) {
+		echo "删除成功";
+	}else{
+		echo "删除失败".$mysqli->errno.$mysqli->error;
+	}
 }

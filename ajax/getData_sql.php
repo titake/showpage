@@ -29,6 +29,34 @@ switch ($_GET["flag"]) {
 		$info = getInfo($tbName,$infoNames,$where);
 		echo $info;
 		break;
+	case 'transComps_person':
+		$tbName = "tb_transcomp";
+		$infoNames = "name,registe_address";
+		$where = 'scope="person"';
+		$info = getInfos($tbName,$infoNames,$where);
+		echo $info;
+		break;
+	case 'transComps_good':
+		$tbName = "tb_transcomp";
+		$infoNames = "name,registe_address";
+		$where = 'scope="good"';
+		$info = getInfos($tbName,$infoNames,$where);
+		echo $info;
+		break;
+	case 'transComps_teach':
+		$tbName = "tb_transcomp";
+		$infoNames = "name,registe_address";
+		$where = 'scope="teach"';
+		$info = getInfos($tbName,$infoNames,$where);
+		echo $info;
+		break;
+	case 'transComp_one_edit':
+		$tbName = "tb_transcomp";
+		$infoNames = 'registe_money,registe_address,registe_date,registe_valid_date,corporation,corporation_phone,charge_person,charge_phone,qualification,scope,star';
+		$where = 'name="'.$_GET["compName"].'"';
+		$info = getInfo($tbName,$infoNames,$where);
+		echo $info;
+		break;
 }
 //查询仅得一条结果
 function getInfo($tbName,$infoNames,$where){
@@ -47,7 +75,6 @@ function getInfo($tbName,$infoNames,$where){
 	}else{
 		return '{"failed":true,"reason":"}'.$mysqli->errno.'is '.$mysqli->error.'"}';
 	}
-	
 }
 
 //在指定数据库中指定位置的指定数据,$result中有多条数据
@@ -55,15 +82,24 @@ function getInfos($tbName,$infoNames,$where){
 	$mysqli = connectDb();
 	$sql = "select $infoNames from $tbName where $where";
 	$result = $mysqli->query($sql);
-	$results = $result->fetch_all(MYSQLI_ASSOC);  //列名+值
-	$info = "";
-	for ($i=0; $i <count($results,0) ; $i++) { 
-		$info = $info."(";
-		foreach ($results[$i] as $key => $value) {
-			$info = $info.$key.":".$value.",";
+	if ($result!=false) {
+		if ($result->num_rows>0) {
+			$results = $result->fetch_all(MYSQLI_ASSOC);  //列名+值
+		}else{
+			return '{"length":0,"reason":"not find"}';
 		}
-		$info = mb_substr($info, 0,-1);
-		$info .= ")";
+		$info = '{"length":'.count($results,0);
+		for ($i=0; $i <count($results,0) ; $i++) { 
+			$info = $info.',"'.$i.'":{';
+			foreach ($results[$i] as $key => $value) {
+				$info = $info.'"'.$key.'":"'.$value.'",';
+			}
+			$info = mb_substr($info, 0,-1);
+			$info .= "}";
+		}
+		$info.="}";
+		return $info;
+	}else{
+		return '{"length":-2,"reson":"'.$mysqli->errno.$mysqli->error.'"}';
 	}
-	return $info;
 }

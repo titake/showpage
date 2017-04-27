@@ -13,6 +13,8 @@
 .view_main{
 	width: 1200px;
 	padding: 0px;
+	display: flex;
+	margin: 0px;
 }
 .view_cards{
 	width: 1200px;

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>信息管理</title>  <!---->
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">  <!-- ./是当前目录   ../是上一级父目录    /是根目录  -->
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<link rel="stylesheet" type="text/css" href="../styles/mainCss.css">
+	<style type="text/css">
+		.view_title{
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+		.view_row{
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			background: transparent;
+			align-items: center;
+		}
+		.view_column{
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+		}
+		.view_directions{
+			width: 200px;
+			height: 460px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+			background-color: rgba(110,110,110,0.9);
+			border-right: solid 1px #aaa;
+			position: relative;
+			left: 0px;
+		}
+		.view_direction{
+			width:190px;
+			margin-top: 16px;
+			margin-left: 10px;
+			display: flex;
+			flex-direction: column;
+			align-content: flex-start;
+		}
+		.view_direction_name{
+			width: 190px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		.ul_direction{
+			margin: 0px;
+			padding: 0px;
+			margin-left: 34px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+		}
+		.li_direction{
+			margin: 0px;
+			padding: 0px;
+			list-style-type: none;
+			color: rgb(240,240,240);
+			font-size: 14.5px;
+			font-family: 宋体;
+			font-weight: 200;
+			text-align: left;
+			height: 20px;
+		}
+
+		.view_content{
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-content: flex-start;
+			margin-left: 16px;
+			margin-right: 16px;
+			width: 968px;
+		}
+		.view_toolbar{
+			margin-top: 16px;
+			width: 968px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+			align-items: center;
+		}
+		.view_add{
+			display: flex;
+			flex-direction: row;
+			cursor: pointer;
+			justify-content: center;
+			align-content: center;
+		}
+		.input_search{
+			margin-left: 60px;
+			width: 114px;
+			height: 30px;
+			padding-left: 6px;
+			border: solid 1px #aaa;
+			border-right: dashed 1px #ccc;
+			border-radius: 3px 0px 0px 3px;
+		}
+		.select_search{
+			margin: 0px;
+			padding-left: 6px;
+			width: 94px;
+			height: 33.3px;
+			border: solid 1px #aaa;
+			border-left: none;
+			border-radius: 0px 3px 3px 0px;
+		}
+		.text_option{
+			margin: 0px;
+			padding-left: 6px;
+			width: 94px;
+		}
+		.ul_content{
+			display: flex;
+			padding: 0px;
+			margin: 0px;
+			margin-top: 16px;
+			flex-direction: column;
+			width: 968px;
+			background-color: rgba(255,255,255,0.9);
+			border: solid 1px #aaa;
+			border-radius: 1px;
+		}
+		.li_content{
+			list-style-type: none;
+			padding: 0px;
+			margin: 0px;
+			width: 948px;
+			height: 40px;
+			margin-left: 10px;
+			margin-right: 10px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+		}
+		/*首页主界面*/
+		.text_title1{
+			color: rgb(238,238,238);
+			font-family: 宋体;
+			margin: 0px;
+			padding: 0px;
+			text-align: left;
+			margin-left: 2px;
+		}
+		.text_title3{
+			color: rgb(60,60,60);
+			font-family: 宋体;
+			font-size: 15px;
+			margin: 0px;
+			padding: 0px;
+		}
+		.text_direction{
+			color: rgb(240,240,240);
+			font-size: 15px;
+			font-family: 宋体;
+			text-align: left;
+			padding: 0px;
+			margin: 0px;
+		}
+		.text_normal{
+			color: rgb(60,60,60);
+			font-family: 宋体;
+			font-size: 15px;
+			margin: 0px;
+			padding: 0px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.p_btn{
+			cursor: pointer;
+			width: 60px;
+			color: rgb(20,20,20);
+			font-size: 15px;
+			font-family: 宋体;
+			text-align: left;
+			margin: 0px;
+			padding: 0px;
+			text-align: center;
+		}
+	</style>
+	<script type="text/javascript" src="../styles/myjs.js"></script>
+	<script type="text/javascript" src="../lib/jquery-3.2.0.js"></script>
+</head>
+<body>
+<!--第一行title-->
+	<div class="view_title" style="height: 70px;background-color: rgba(40,40,40,0.9);justify-content: space-between;">
+		<div class="view_row" style="margin-left: 10px;">
+			<img class="img_title" src="../images/icon_star2.png">
+			<div class="view_column">
+				<p class="text_title1" style="font-size: 22px;">挂牌评星管理系统</p>
+				<p class="text_title1" style="font-size: 16px;">titake.xyz</p>
+			</div>
+		</div>
+		<p class="text_title1" style="margin-right: 10px; font-size: 26px;">道路运输挂牌评星管理系统</p>
+	</div>
+<!--第二行title，显示用户-->
+	<div class="view_title" style="height: 40px;background-color: rgba(245,245,245,0.9);justify-content: flex-end;">
+		<a class="text_user" id="id_icon_user"  style="margin-right: 50px;" onmouseover="turnToBlur('id_icon_user')" onmouseout="turnToClear('id_icon_user')" onclick="Mytoggle('id_div_userAdmin')"></a>
+	</div>
+	<ul id="id_div_userAdmin" class="view_userAdmin" style="display: none;top: 112px;background-color: rgba(50,50,50,0.9);">
+		<li id="id_user_edit" class="option_userAdmin" onclick="turnToEdit()"> 
+			<img class="img_icon" src="../images/set_white.png"><p class="text_user" style="width: 80px;color: rgb(240,240,240);">个人设置</p>
+		</li>
+		<li id="id_user_admin" class="option_userAdmin" onclick="location.href='admin.html'">
+			<img class="img_icon" src="../images/admin_white.png"><p class="text_user" style="width: 80px;color: rgb(240,240,240);">信息管理</p>
+		</li>
+		<li id="id_user_logout" class="option_userAdmin" style="border-bottom: none;" onclick="logout()">
+			<img class="img_icon" src="../images/logout_white.png"><p class="text_user" style="width: 80px;color: rgb(240,240,240);">退出登录</p>
+		</li>
+	</ul>
+<!--第三行title，左边写管理列表，右边写当前是什么管理-->
+	<div class="view_title" style="height: 40px;justify-content: flex-start;background-color: rgba(225,225,225,0.9);">
+		<div style="display:flex;flex-direction: column; border-right: solid 1px #aaa;height: 40px;justify-content: center;align-items: center;">
+			<p class="text_title3" style="width: 200px;text-align: center;">管理员</p>
+		</div>
+		<p class="text_title3" id="id_title3_right" style="text-align: left;margin-left: 20px;">信息管理</p>
+	</div>
+<!--首页-->
+	<div class="view_main" style="flex-direction: row;justify-content: flex-start;align-items: flex-start;">
+	<!--目录-->
+		<div class="view_directions">
+			<div class="view_direction">
+				<div class="view_direction_name" onclick="Mytoggle('id_ul_dirComp')">
+					<img class="img_icon" src="../images/plus.png" id="id_img_dirComp">
+					<p class="text_direction">企业管理</p>
+				</div>
+				<ul class="ul_direction" style="display: none;" id="id_ul_dirComp">
+					<li class="li_direction" onclick="getUL('transComps_person')">客运企业列表</li>
+					<li class="li_direction" onclick="getUL('transComps_good')">货运企业列表</li>
+					<li class="li_direction" onclick="getUL('transComps_teach')">驾校列表</li>
+					<li class="li_direction" onclick="getUL('mainComps')">维护企业列表</li>
+					<li class="li_direction" onclick="getUL('transports')">客运站列表</li>
+				</ul>
+			</div>
+			<div class="view_direction">
+				<div class="view_direction_name" onclick="Mytoggle('id_ul_dirCar')">
+					<img class="img_icon" src="../images/plus.png" id="id_img_dirCar">
+					<p class="text_direction">车辆管理</p>
+				</div>
+				<ul class="ul_direction" style="display: none;" id="id_ul_dirCar">
+					<li class="li_direction" onclick="getUL('cars')">车辆列表</li>
+				</ul>
+			</div>
+			<div class="view_direction">
+				<div class="view_direction_name" onclick="Mytoggle('id_ul_dirDriver')">
+					<img class="img_icon" src="../images/plus.png" id="id_img_dirDriver">
+					<p class="text_direction">驾驶员管理</p>
+				</div>
+				<ul class="ul_direction" style="display: none;" id="id_ul_dirDriver">
+					<li class="li_direction" onclick="getUL('drivers')">驾驶员列表</li>
+				</ul>
+			</div>
+			<div class="view_direction">
+				<div class="view_direction_name" onclick="Mytoggle('id_ul_dirMisdeed')">
+					<img class="img_icon" src="../images/plus.png" id="id_img_dirMisdeed">
+					<p class="text_direction">违规管理</p>
+				</div>
+				<ul class="ul_direction" style="display: none;" id="id_ul_dirMisdeed">
+					<li class="li_direction" onclick="getUL('misdeed_comp')">企业违规列表</li>
+					<li class="li_direction" onclick="getUL('misdeed_driver')">驾驶员违规列表</li>
+					<li class="li_direction" onclick="getUL('misdeed_other')">其他员工违规列表</li>
+				</ul>
+			</div>
+		</div>
+	<!--内容-->
+		<!-- 企业管理 -->
+		<div class="view_content"  id="id_admin_comp">
+			<!--工具栏-->
+			<div class="view_toolbar">
+				<div class="view_add" onclick="addComp()"> 
+					<img src="../images/add.png" class="img_icon">
+					<p class="text_normal">添加企业</p>
+				</div>
+				<input type="text" class="input_search">
+				<select class="select_search">
+					<option class="text_option">企业名</option>
+					<option class="text_option">法人名</option>
+					<option class="text_option">主要负责人</option>
+				</select>
+				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;" onclick="searchComp()">
+			</div>
+			<!-- 内容列表 -->
+			<ul class="ul_content" id="id_ul_comps">
+				<li class="li_content">
+					<p class="text_normal" style="width: 150px;">xxx公司</p>
+					<p class="text_normal" style="width: 578px;margin-left: 50px;">地址</p>
+					<p class="p_btn" style="margin-left: 50px;">编辑</p>
+					<p class="p_btn" >删除</p>
+				</li>
+			</ul>
+		</div>
+		<!-- 车辆管理 -->
+		<div class="view_content" style="display: none;" >
+			<!--工具栏-->
+			<div class="view_toolbar">
+				<div class="view_add" onclick="addCar()"> 
+					<img src="../images/add.png" class="img_icon">
+					<p class="text_normal">添加车辆</p>
+				</div>
+				<input type="text" class="input_search">
+				<select class="select_search">
+					<option class="text_option">车牌号</option>
+					<option class="text_option">车型</option>
+					<option class="text_option">所属单位</option>
+					<option class="text_option">驾驶员姓名</option>
+					<option class="text_option">档案编号</option>
+					<option class="text_option">发动机号</option>
+					<option class="text_option">车辆识别号</option>
+				</select>
+				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;" onclick="searchComp()">
+			</div>
+			<!-- 内容列表 -->
+			<ul class="ul_content">
+				<li class="li_content">
+				</li>
+			</ul>
+		</div>
+		<!-- 驾驶员管理 -->
+		<div class="view_content" style="display: none;" >
+			<!--工具栏-->
+			<div class="view_toolbar">
+				<div class="view_add" onclick="addComp()"> 
+					<img src="../images/add.png" class="img_icon">
+					<p class="text_normal">添加驾驶员</p>
+				</div>
+				<input type="text" class="input_search">
+				<select class="select_search">
+					<option class="text_option">企业名</option>
+					<option class="text_option">法人名</option>
+					<option class="text_option">主要负责人</option>
+				</select>
+				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;" onclick="searchComp()">
+			</div>
+			<!-- 内容列表 -->
+			<ul class="ul_content">
+				<li class="li_content">
+					<p class="text_normal">xxx责任有限公司</p>
+					<p class="p_btn">编辑</p>
+					<p class="p_btn">删除</p>
+				</li>
+			</ul>
+		</div>
+		<!-- 违规管理 -->
+		<div class="view_content" style="display: none;" >
+			<!--工具栏-->
+			<div class="view_toolbar">
+				<div class="view_add" onclick="addComp()"> 
+					<img src="../images/add.png" class="img_icon">
+					<p class="text_normal">添加企业</p>
+				</div>
+				<input type="text" class="input_search">
+				<select class="select_search">
+					<option class="text_option">企业名</option>
+					<option class="text_option">法人名</option>
+					<option class="text_option">主要负责人</option>
+				</select>
+				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;" onclick="searchComp()">
+			</div>
+			<!-- 内容列表 -->
+			<ul class="ul_content">
+				<li class="li_content">
+					<p class="text_normal">xxx责任有限公司</p>
+					<p class="p_btn">编辑</p>
+					<p class="p_btn">删除</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="view_footer">
+		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+	</div>
+	
+	<script type="text/javascript">
+		user_email="";
+		usertype = "";
+		var request = new XMLHttpRequest;
+		request.open("GET","../ajax/queryCookie.php?name=user_email",true);
+		request.send();
+		request.onreadystatechange = function(){
+			if (request.readyState===4) {
+				if (request.status===200) {
+					var result = JSON.parse(request.responseText);
+					if (result.success) {
+						user_email=result.value;
+						request.open("GET","../ajax/getData_sql.php?flag=userType&user_email="+user_email,true);
+						request.send();
+						request.onreadystatechange = function(){
+							if (request.readyState===4) {
+								if (request.status===200) {
+									console.log(request.responseText);
+									var result = JSON.parse(request.responseText);
+									usertype = result.userType;
+									if (usertype!="超级管理员")
+										window.location.href="hello.html";
+								}else{
+									alert("error:"+request.status);
+								}
+							}
+						}
+						$(function(){
+							$("#id_icon_user").html(result.value);
+						});
+					}else{
+						window.location.href="login.html";
+					}
+				}else{
+					alert("error:"+request.status);
+				}
+			}
+		}
+
+		function Mytoggle(elementID){
+			$(function(){
+				$("#"+elementID).toggle("normal");
+				if (elementID.search(/^id_ul_dir/g)>=0) {
+					var imgId = "#id_img_dir"+elementID.split(/^id_ul_dir/g)[1];
+					if ($(imgId).attr("src")=="../images/plus.png") {
+						$(imgId).attr("src","../images/minus.png");
+					}else{
+						$(imgId).attr("src","../images/plus.png");
+					}
+				}
+			});
+		}
+		function turnToEdit(){
+			switch(usertype) {
+				case '驾驶员/教练员':
+					window.location.href='show_driver_one.html?type=edit';
+					break;
+				case '维修工人':
+					window.location.href='show_maintainer_one.html?type=edit';
+					break; 
+				case '客运站员工':
+					window.location.href='show_staff_one.html?type=edit';
+					break; 
+				case '运输公司/驾校管理人员':
+					window.location.href='show_administer_one.html?type=edit';
+					break; 
+				case '维护公司管理人员':
+					window.location.href='show_administer_one.html?type=edit';
+					break; 
+				case '客运站管理人员':
+					window.location.href='show_administer_one.html?type=edit';
+					break; 
+				case '超级管理员':
+					window.location.href='show_administer_one.html?type=edit';
+					break; 
+				case '乘客/学员':
+					window.location.href='show_passenger_one.html?type=edit';
+					break; 
+			}
+		}
+		function getUL(FLAG){
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag="+FLAG,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						var inner = "";
+						if (result.length>0) {
+							for (var i = 0; i<result.length; i--) {
+								var j = i.toString();
+								inner = inner+'<li class="li_content"><p class="text_normal" title="name" style="width: 150px;">'+result.j.name+'</p><p class="text_normal" style="width: 578px;margin-left: 50px;">'+result.j.registe_address+'</p><p class="p_btn" id="id_li_edit" style="margin-left: 50px;">编辑</p><p class="p_btn" id="id_li_delete" >删除</p></li>';
+							}
+						}else{
+							console.log(result.reason);
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+			switch (FLAG) {
+				case 'transComps_person':
+					$(function(){
+						$("#id_title3_right").html('客运企业列表');
+						$(".view_content").hide();
+						$("#id_ul_comps").html(inner);
+						$("#id_ul_comps >li:even").css("background-color","rgba(220,220,220,0.8)");
+						$("#id_ul_comps >li").mouseover(function(){$(this).css("background-color","rgba(180,180,180,0.8)")});
+						$("#id_ul_comps >li:even").mouseout(function(){$(this).css("background-color","rgba(220,220,220,0.8)")});
+						$("#id_ul_comps >li:odd").mouseout(function(){$(this).css("background-color","transport")});
+						$("#id_ul_comps >li>p[title='name']").click(function(){
+
+						});
+						$("#id_ul_comps >li>#id_li_edit").click(function(){
+							var name = $(this).prevAll('p[title=name]').html();
+							window.location.href = "add_transComp.html?usertype=super&name="+name;
+						});
+						$("#id_ul_comps >li>#id_li_delete").click(function(){
+							if (window.confirm("确认注销该企业？")) {
+								var name = $(this).prevAll('p[title=name]').html();
+								var request = new XMLHttpRequest;
+								request.open("POST","../ajax/WriteDB.php",true);
+								request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+								request.send("name="+name+"&flag=delete_transComp");
+								request.onreadystatechange = function(){
+									if (request.readyState===4) {
+										if (request.status===200) {
+											var response = request.responseText;
+											alert(response);
+										}else{
+											alert("error:"+request.status);
+										}
+									}
+								}
+							}
+						});
+						$("#id_admin_comp").css("display","flex");
+					});
+					break;
+				case 'transComps_good':
+					$(function(){
+						$("#id_title3_right").html('货运企业列表');
+						$(".view_content").hide();
+						$("#id_admin_comp").css("display","flex");
+					});
+					break;
+				case 'mainComps':
+					$(function(){
+						$("#id_title3_right").html('驾校列表');
+						$(".view_content").hide();
+						$("#id_admin_comp").css("display","flex");
+					});
+					break;
+				case 'transports':
+					$(function(){
+						$("#id_title3_right").html('客运站列表');
+						$(".view_content").hide();
+						$("#id_admin_comp").css("display","flex");
+					});
+					break;
+			}
+		}
+	</script>
+</body>
+</html>

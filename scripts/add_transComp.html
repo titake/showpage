@@ -133,10 +133,10 @@
 				<p class="text_DivName">企业基本信息</p>
 				<div class="view_ItemDiv_info" style="margin-bottom: 5px;">
 					<p class="text_inputName">企业名称</p>
-					<input id="id_compName" type="text"  class="text_itemInput" style="width: 160px;margin-right: 0px;border-right: none; padding-left: 4px;border-radius: 4px 0px 0px 4px;" onblur="checkIfExist()">
-					<select id="id_compName_last">
-						<option>有限责任公司</option>
-						<option>股份有限公司</option>
+					<input id="id_compName" type="text"  class="text_itemInput" style="width: 160px;margin-right: 0px;border-right: none; padding-left: 4px;border-radius: 4px 0px 0px 4px;" onblur="checkIfExist()" onchange="change('compName')">
+					<select id="id_compName_last" onchange="change('compName_last')">
+						<option value="有限责任公司">有限责任公司</option>
+						<option value="股份有限公司">股份有限公司</option>
 					</select>
 					<div class="div_warn" id="id_div_star">
 						<p class="text_inputName" style="width: 36px;margin-left: 50px;">星级</p>
@@ -154,17 +154,17 @@
 				</div>
 				<div class="view_ItemDiv_info" style="margin-bottom: 28px; margin-top: 23px;">
 					<p class="text_inputName">注册地址</p>
-					<input id="id_registe_address" type="text"  class="text_itemInput" style="width: 635px;">
+					<input id="id_registe_address" type="text"  class="text_itemInput" style="width: 635px;" onchange="change('registe_address')">
 					<p class="text_warn" id="id_warn_location" style="display: none;">*</p>
 				</div>
 				<div class="view_ItemDiv_info">
 					<p class="text_inputName">注册金额</p>
-					<input placeholder="单位为万" id="id_registe_money" type="text" class="text_itemInput" style="width: 105px;">
+					<input placeholder="单位为万" id="id_registe_money" type="text" class="text_itemInput" style="width: 105px;" onchange="change('registe_money')">
 					<p class="text_inputName" style="width: 14px;margin-right: 33px;">万</p>
 					<p class="text_inputName">注册日期</p>
-					<input type="date" id="id_registe_date" class="text_itemInput" style="width: 135px;margin-right: 34px;padding-left:10px;">
+					<input type="date" id="id_registe_date" class="text_itemInput" style="width: 135px;margin-right: 34px;padding-left:10px;" onchange="change('registe_date')">                                              
 					<p class="text_inputName">有效期至</p>
-					<input type="date" id="id_registe_valid_date" class="text_itemInput" style="width: 135px;padding-left: 10px;">
+					<input type="date" id="id_registe_valid_date" class="text_itemInput" style="width: 135px;padding-left: 10px;" onchange="change('registe_valid_date')">
 					<p class="text_warn" id="id_warn_date" style="display: none;">*</p>
 				</div>
 				<div class="view_ItemDiv_info" style="margin: 0px;">
@@ -181,7 +181,7 @@
 					<p class="text_warn" id="id_warn_qualification" style="display: none;">*</p>
 				</div>
 				<div class="view_ItemDiv_info">
-					<textarea class="text_textarea" id="id_qualification"></textarea>
+					<textarea class="text_textarea" id="id_qualification" onchange="change('qualification')"></textarea>
 				</div>
 			</div>
 			<!--联系方式模块-->
@@ -214,7 +214,15 @@
 	</div>
 	<script type="text/javascript">
 		exist = true;
-		userType = window.location.search.split("?")[1].split("=")[1];
+		edit = false;
+		userType =  decodeURI(window.location.search.split("?")[1].split("=")[1]);
+		if (window.location.search.search('&')<0) {
+			name="";
+			edit=false;
+		}else{
+			name = decodeURI(window.location.search.split("?")[1].split("=")[2]);
+			edit=true;
+		}
 		if (userType=="super") {
 			$(function(){
 				$("#id_div_star").show();
@@ -225,6 +233,52 @@
 			});
 		}
 		starSelected = 0;
+		if (name!="") {
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=transComp_one$compName="+name);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						$(function(){
+							var firstName = name.substr(0,name.length-6);
+							var lastName = name.substr(name.length-6,6);
+							$("#id_compName").val(firstName);
+							var selector = "#id_compName_last>option[value='"+lastName+"']";
+							$(selector).attr("selected",true);
+							$("#idregiste_money").val(result.registe_money);
+							$("#id_registe_address").val(result.registe_address);
+							$("#id_registe_date").val(result.registe_date);
+							$("#id_registe_valid_date").val(result.registe_valid_date);
+							$("#id_corporation").val(result.corporation);
+							$("#id_corporation_phone").val(result.corporation_phone);
+							$("#id_charge_person").val(result.charge_person);
+							$("#id_charge_phone").val(result.charge_phone);
+							$("#id_qualification").val(result.id_qualification);
+							$("#id_btn_goBefore").hide();
+							var myscope = result.scope;
+							if (myscope.search("person")>=0) {
+								$("#id_person").attr("checked",true);
+							}else if(myscope.search("good")>=0){
+								$("#id_good").attr("checked",true);
+							}else if (myscope.search("teach")>=0) {
+								$("#id_teach").attr("checked",true);
+							}
+						});
+						starSelected=result.star;
+						var i=1;
+						while(i<=starSelected){
+							var id = 'id_star'+i;
+							document.getElementById(id).src="../images/star_gold.png";
+							i++;
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
 		function selectStar(starID){
 			var i =parseInt(starID.substr(starID.length-1,1));
 			starSelected = i;
@@ -259,9 +313,7 @@
 		}
 		function cancelWant(starID){
 			var i = parseInt(starID.substr(starID.length-1,1));
-			console.log(starSelected);
 			if (!starSelected) {
-				console.log("!starSelected");
 				while(i>0){
 					var id = "id_star"+i;
 					document.getElementById(id).src = "../images/star_gray.png";
@@ -352,90 +404,120 @@
 			}
 		}
 		function checkIfExist(){
-			var request = new XMLHttpRequest;
-			request.open("GET","../ajax/ifExist.php?flag=compName&compType=tb_transcomp&compName="+document.getElementById("id_compName").value);
-			request.send();
-			request.onreadystatechange = function(){
-				if (request.readyState===4) {
-					if (request.status===200) {
-						console.log("response:"+request.responseText);
-						var result = JSON.parse(request.responseText);
-						if (result.length==0) {
-							exist = false;
-							$(function(){
-								$("#id_warn_exist").hide();
-							});
+			if (edit = false) {
+				var request = new XMLHttpRequest;
+				request.open("GET","../ajax/ifExist.php?flag=compName&compType=tb_transcomp&compName="+document.getElementById("id_compName").value);
+				request.send();
+				request.onreadystatechange = function(){
+					if (request.readyState===4) {
+						if (request.status===200) {
+							var result = JSON.parse(request.responseText);
+							if (result.length==0) {
+								exist = false;
+								$(function(){
+									$("#id_warn_exist").hide();
+								});
+							}else{
+								exist = true;
+								$(function(){
+									$("#id_warn_exist").show();
+								});
+							}
 						}else{
-							exist = true;
-							$(function(){
-								$("#id_warn_exist").show();
-							});
+							alert("error:"+request.status);
 						}
-					}else{
-						alert("error:"+request.status);
 					}
 				}
 			}
 		}
-		function addComp(){
-			var done = checkInfo();
-			if (done && (!exist)) {
-				function getScope(){
-					scope = "";
-					scopeNum=0;
-					if (document.getElementById("id_person").checked) {
-						scope = "person";
-						scopeNum++;
-					}
-					if (document.getElementById("id_good").checked) {
-						if (scopeNum>0) {
-							console.log("scope in if:"+scope);
-							scope = scope+",good";
-						}else{
-							scope = "good";
-						}
-						scopeNum++
-					}
-					if (document.getElementById("id_teach").checked) {
-						if (scopeNum>0) {
-							scope=scope+",teach";
-						}else{
-							scope = "teach";
-						}
-					}
-					return scope;
+		function getScope(){
+			var scope = "";
+			var scopeNum=0;
+			if (document.getElementById("id_person").checked) {
+				scope = "person";
+				scopeNum++;
+			}
+			if (document.getElementById("id_good").checked) {
+				if (scopeNum>0) {
+					scope = scope+",good";
+				}else{
+					scope = "good";
 				}
-				var scope =getScope();
-				var compLastNames = document.getElementById("id_compName_last");
-				var sindex = compLastNames.selectedIndex;
-				var compName = document.getElementById("id_compName").value+compLastNames.options[sindex].value;
+				scopeNum++
+			}
+			if (document.getElementById("id_teach").checked) {
+				if (scopeNum>0) {
+					scope=scope+",teach";
+				}else{
+					scope = "teach";
+				}
+			}
+			return scope;
+		}
+		changes = "";
+		function change(FLAG){
+			if (changes.search(FLAG)<0) {
+				changes = changes+","+FLAG;
+			}
+			changes.substr(1,changes.length-1);
+		}
+		function addComp(){
+			if (edit==true) {
+				var columns = changes.split(",");
+				var sql = "update tb_transcomp set"
+				for (var i = 0; i <columns.length; i++) {
+					sql = sql+columns[i]+"='"+document.getElementById("id_"+columns[i]).value+"',"
+				}
+				sql = sql+"scope='"+getScope()+"',star="+starSelected+"where name='"+name+"'";
 				var request = new XMLHttpRequest;
-				request.open("POST","../ajax/WriteDB.php",true);
+				request.open("POST","../ajax/updateDB.php",true);
 				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-				request.send("flag=add_transComp&compName="+compName+
-					"&registe_money="+parseFloat(document.getElementById("id_registe_money").value)+
-					"&registe_address="+document.getElementById("id_registe_address").value+
-					"&registe_date="+document.getElementById("id_registe_date").value+
-					"&registe_valid_date="+document.getElementById("id_registe_valid_date").value+
-					"&corporation="+document.getElementById("id_corporation").value+
-					"&corporation_phone="+document.getElementById("id_corporation_phone").value+
-					"&charge_person="+document.getElementById("id_charge_person").value+
-					"&charge_phone="+document.getElementById("id_charge_phone").value+
-					"&qualification="+document.getElementById("id_qualification").value+
-					"&scope="+scope+
-					"&star="+starSelected);
+				request.send("sql="+sql+"&flag=update");
 				request.onreadystatechange = function(){
 					if (request.readyState===4) {
 						if (request.status===200) {
-							console.log(request.responseText);
-							var result = JSON.parse(request.responseText);
-							if (result.success) {
-								window.location.href ="logup_Step3_administer.html?compName="+document.getElementById("id_compName").value+"&usertype=transcomp";
-							}else{
-								alert("添加出错！错误原因："+result.reason);
-							}
+							var result = request.responseText;
+							console.log(result);
+							alert(result);
 						}else{
 							alert("error:"+request.status);
+						}
+					}
+				}
+			}else{
+				var done = checkInfo();
+				if (done && (!exist)) {
+					var scope =getScope();
+					var compLastNames = document.getElementById("id_compName_last");
+					var sindex = compLastNames.selectedIndex;
+					var compName = document.getElementById("id_compName").value+compLastNames.options[sindex].value;
+					var request = new XMLHttpRequest;
+					request.open("POST","../ajax/WriteDB.php",true);
+					request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+					request.send("flag=add_transComp&compName="+compName+
+						"&registe_money="+parseFloat(document.getElementById("id_registe_money").value)+
+						"&registe_address="+document.getElementById("id_registe_address").value+
+						"&registe_date="+document.getElementById("id_registe_date").value+
+						"&registe_valid_date="+document.getElementById("id_registe_valid_date").value+
+						"&corporation="+document.getElementById("id_corporation").value+
+						"&corporation_phone="+document.getElementById("id_corporation_phone").value+
+						"&charge_person="+document.getElementById("id_charge_person").value+
+						"&charge_phone="+document.getElementById("id_charge_phone").value+
+						"&qualification="+document.getElementById("id_qualification").value+
+						"&scope="+scope+
+						"&star="+starSelected);
+					request.onreadystatechange = function(){
+						if (request.readyState===4) {
+							if (request.status===200) {
+								var result = JSON.parse(request.responseText);
+								if (result.success) {
+									window.location.href ="logup_Step3_administer.html?compName="+document.getElementById("id_compName").value+"&usertype=transcomp";
+								}else{
+									alert("添加出错！错误原因："+result.reason);
+								}
+							}else{
+								alert("error:"+request.status);
+							}
 						}
 					}
 				}

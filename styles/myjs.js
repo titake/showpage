@@ -22,7 +22,7 @@ function logout(){
 	request.onreadystatechange = function(){
 		if (request.readyState===4) {
 			if (request.status===200) {
-				history.go(0);
+				window.location="../scripts/hello.html";
 			}else{
 				alert("error:"+request.status);
 			}

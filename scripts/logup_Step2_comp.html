@@ -198,11 +198,11 @@
 		}
 		function choseWindow(){
 			if (userType=="运输公司/驾校管理人员") {
-				window.location.href='add_transComp.html?userType='+userType;
+				window.location.href=encodeURI('add_transComp.html?userType='+userType);
 			}else if (userType=="维护公司管理人员"){
-				window.location.href='add_maintComp.html?userType='+userType;
+				window.location.href=encodeURI('add_maintComp.html?userType='+userType);
 			}else{
-				window.location.href='add_transport.html?userType='+userType; //客运站
+				window.location.href=encodeURI('add_transport.html?userType='+userType); //客运站
 			}
 		}
 		function checkIfExist(){
