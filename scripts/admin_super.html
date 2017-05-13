@@ -138,12 +138,13 @@
 			margin: 0px;
 			width: 948px;
 			height: 40px;
-			margin-left: 10px;
-			margin-right: 10px;
+			padding-left: 10px;
+			padding-right: 10px;
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;
+			cursor: pointer;
 		}
 		/*首页主界面*/
 		.text_title1{
@@ -237,11 +238,11 @@
 					<p class="text_direction">企业管理</p>
 				</div>
 				<ul class="ul_direction" style="display: none;" id="id_ul_dirComp">
-					<li class="li_direction" onclick="getUL('transComps_person')">客运企业列表</li>
-					<li class="li_direction" onclick="getUL('transComps_good')">货运企业列表</li>
-					<li class="li_direction" onclick="getUL('transComps_teach')">驾校列表</li>
-					<li class="li_direction" onclick="getUL('mainComps')">维护企业列表</li>
-					<li class="li_direction" onclick="getUL('transports')">客运站列表</li>
+					<li class="li_direction" onclick="getCompUL('transComps_person')">客运企业列表</li>
+					<li class="li_direction" onclick="getCompUL('transComps_good')">货运企业列表</li>
+					<li class="li_direction" onclick="getCompUL('transComps_teach')">驾校列表</li>
+					<li class="li_direction" onclick="getCompUL('mainComps')">维护企业列表</li>
+					<li class="li_direction" onclick="getCompUL('transports')">客运站列表</li>
 				</ul>
 			</div>
 			<div class="view_direction">
@@ -250,7 +251,12 @@
 					<p class="text_direction">车辆管理</p>
 				</div>
 				<ul class="ul_direction" style="display: none;" id="id_ul_dirCar">
-					<li class="li_direction" onclick="getUL('cars')">车辆列表</li>
+					<li class="li_direction" onclick="getCarUL('taxi')">出租车列表</li>
+					<li class="li_direction" onclick="getCarUL('bus')">公交车列表</li>
+					<li class="li_direction" onclick="getCarUL('shuttle')">班车列表</li>
+					<li class="li_direction" onclick="getCarUL('normal_truck')">普通货车列表</li>
+					<li class="li_direction" onclick="getCarUL('danger_truck')">危险品运输车列表</li>
+					<li class="li_direction" onclick="getCarUL('student_car')">教练车列表</li>
 				</ul>
 			</div>
 			<div class="view_direction">
@@ -275,59 +281,53 @@
 			</div>
 		</div>
 	<!--内容-->
-		<!-- 企业管理 -->
-		<div class="view_content"  id="id_admin_comp">
+	<!-- 企业管理 -->
+		<div class="view_content"  id="id_admin_comp" style="display: none;">
 			<!--工具栏-->
 			<div class="view_toolbar">
 				<div class="view_add" onclick="addComp()"> 
 					<img src="../images/add.png" class="img_icon">
 					<p class="text_normal">添加企业</p>
 				</div>
-				<input type="text" class="input_search">
-				<select class="select_search">
+				<input type="text" class="input_search" id="id_where_comp">
+				<select class="select_search" id="id_comp_options">
 					<option class="text_option">企业名</option>
 					<option class="text_option">法人名</option>
 					<option class="text_option">主要负责人</option>
 				</select>
-				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;" onclick="searchComp()">
+				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;cursor: pointer;" onclick="searchComp()">
 			</div>
 			<!-- 内容列表 -->
 			<ul class="ul_content" id="id_ul_comps">
-				<li class="li_content">
-					<p class="text_normal" style="width: 150px;">xxx公司</p>
-					<p class="text_normal" style="width: 578px;margin-left: 50px;">地址</p>
-					<p class="p_btn" style="margin-left: 50px;">编辑</p>
-					<p class="p_btn" >删除</p>
-				</li>
 			</ul>
 		</div>
-		<!-- 车辆管理 -->
-		<div class="view_content" style="display: none;" >
+	<!-- 车辆管理 -->
+		<div class="view_content" style="display: none;" id="id_admin_car">
 			<!--工具栏-->
 			<div class="view_toolbar">
 				<div class="view_add" onclick="addCar()"> 
 					<img src="../images/add.png" class="img_icon">
 					<p class="text_normal">添加车辆</p>
 				</div>
-				<input type="text" class="input_search">
-				<select class="select_search">
+				<input type="text" class="input_search" id="id_where_car">
+				<select class="select_search" id="id_options_cars">
 					<option class="text_option">车牌号</option>
-					<option class="text_option">车型</option>
+					<option class="text_option">车辆类型</option>
 					<option class="text_option">所属单位</option>
 					<option class="text_option">驾驶员姓名</option>
 					<option class="text_option">档案编号</option>
 					<option class="text_option">发动机号</option>
 					<option class="text_option">车辆识别号</option>
 				</select>
-				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;" onclick="searchComp()">
+				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;" onclick="searchCar()">
 			</div>
 			<!-- 内容列表 -->
-			<ul class="ul_content">
+			<ul class="ul_content" id="id_ul_car">
 				<li class="li_content">
 				</li>
 			</ul>
 		</div>
-		<!-- 驾驶员管理 -->
+	<!-- 驾驶员管理 -->
 		<div class="view_content" style="display: none;" >
 			<!--工具栏-->
 			<div class="view_toolbar">
@@ -352,7 +352,7 @@
 				</li>
 			</ul>
 		</div>
-		<!-- 违规管理 -->
+	<!-- 违规管理 -->
 		<div class="view_content" style="display: none;" >
 			<!--工具栏-->
 			<div class="view_toolbar">
@@ -360,8 +360,8 @@
 					<img src="../images/add.png" class="img_icon">
 					<p class="text_normal">添加企业</p>
 				</div>
-				<input type="text" class="input_search">
-				<select class="select_search">
+				<input type="text" class="input_search" id="id_where">
+				<select class="select_search" id="id_comp">
 					<option class="text_option">企业名</option>
 					<option class="text_option">法人名</option>
 					<option class="text_option">主要负责人</option>
@@ -420,7 +420,7 @@
 				}
 			}
 		}
-
+		//交替显示与隐藏对象
 		function Mytoggle(elementID){
 			$(function(){
 				$("#"+elementID).toggle("normal");
@@ -434,6 +434,7 @@
 				}
 			});
 		}
+		//title中的用户的个人信息设置点击事件
 		function turnToEdit(){
 			switch(usertype) {
 				case '驾驶员/教练员':
@@ -462,7 +463,45 @@
 					break; 
 			}
 		}
-		function getUL(FLAG){
+		//获取企业表
+		function getCompUL(FLAG){
+			switch (FLAG) {
+				case 'transComps_person':
+					$(function(){
+						$("#id_title3_right").html('客运企业列表');
+						$(".view_content").hide();
+						$("#id_comp_options").html('<option class="text_option">企业名</option> <option class="text_option">法人名</option>	<option class="text_option">主要负责人</option>');
+					});
+					break;
+				case 'transComps_good':
+					$(function(){
+						$("#id_title3_right").html('货运企业列表');
+						$(".view_content").hide();
+						$("#id_comp_options").html('<option class="text_option">企业名</option> <option class="text_option">法人名</option>	<option class="text_option">主要负责人</option>');
+					});
+					break;
+				case 'transComps_teach':
+					$(function(){
+						$("#id_title3_right").html('驾校列表');
+						$(".view_content").hide();
+						$("#id_comp_options").html('<option class="text_option">企业名</option> <option class="text_option">法人名</option>	<option class="text_option">主要负责人</option>');
+					});
+					break;
+				case 'mainComps':
+					$(function(){
+						$("#id_title3_right").html('维护企业列表');
+						$(".view_content").hide();
+						$("#id_comp_options").html('<option class="text_option">企业名</option> <option class="text_option">法人名</option>	<option class="text_option">主要负责人</option>');
+					});
+					break;
+				case 'transports':
+					$(function(){
+						$("#id_title3_right").html('客运站列表');
+						$(".view_content").hide();
+						$("#id_comp_options").html('<option class="text_option">企业名</option> <option class="text_option">主要负责人</option>');  
+					});
+					break;
+			}
 			var request = new XMLHttpRequest;
 			request.open("GET","../ajax/getData_sql.php?flag="+FLAG,true);
 			request.send();
@@ -470,80 +509,592 @@
 				if (request.readyState===4) {
 					if (request.status===200) {
 						var result = JSON.parse(request.responseText);
-						var inner = "";
+						var inner="";
 						if (result.length>0) {
-							for (var i = 0; i<result.length; i--) {
-								var j = i.toString();
-								inner = inner+'<li class="li_content"><p class="text_normal" title="name" style="width: 150px;">'+result.j.name+'</p><p class="text_normal" style="width: 578px;margin-left: 50px;">'+result.j.registe_address+'</p><p class="p_btn" id="id_li_edit" style="margin-left: 50px;">编辑</p><p class="p_btn" id="id_li_delete" >删除</p></li>';
+							if (FLAG=="transports") {
+								for (var i = 0; i<result.length; i++) {
+									var j = "list"+i;
+									inner = inner+'<li class="li_content"><p class="text_normal" title="name" style="width: 150px;">'+result[j]['name']+'</p><p class="text_normal" title="address" style="width: 578px;margin-left: 50px;">'+result[j]['location']+'</p><p class="p_btn" title="li_edit" style="margin-left: 50px;">编辑</p><p class="p_btn" title="li_delete" >删除</p></li>';
+								}
+							}else{
+								for (var i = 0; i<result.length; i++) {
+									var j = "list"+i;
+									inner = inner+'<li class="li_content"><p class="text_normal" title="name" style="width: 150px;">'+result[j]['name']+'</p><p class="text_normal" title="address" style="width: 578px;margin-left: 50px;">'+result[j]['registe_address']+'</p><p class="p_btn" title="li_edit" style="margin-left: 50px;">编辑</p><p class="p_btn" title="li_delete" >删除</p></li>';
+								}
 							}
 						}else{
 							console.log(result.reason);
 						}
+						$(function(){
+							$("#id_ul_comps").html(inner);
+							$("#id_ul_comps >li:even").css("background-color","rgba(220,220,220,0.8)");
+							$("#id_ul_comps >li").mouseover(function(){$(this).css("background-color","rgba(230,230,230,0.9)")});
+							$("#id_ul_comps >li:even").mouseout(function(){$(this).css("background-color","rgba(220,220,220,0.8)")});
+							$("#id_ul_comps >li:odd").mouseout(function(){$(this).css("background-color","rgba(250,250,250,0.9)")});
+							$("#id_ul_comps >li>p[title='name']").click(function(){
+								var name = $(this).html();
+								switch($("#id_title3_right").html()){
+									case '客运企业列表':
+									case '货运企业列表':
+									case '驾校列表':
+										window.open(encodeURI("show_transComp_one.html?compname="+name),"_blank");
+										break;
+									case '维护企业列表':
+										window.open(encodeURI("show_mainComp_one.html?compname="+name),"_blank");
+										break;
+									case '客运站列表':
+										window.open(encodeURI("show_transport_one.html?compname="+name),"_blank");
+										break;
+								}
+							});
+							$("#id_ul_comps >li>p[title='address']").click(function(){
+								var name = $(this).prev().html();
+								switch($("#id_title3_right").html()){
+									case '客运企业列表':
+									case '货运企业列表':
+									case '驾校列表':
+										window.open(encodeURI("show_transComp_one.html?compname="+name),"_blank");
+										break;
+									case '维护企业列表':
+										window.open(encodeURI("show_mainComp_one.html?compname="+name),"_blank");
+										break;
+									case '客运站列表':
+										window.open(encodeURI("show_transport_one.html?compname="+name),"_blank");
+										break;
+								}
+							});
+							$("#id_ul_comps >li>p[title='li_edit']").click(function(){
+								var name = $(this).prevAll('p[title=name]').html();
+								switch($("#id_title3_right").html()){
+									case '客运企业列表':
+									case '货运企业列表':
+									case '驾校列表':
+										window.open(encodeURI("add_transComp.html?usertype=super&name="+name),"_blank");
+										break;
+									case '维护企业列表':
+										window.open(encodeURI("add_maintComp.html?usertype=super&name="+name),"_blank");
+										break;
+									case '客运站列表':
+										window.open(encodeURI("add_transport.html?usertype=super&compname="+name),"_blank");
+										break;
+								}
+							});
+							$("#id_ul_comps >li>p[title='li_delete']").click(function(){
+								if (window.confirm("确认注销该企业？")) {
+									var name = $(this).prevAll('p[title=name]').html();
+									switch($("#id_title3_right").html()){
+										case '客运企业列表':
+										case '货运企业列表':
+										case '驾校列表':
+											var flag = "delete_transComp";
+											break;
+										case '维护企业列表':
+											var flag = "delete_mainComp";
+											break;
+										case '客运站列表':
+											var flag = "delete_transport";
+											break;
+									}
+									var request = new XMLHttpRequest;
+									request.open("POST","../ajax/WriteDB.php",true);
+									request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+									request.send("name="+name+"&flag="+flag);
+									request.onreadystatechange = function(){
+										if (request.readyState===4) {
+											if (request.status===200) {
+												var response = request.responseText;
+												alert(response);
+												if (response=="注销成功") {
+													switch($("#id_title3_right").html()){
+														case '客运企业列表':
+															var flag = "transComps_person";
+															break;
+														case '货运企业列表':
+															var flag = "transComps_good";
+															break;
+														case '驾校列表':
+															var flag = "transComps_teach";
+															break;
+														case '维护企业列表':
+															var flag = "mainComps";
+															break;
+														case '客运站列表':
+															var flag = "transports";
+															break;
+													}
+													getCompUL(flag);
+												}
+											}else{
+												alert("error:"+request.status);
+											}
+										}
+									}
+								}
+							});
+							$("#id_admin_comp").css("display","flex");
+						});
 					}else{
 						alert("error:"+request.status);
 					}
 				}
 			}
-			switch (FLAG) {
-				case 'transComps_person':
-					$(function(){
-						$("#id_title3_right").html('客运企业列表');
-						$(".view_content").hide();
-						$("#id_ul_comps").html(inner);
-						$("#id_ul_comps >li:even").css("background-color","rgba(220,220,220,0.8)");
-						$("#id_ul_comps >li").mouseover(function(){$(this).css("background-color","rgba(180,180,180,0.8)")});
-						$("#id_ul_comps >li:even").mouseout(function(){$(this).css("background-color","rgba(220,220,220,0.8)")});
-						$("#id_ul_comps >li:odd").mouseout(function(){$(this).css("background-color","transport")});
-						$("#id_ul_comps >li>p[title='name']").click(function(){
-
-						});
-						$("#id_ul_comps >li>#id_li_edit").click(function(){
-							var name = $(this).prevAll('p[title=name]').html();
-							window.location.href = "add_transComp.html?usertype=super&name="+name;
-						});
-						$("#id_ul_comps >li>#id_li_delete").click(function(){
-							if (window.confirm("确认注销该企业？")) {
+		}
+		// 添加企业
+		function addComp(){
+			switch(document.getElementById("id_title3_right").innerHTML){
+				case '客运企业列表':
+				case '货运企业列表':
+				case '驾校列表':
+					window.open(encodeURI("add_transComp.html?usertype=super"),"_blank");
+					break;
+				case '维护企业列表':
+					window.open(encodeURI("add_maintComp.html?usertype=super"),"_blank");
+					break;
+				case '客运站列表':
+					window.open(encodeURI("add_transport.html?usertype=super"),"_blank");
+					break;
+			}
+		}
+		//搜索企业
+		function searchComp(){
+			var selectOptions = document.getElementById("id_comp_options");
+			var sindex = selectOptions.selectedIndex;
+			var reference = selectOptions.options[sindex].value;
+			var sql;
+			switch(document.getElementById("id_title3_right").innerHTML){
+				case '客运企业列表':
+					sql = "select name,registe_address from tb_transcomp where scope like '%person%' and ";
+					break;
+				case '货运企业列表':
+					sql = "select name,registe_address from tb_transcomp where scope like '%good%' and ";
+					break;
+				case '驾校列表':
+					sql = "select name,registe_address from tb_transcomp where scope like '%teach%' and ";
+					break;
+				case '维护企业列表':
+					sql = "select name,registe_address from tb_maincomp where ";
+					break;
+				case '客运站列表':
+					sql = "select name,location from tb_transport where ";
+					break;
+			}
+			var where = document.getElementById("id_where_comp").value;
+			switch(reference){
+				case '企业名':
+					reference = "name";
+					break;
+				case '法人名':
+					reference = "corporation";
+					break;
+				case '主要负责人':
+					reference = "charge_person";
+					break;
+			}
+			sql = sql +reference+" like '%"+where+"%';";
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=dosql&sql="+sql,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						var inner="";
+						if (result.length>0) {
+							if (document.getElementById("id_title3_right").innerHTML=="客运站列表") {
+								for (var i = 0; i<result.length; i++) {
+									var j = "list"+i;
+									inner = inner+'<li class="li_content"><p class="text_normal" title="name" style="width: 150px;">'+result[j]['name']+'</p><p class="text_normal" title="address" style="width: 578px;margin-left: 50px;">'+result[j]['location']+'</p><p class="p_btn" title="li_edit" style="margin-left: 50px;">编辑</p><p class="p_btn" title="li_delete" >删除</p></li>';
+								}
+							}else{
+								for (var i = 0; i<result.length; i++) {
+									var j = "list"+i;
+									inner = inner+'<li class="li_content"><p class="text_normal" title="name" style="width: 150px;">'+result[j]['name']+'</p><p class="text_normal" title="address" style="width: 578px;margin-left: 50px;">'+result[j]['registe_address']+'</p><p class="p_btn" title="li_edit" style="margin-left: 50px;">编辑</p><p class="p_btn" title="li_delete" >删除</p></li>';
+								}
+							}
+						}else{
+							console.log(result.reason);
+						}
+						$(function(){
+							$("#id_ul_comps").html(inner);
+							$("#id_ul_comps >li:even").css("background-color","rgba(220,220,220,0.8)");
+							$("#id_ul_comps >li").mouseover(function(){$(this).css("background-color","rgba(230,230,230,0.9)")});
+							$("#id_ul_comps >li:even").mouseout(function(){$(this).css("background-color","rgba(220,220,220,0.8)")});
+							$("#id_ul_comps >li:odd").mouseout(function(){$(this).css("background-color","rgba(250,250,250,0.9)")});
+							$("#id_ul_comps >li>p[title='name']").click(function(){
+								var name = $(this).html();
+								switch($("#id_title3_right").html()){
+									case '客运企业列表':
+									case '货运企业列表':
+									case '驾校列表':
+										window.open(encodeURI("show_transComp_one.html?compname="+name),"_blank");
+										break;
+									case '维护企业列表':
+										window.open(encodeURI("show_mainComp_one.html?compname="+name),"_blank");
+										break;
+									case '客运站列表':
+										window.open(encodeURI("show_transport_one.html?compname="+name),"_blank");
+										break;
+								}
+							});
+							$("#id_ul_comps >li>p[title='address']").click(function(){
+								var name = $(this).prev().html();
+								switch($("#id_title3_right").html()){
+									case '客运企业列表':
+									case '货运企业列表':
+									case '驾校列表':
+										window.open(encodeURI("show_transComp_one.html?compname="+name),"_blank");
+										break;
+									case '维护企业列表':
+										window.open(encodeURI("show_mainComp_one.html?compname="+name),"_blank");
+										break;
+									case '客运站列表':
+										window.open(encodeURI("show_transport_one.html?compname="+name),"_blank");
+										break;
+								}
+							});
+							$("#id_ul_comps >li>p[title='li_edit']").click(function(){
 								var name = $(this).prevAll('p[title=name]').html();
-								var request = new XMLHttpRequest;
-								request.open("POST","../ajax/WriteDB.php",true);
-								request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-								request.send("name="+name+"&flag=delete_transComp");
-								request.onreadystatechange = function(){
-									if (request.readyState===4) {
-										if (request.status===200) {
-											var response = request.responseText;
-											alert(response);
-										}else{
-											alert("error:"+request.status);
+								switch($("#id_title3_right").html()){
+									case '客运企业列表':
+									case '货运企业列表':
+									case '驾校列表':
+										window.open(encodeURI("add_transComp.html?usertype=super&name="+name),"_blank");
+										break;
+									case '维护企业列表':
+										window.open(encodeURI("add_maintComp.html?usertype=super&name="+name),"_blank");
+										break;
+									case '客运站列表':
+										window.open(encodeURI("add_transport.html?usertype=super&compname="+name),"_blank");
+										break;
+								}
+							});
+							$("#id_ul_comps >li>p[title='li_delete']").click(function(){
+								if (window.confirm("确认注销该企业？")) {
+									var name = $(this).prevAll('p[title=name]').html();
+									switch($("#id_title3_right").html()){
+										case '客运企业列表':
+										case '货运企业列表':
+										case '驾校列表':
+											var flag = "delete_transComp";
+											break;
+										case '维护企业列表':
+											var flag = "delete_mainComp";
+											break;
+										case '客运站列表':
+											var flag = "delete_transport";
+											break;
+									}
+									var request = new XMLHttpRequest;
+									request.open("POST","../ajax/WriteDB.php",true);
+									request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+									request.send("name="+name+"&flag="+flag);
+									request.onreadystatechange = function(){
+										if (request.readyState===4) {
+											if (request.status===200) {
+												var response = request.responseText;
+												alert(response);
+												if (response=="删除成功") {
+													switch($("#id_title3_right").html()){
+														case '客运企业列表':
+															var flag = "transComps_person";
+															break;
+														case '货运企业列表':
+															var flag = "transComps_good";
+															break;
+														case '驾校列表':
+															var flag = "transComps_teach";
+															break;
+														case '维护企业列表':
+															var flag = "mainComps";
+															break;
+														case '客运站列表':
+															var flag = "transports";
+															break;
+													}
+													getCompUL(flag);
+												}
+											}else{
+												alert("error:"+request.status);
+											}
 										}
 									}
 								}
-							}
+							});
+							$("#id_admin_comp").css("display","flex");
 						});
-						$("#id_admin_comp").css("display","flex");
-					});
-					break;
-				case 'transComps_good':
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+
+		function getCarUL(CarType){
+			switch(CarType){
+				case 'taxi':
 					$(function(){
-						$("#id_title3_right").html('货运企业列表');
+						$("#id_title3_right").html("出租车列表");
 						$(".view_content").hide();
-						$("#id_admin_comp").css("display","flex");
+						$("#id_options_cars").html('<option class="text_option">车牌号</option><option class="text_option">车型</option>	<option class="text_option">所属单位</option><option class="text_option">驾驶员姓名</option><option class="text_option">档案编号</option><option class="text_option">发动机号</option><option class="text_option">车辆识别号</option>');
 					});
 					break;
-				case 'mainComps':
+				case 'bus':
 					$(function(){
-						$("#id_title3_right").html('驾校列表');
+						$("#id_title3_right").html("公交车列表");
 						$(".view_content").hide();
-						$("#id_admin_comp").css("display","flex");
+						$("#id_options_cars").html('<option class="text_option">车牌号</option><option class="text_option">车型</option>	<option class="text_option">所属单位</option><option class="text_option">驾驶员姓名</option><option class="text_option">档案编号</option><option class="text_option">发动机号</option><option class="text_option">车辆识别号</option>');
 					});
 					break;
-				case 'transports':
+				case 'shuttle':
 					$(function(){
-						$("#id_title3_right").html('客运站列表');
+						$("#id_title3_right").html("班车列表");
 						$(".view_content").hide();
-						$("#id_admin_comp").css("display","flex");
+						$("#id_options_cars").html('<option class="text_option">车牌号</option><option class="text_option">车型</option>	<option class="text_option">所属单位</option><option class="text_option">驾驶员姓名</option><option class="text_option">档案编号</option><option class="text_option">发动机号</option><option class="text_option">车辆识别号</option>');
 					});
 					break;
+				case 'normal_truck':
+					$(function(){
+						$("#id_title3_right").html("普通货车列表");
+						$(".view_content").hide();
+						$("#id_options_cars").html('<option class="text_option">车牌号</option><option class="text_option">车型</option>	<option class="text_option">所属单位</option><option class="text_option">驾驶员姓名</option><option class="text_option">档案编号</option><option class="text_option">发动机号</option><option class="text_option">车辆识别号</option>');
+					});
+					break;
+				case 'danger_truck':
+					$(function(){
+						$("#id_title3_right").html("危险品运输车列表");
+						$(".view_content").hide();
+						$("#id_options_cars").html('<option class="text_option">车牌号</option><option class="text_option">车型</option>	<option class="text_option">所属单位</option><option class="text_option">驾驶员姓名</option><option class="text_option">发动机号</option><option class="text_option">车辆识别号</option>');
+					});
+					break;
+				case 'student_car':
+					$(function(){
+						$("#id_title3_right").html("教练车列表");
+						$(".view_content").hide();
+						$("#id_options_cars").html('<option class="text_option">车牌号</option><option class="text_option">车型</option>	<option class="text_option">所属单位</option><option class="text_option">驾驶员姓名</option><option class="text_option">发动机号</option><option class="text_option">车辆识别号</option>');
+					});
+					break;
+			}
+			var sql = "select plate_num,car_classify,driver1,driver2,img from ";
+			sql=sql+"tb_"+CarType;
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=cars&sql="+sql,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						console.log(result);
+						var inner="";
+						if (result.length>0) {
+							for (var i = 0; i<result.length; i++) {
+								var j = "list"+i;
+								inner = inner+'<li class="li_content" index="'+i+'"><p class="text_normal" title="plate_num" style="width: 80px;">'+result[j]['plate_num']+'</p><p class="text_normal" title="car_classify" style="width: 100px;margin-left: 50px;">'+result[j]['car_classify']+'</p><p class="text_normal" title="driver1" style="width: 165px;margin-left: 50px;">'+result[j]['driver1']+'</p><p class="text_normal" title="driver2" style="width: 165px;margin-left: 50px;">'+result[j]['driver2']+'</p><p title="img" style="display:none;">'+result[j]['img']+'</p><p class="p_btn" title="li_edit" style="margin-left: 118px;">编辑</p><p class="p_btn" title="li_delete" >删除</p></li>';
+							}
+						}else{
+							console.log(result.reason);
+						}
+						$(function(){
+							$("#id_ul_car").html(inner);
+							$("#id_ul_car >li:even").css("background-color","rgba(220,220,220,0.8)");
+							$("#id_ul_car >li").mouseover(function(){$(this).css("background-color","rgba(230,230,230,0.9)")});
+							$("#id_ul_car >li:even").mouseout(function(){$(this).css("background-color","rgba(220,220,220,0.8)")});
+							$("#id_ul_car >li:odd").mouseout(function(){$(this).css("background-color","rgba(250,250,250,0.9)")});
+							$("#id_ul_car >li>p[title='driver1']").prevAll('p[title=plate_num]').click(function(){
+								var plate_num = $(this).html();
+								window.open(encodeURI("show_car_one.html?cartype="+CarType+"&plate_num="+plate_num),"_blank");
+							});
+							$("#id_ul_car >li>p[title='driver1']").prevAll('p[title=car_classify]').click(function(){
+								var plate_num = $(this).prev().html();
+								window.open(encodeURI("show_car_one.html?cartype="+CarType+"&plate_num="+plate_num),"_blank");
+							});
+							
+							$("#id_ul_car >li>p[title='li_edit']").click(function(){
+								var img = $(this).prevAll("p[title=img]").html();
+								var plate_num = $(this).prevAll("p[title=plate_num]").html();
+								window.open(encodeURI("add_car.html?cartype="+CarType+"&upload="+img+"&edit=true&plate_num="+plate_num),"_blank");    //这里能取到CarType这个相对于该函数而言的全局变量的值（是形参传进来的）
+							});
+							$("#id_ul_car >li>p[title='li_delete']").click(function(){
+								if (window.confirm("确认删除该车辆？")) {
+									var plate_num = $(this).prevAll('p[title=plate_num]').html();
+									var sql = "delete from tb_"+CarType+" where plate_num='"+plate_num+"';";
+									var request = new XMLHttpRequest;
+									request.open("POST","../ajax/WriteDB.php",true);
+									request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+									request.send("flag=dosql&sql="+sql);
+									request.onreadystatechange = function(){
+										if (request.readyState===4) {
+											if (request.status===200) {
+												var response = JSON.parse(request.responseText);
+												if (response.success==true) {
+													alert("删除成功");
+													getCarUL(CarType);
+												}else{
+													console.log(response.reason);
+													alert("删除失败"+response.reason);
+												}
+											}else{
+												alert("error:"+request.status);
+											}
+										}
+									}
+								}
+							});
+							$("#id_admin_car").css("display","flex");
+						});
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		//添加车辆
+		function addCar(){
+			var flag;
+			switch(document.getElementById("id_title3_right").innerHTML){
+				case '出租车列表':
+					flag = "taxi";
+					break;
+				case '公交车列表':
+					flag = "bus";
+					break;
+				case '班车列表':
+					flag = "shuttle";
+					break;
+				case '普通货车列表':
+					flag = "normal_truck";
+					break;
+				case '危险品运输车列表':
+					flag = "danger_truck";
+					break;
+				case '教练车列表':
+					flag = "student_car";
+					break;
+			}
+			console.log(flag);
+			window.open(encodeURI("add_car.html?cartype="+flag+"&success="),"_blank");
+		}
+		function searchCar(){
+			var flag;
+			var sql;
+			switch(document.getElementById("id_title3_right").value){
+				case '出租车列表':
+					sql = "select plate_num,car_classify,driver1,driver2,img from tb_taxi where ";
+					break;
+				case '公交车列表':
+					sql = "select plate_num,car_classify,driver1,driver2,img from tb_bus where ";
+					break;
+				case '班车列表':
+					sql = "select plate_num,car_classify,driver1,driver2,img from tb_shuttle where ";
+					break;
+				case '普通货车列表':
+					sql = "select plate_num,car_classify,driver1,driver2,img from tb_normal_truck where ";
+					break;
+				case '危险品运输车列表':
+					sql = "select plate_num,car_classify,driver1,driver2,img from tb_danger_truck where ";
+					break;
+				case '教练车列表':
+					sql = "select plate_num,car_classify,driver1,driver2,img from tb_student_car where ";
+					break;
+			}
+			var selectOptions = document.getElementById("id_comp_options");
+			var sindex = selectOptions.selectedIndex;
+			var reference = selectOptions.options[sindex].value;
+			var where = document.getElementById("id_where_car").value;
+			var flag = "dosql";
+			switch(reference){
+				case '车牌号':
+					sql = sql+"plate_num like '%"+where+"'%;";
+					break;
+				case '车辆类型':
+					sql = sql+"car_classify like '%"+where+"'%;";
+					break;
+				case '所属单位':
+					sql = sql+"comp_name like '%"+where+"'%;";
+					break;
+				case '驾驶员姓名':
+					sql = "select idcard_num from tb_driver where username like '"+where+"%';"
+					flag = "searchcar_username";
+					break;
+				case '档案编号':
+					sql = sql+"file_num like '%"+where+"'%;";
+					break;
+				case '发动机号':
+					sql = sql+"engine_num like '%"+where+"'%;";
+					break;
+				case '车辆识别号':
+					sql = sql+"vin like '%"+where+"'%;";
+					break;
+			}
+			sql = sql +reference+" like '%"+where+"%';";
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag"+flag+"&sql="+sql,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						var inner="";
+						if (result.length>0) {
+							for (var i = 0; i<result.length; i++) {
+								var j = "list"+i;
+								inner = inner+'<li class="li_content" index="'+i+'"><p class="text_normal" title="plate_num" style="width: 80px;">'+result[j]['plate_num']+'</p><p class="text_normal" title="car_classify" style="width: 100px;margin-left: 50px;">'+result[j]['car_classify']+'</p><p class="text_normal" title="driver1" style="width: 165px;margin-left: 50px;">'+result[j]['driver1']+'</p><p class="text_normal" title="driver2" style="width: 165px;margin-left: 50px;">'+result[j]['driver2']+'</p><p title="img" style="display:none;">'+result[j]['img']+'</p><p class="p_btn" title="li_edit" style="margin-left: 118px;">编辑</p><p class="p_btn" title="li_delete" >删除</p></li>';
+							}
+						}else{
+							console.log(result.reason);
+						}
+						$(function(){
+							$("#id_ul_car").html(inner);
+							$("#id_ul_car >li:even").css("background-color","rgba(220,220,220,0.8)");
+							$("#id_ul_car >li").mouseover(function(){$(this).css("background-color","rgba(230,230,230,0.9)")});
+							$("#id_ul_car >li:even").mouseout(function(){$(this).css("background-color","rgba(220,220,220,0.8)")});
+							$("#id_ul_car >li:odd").mouseout(function(){$(this).css("background-color","rgba(250,250,250,0.9)")});
+							$("#id_ul_car >li>p[title='driver1']").prevAll('p[title=plate_num]').click(function(){
+								var plate_num = $(this).html();
+								window.open(encodeURI("show_car_one.html?cartype="+CarType+"&plate_num="+plate_num),"_blank");
+							});
+							$("#id_ul_car >li>p[title='driver1']").prevAll('p[title=car_classify]').click(function(){
+								var plate_num = $(this).prev().html();
+								window.open(encodeURI("show_car_one.html?cartype="+CarType+"&plate_num="+plate_num),"_blank");
+							});
+							
+							$("#id_ul_car >li>p[title='li_edit']").click(function(){
+								console.log("CarType:"+CarType);
+								var img = $(this).prevAll("p[title=img]").html();
+								var plate_num = $(this).prevAll("p[title=plate_num]").html();
+								window.open(encodeURI("add_car.html?cartype="+CarType+"&upload="+img+"&edit=true&plate_num="+plate_num),"_blank");
+							});
+							$("#id_ul_car >li>p[title='li_delete']").click(function(){
+								if (window.confirm("确认删除该车辆？")) {
+									var plate_num = $(this).prevAll('p[title=plate_num]').html();
+									var sql = "delete from tb_"+CarType+" where plate_num='"+plate_num+"';";
+									var request = new XMLHttpRequest;
+									request.open("POST","../ajax/WriteDB.php",true);
+									request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+									request.send("flag=dosql&sql="+sql);
+									request.onreadystatechange = function(){
+										if (request.readyState===4) {
+											if (request.status===200) {
+												var response = JSON.parse(request.responseText);
+												if (response.success==true) {
+													alert("删除成功");
+													getCarUL(CarType);
+												}else{
+													console.log(response.reason);
+													alert("删除失败"+response.reason);
+												}
+											}else{
+												alert("error:"+request.status);
+											}
+										}
+									}
+								}
+							});
+							$("#id_admin_car").css("display","flex");
+						});
+					}else{
+						alert("error:"+request.status);
+					}
+				}
 			}
 		}
 	</script>

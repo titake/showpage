@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>汽车评星系统-注册</title>
+	<title>维护公司</title>
 	<link rel="icon" type="image/png" href="../images/icon_star2.png">
 	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
 	<script type="text/javascript" src="../styles/myjs.js"></script>
@@ -105,9 +105,6 @@
 			<img class="img_title" src="../images/login_back.jpg">
 			<p class="text_title">汽车评星系统 | 注册</p>
 		</div>
-		<div class="view_title_client">
-		<!-- 这里先留着，回来如果需要的话，可以加一个用户的图标，是space-between的效果 -->
-		</div>
 	</div>
 	<div class="view_container">
 		<ul class="view_tab">
@@ -148,27 +145,27 @@
 				</div>
 				<div class="view_ItemDiv_info" style="margin-bottom: 28px; margin-top: 23px;">
 					<p class="text_inputName">注册地址</p>
-					<input id="id_registe_address" type="text"  class="text_itemInput" style="width: 615px;">
+					<input id="id_registe_address" type="text"  class="text_itemInput" style="width: 615px;" onchange="change('registe_address')">
 					<p class="text_warn" id="id_warn_location" style="display: none;">*</p>
 				</div>
 				<div class="view_ItemDiv_info">
 					<p class="text_inputName">注册金额</p>
-					<input placeholder="单位为万" id="id_registe_money" type="text" class="text_itemInput" style="width: 105px;">
+					<input placeholder="单位为万" id="id_registe_money" type="text" class="text_itemInput" style="width: 105px;" onchange= "change('registe_money')">
 					<p class="text_inputName" style="width: 14px;margin-right: 33px;">万</p>
 					<p class="text_inputName">注册日期</p>
-					<input type="date" id="id_registe_date" class="text_itemInput" style="width: 135px;margin-right: 34px;padding-left:10px;">
+					<input type="date" id="id_registe_date" class="text_itemInput" style="width: 135px;margin-right: 34px;padding-left:10px;" onchange="change('registe_date')">
 					<p class="text_inputName">有效期至</p>
-					<input type="date" id="id_registe_valid_date" class="text_itemInput" style="width: 135px;padding-left: 10px;">
+					<input type="date" id="id_registe_valid_date" class="text_itemInput" style="width: 135px;padding-left: 10px;" onchange="change('registe_valid_date')">
 					<p class="text_warn" id="id_warn_date" style="display: none;">*</p>
 				</div>
 				<div class="view_ItemDiv_info" style="margin-bottom: 28px; margin-top: 23px;">
 					<p class="text_inputName">员工人数</p>
-					<input id="id_staff_num" type="text"  class="text_itemInput" style="width: 615px;">
+					<input id="id_staff_num" type="text"  class="text_itemInput" style="width: 615px;" onchange="change('staff_num')">
 					<p class="text_warn" id="id_warn_staff_num" style="display: none;">*</p>
 				</div>
 				<div class="view_ItemDiv_info" style="margin-bottom: 28px; margin-top: 23px;">
 					<p class="text_inputName" style="width: 100px;">主要经营范围</p>
-					<input id="id_scope" type="text"  class="text_itemInput" style="width: 585px;">
+					<input id="id_scope" type="text"  class="text_itemInput" style="width: 585px;" onchange="change('scope')">
 					<p class="text_warn" id="id_warn_scope" style="display: none;">*</p>
 				</div>
 				<div class="view_ItemDiv_info" style="margin: 0px;">
@@ -184,7 +181,7 @@
 					<p class="text_warn" id="id_warn_qualification" style="display: none;">*</p>
 				</div>
 				<div class="view_ItemDiv_info">
-					<textarea class="text_textarea" id="id_qualification"></textarea>
+					<textarea class="text_textarea" id="id_qualification" onchange="change('qualification')"></textarea>
 				</div>
 			</div>
 			<!--联系方式模块-->
@@ -192,16 +189,16 @@
 				<p class="text_DivName">企业联系方式</p>
 				<div class="view_ItemDiv_info">
 					<p class="text_inputName" style="width: 86px;margin-left: 45px">法人姓名</p>
-					<input type="text" id="id_corporation" class="text_itemInput" style="width: 150px;margin-right: 49px;">
+					<input type="text" id="id_corporation" class="text_itemInput" style="width: 150px;margin-right: 49px;" onchange="change('corporation')">
 					<p class="text_inputName">联系电话</p>
-					<input type="text" id="id_corporation_phone" maxlength="11" class="text_itemInput">
+					<input type="text" id="id_corporation_phone" maxlength="11" class="text_itemInput" onchange="change('corporation_phone')">
 					<p class="text_warn" id="id_warn_corporation" style="display: none;">*</p>
 				</div>
 				<div class="view_ItemDiv_info">
 					<p class="text_inputName" style="width: 86px;margin-left: 45px;">主要负责人</p>
-					<input type="text" id="id_charge_person" class="text_itemInput" style="width: 150px;margin-right: 49px;">
+					<input type="text" id="id_charge_person" class="text_itemInput" style="width: 150px;margin-right: 49px;" onchange="change('charge_person')">
 					<p class="text_inputName">联系电话</p>
-					<input type="text" id="id_charge_phone" maxlength="11" class="text_itemInput">
+					<input type="text" id="id_charge_phone" maxlength="11" class="text_itemInput" onchange="change('charge_phone')">
 					<p class="text_warn" id="id_warn_charge" style="display: none;">*</p>
 				</div>
 			</div>
@@ -218,7 +215,22 @@
 	</div>
 	<script type="text/javascript">
 		exist = true;
-		userType = window.location.search.split("?")[1].split("=")[1];
+		edit = false;
+		if (window.location.search.search('&')<0) {
+			name="";
+			edit=false;
+			userType =  decodeURI(window.location.search.split("?")[1].split("=")[1]);
+			$(function(){
+				$(".view_tab").css("display","flex");
+			});
+		}else{
+			name = decodeURI(window.location.search.split("?")[1].split("=")[2]);
+			userType =  decodeURI(window.location.search.split("?")[1].split("=")[1].split("&")[0]);
+			edit=true;
+			$(function(){
+				$(".view_tab").css("display","none");
+			});
+		}
 		if (userType=="super") {
 			$(function(){
 				$("#id_div_star").show();
@@ -228,6 +240,66 @@
 				$("#id_div_star").hide();
 			});
 		}
+		if (userType.search("super")>=0) {  //任何一种管理员
+			$(function(){
+				$(".view_tab").css("display","none");
+				$(".view_title").hide();
+				$("#id_btn_goBefore").hide();
+			});
+		}else{
+			$(function(){
+				$(".view_tab").css("display","flex");
+				$(".view_title").css("display","flex");
+				$("#id_btn_goBefore").css("display","flex");
+			});
+		}
+		if (name!="") {
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=mainComp_one_edit&compName="+name);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						$(function(){
+							var firstName = name.substr(0,name.length-6);
+							var lastName = name.substr(name.length-6,6);
+							$("#id_compName").val(firstName);
+							var selector = "#id_compName_last>option[value='"+lastName+"']";
+							$(selector).attr("selected",true);
+							$("#id_registe_money").val(result.registe_money);
+							$("#id_registe_address").val(result.registe_address);
+							$("#id_registe_date").val(result.registe_date);
+							$("#id_registe_valid_date").val(result.registe_valid_date);
+							$("#id_staff_num").val(result.staff_num);
+							$("#id_corporation").val(result.corporation);
+							$("#id_corporation_phone").val(result.corporation_phone);
+							$("#id_charge_person").val(result.charge_person);
+							$("#id_charge_phone").val(result.charge_phone);
+							$("#id_qualification").val(result.qualification);
+							$("#id_scope").val(result.scope);
+							$("#id_btn_goBefore").hide();
+							var myscope = result.main_classify;
+							if (myscope.search("1")>=0) {
+								$("#id_classify1").attr("checked",true);
+							}else if(myscope.search("2")>=0){
+								$("#id_classify2").attr("checked",true);
+							}
+						});
+						starSelected=result.star;
+						var i=1;
+						while(i<=starSelected){
+							var id = 'id_star'+i;
+							document.getElementById(id).src="../images/star_gold.png";
+							i++;
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+
 		starSelected = 0;
 		function selectStar(starID){
 			var i = starID.substr(starID.length-1,1);
@@ -369,81 +441,139 @@
 			}
 		}
 		function checkIfExist(){
-			var request = new XMLHttpRequest;
-			request.open("GET","../ajax/ifExist.php?flag=compName&compType=tb_maincomp&compName="+document.getElementById("id_compName").value);
-			request.send();
-			request.onreadystatechange = function(){
-				if (request.readyState===4) {
-					if (request.status===200) {
-						var result = JSON.parse(request.responseText);
-						if (result.length==0) {
-							exist = false;
-							$(function(){
-								$("#id_warn_exist").hide();
-							});
-						}else{
-							exist = true;
-							$(function(){
-								$("#id_warn_exist").show();
-							});
-						}
-					}else{
-						alert("error:"+request.status);
-					}
-				}
-			}
-		}
-		function addComp(){
-			var done = checkInfo();
-			if (done && (!exist)) {
-				function getClassify(){
-					var classify = "";
-					var classifyNum=0;
-					if (document.getElementById("id_classify1").checked) {
-						classify = "1";
-						classifyNum++;
-					}
-					if (document.getElementById("id_classify2").checked) {
-						if (classifyNum) {
-							classify+=",2";
-						}
-						classify = "2";
-					}
-					return classify;
-				}
+			if (edit==false) {
 				var compLastNames = document.getElementById("id_compName_last");
 				var sindex = compLastNames.selectedIndex;
 				var compName = document.getElementById("id_compName").value;
 				compName+=compLastNames.options[sindex].value;
 				var request = new XMLHttpRequest;
-				request.open("POST","../ajax/WriteDB.php",true);
-				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-				request.send("flag=add_maintComp&compName="+compName+
-					"&registe_money="+parseFloat(document.getElementById("id_registe_money").value)+
-					"&registe_address="+document.getElementById("id_registe_address").value+
-					"&registe_date="+document.getElementById("id_registe_date").value+
-					"&registe_valid_date="+document.getElementById("id_registe_valid_date").value+
-					"&staff_num="+parseInt(document.getElementById("id_staff_num").value)+
-					"&corporation="+document.getElementById("id_corporation").value+
-					"&corporation_phone="+document.getElementById("id_corporation_phone").value+
-					"&charge_person="+document.getElementById("id_charge_person").value+
-					"&charge_phone="+document.getElementById("id_charge_phone").value+
-					"&scope="+document.getElementById("id_scope").value+
-					"&qualification="+document.getElementById("id_qualification").value+
-					"&main_classify="+getClassify()+
-					"&star="+starSelected);
+				request.open("GET","../ajax/ifExist.php?flag=FullcompName&compType=tb_maincomp&compName="+compName);
+				request.send();
 				request.onreadystatechange = function(){
 					if (request.readyState===4) {
 						if (request.status===200) {
-							console.log(request.responseText);
 							var result = JSON.parse(request.responseText);
-							if (result.success) {
-								window.location.href ="logup_Step3_administer.html?compName="+document.getElementById("id_compName").value+"&usertype=mainComp";
+							if (result.length==0) {
+								exist = false;
+								$(function(){
+									$("#id_warn_exist").hide();
+								});
 							}else{
-								alert("添加出错！错误原因："+result.reason);
+								exist = true;
+								$(function(){
+									$("#id_warn_exist").css("display","flex");
+								});
 							}
 						}else{
 							alert("error:"+request.status);
+						}
+					}
+				}
+			}
+		}
+		//获得维护级别
+		function getClassify(){
+			var classify = "";
+			var classifyNum=0;
+			if (document.getElementById("id_classify1").checked) {
+				classify = "1";
+				classifyNum++;
+			}
+			if (document.getElementById("id_classify2").checked) {
+				if (classifyNum) {
+					classify+=",2";
+				}
+				classify = "2";
+			}
+			return classify;
+		}
+		//编辑的都有哪些
+		changes = "";
+		function change(FLAG){
+			if (edit==true) {
+				if (changes.search(FLAG)<0) {
+					changes = changes+","+FLAG;
+				}
+			}
+		}
+		function addComp(){
+			if (edit==true) {
+				changes = changes.substr(1,changes.length-1);
+				var columns = changes.split(",");
+				var sql = "update tb_maincomp set ";
+				if (changes.length>0) {
+					for (var i = 0; i <columns.length; i++) {
+						sql = sql+columns[i]+"='"+document.getElementById("id_"+columns[i]).value+"',";
+					}
+				}
+				sql = sql+"main_classify='"+getClassify()+"',star="+starSelected;
+				var compLastNames = document.getElementById("id_compName_last");
+				var sindex = compLastNames.selectedIndex;
+				var compName = document.getElementById("id_compName").value+compLastNames.options[sindex].value;
+				if (compName!=name) {
+					sql = sql+",name='"+compName+"'";
+				}
+				sql = sql+" where name='"+name+"'";
+				var request = new XMLHttpRequest;
+				request.open("POST","../ajax/updateDB.php",true);
+				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				request.send("sql="+sql+"&flag=update");
+				request.onreadystatechange = function(){
+					if (request.readyState===4) {
+						if (request.status===200) {
+							var result = request.responseText;
+							console.log(result);
+							alert(result);
+							if (result=="更新成功") {
+								window.close();
+							}
+						}else{
+							alert("error:"+request.status);
+						}
+					}
+				}
+			}else{
+				var done = checkInfo();
+				if (done && (!exist)) {
+					var compLastNames = document.getElementById("id_compName_last");
+					var sindex = compLastNames.selectedIndex;
+					var compName = document.getElementById("id_compName").value;
+					compName+=compLastNames.options[sindex].value;
+					var request = new XMLHttpRequest;
+					request.open("POST","../ajax/WriteDB.php",true);
+					request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+					request.send("flag=add_maintComp&compName="+compName+
+						"&registe_money="+parseFloat(document.getElementById("id_registe_money").value)+
+						"&registe_address="+document.getElementById("id_registe_address").value+
+						"&registe_date="+document.getElementById("id_registe_date").value+
+						"&registe_valid_date="+document.getElementById("id_registe_valid_date").value+
+						"&staff_num="+parseInt(document.getElementById("id_staff_num").value)+
+						"&corporation="+document.getElementById("id_corporation").value+
+						"&corporation_phone="+document.getElementById("id_corporation_phone").value+
+						"&charge_person="+document.getElementById("id_charge_person").value+
+						"&charge_phone="+document.getElementById("id_charge_phone").value+
+						"&scope="+document.getElementById("id_scope").value+
+						"&qualification="+document.getElementById("id_qualification").value+
+						"&main_classify="+getClassify()+
+						"&star="+starSelected);
+					request.onreadystatechange = function(){
+						if (request.readyState===4) {
+							if (request.status===200) {
+								console.log(request.responseText);
+								var result = JSON.parse(request.responseText);
+								if (result.success) {
+									if (userType.search("super")<0) {
+									window.location.href ="logup_Step3_administer.html?compName="+document.getElementById("id_compName").value+"&usertype=mainComp";
+									}else{
+										alert("添加成功");
+										window.close();
+									}
+								}else{
+									alert("添加出错！错误原因："+result.reason);
+								}
+							}else{
+								alert("error:"+request.status);
+							}
 						}
 					}
 				}

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>汽车评星系统-注册</title>
+	<title>运输公司/驾校</title>
 	<link rel="icon" type="image/png" href="../images/icon_star2.png">
 	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
 	<script type="text/javascript" src="../styles/myjs.js"></script>
@@ -111,9 +111,6 @@
 			<img class="img_title" src="../images/login_back.jpg">
 			<p class="text_title">汽车评星系统 | 注册</p>
 		</div>
-		<div class="view_title_client">
-		<!-- 这里先留着，回来如果需要的话，可以加一个用户的图标，是space-between的效果 -->
-		</div>
 	</div>
 	<div class="view_container">
 		<ul class="view_tab">
@@ -133,8 +130,8 @@
 				<p class="text_DivName">企业基本信息</p>
 				<div class="view_ItemDiv_info" style="margin-bottom: 5px;">
 					<p class="text_inputName">企业名称</p>
-					<input id="id_compName" type="text"  class="text_itemInput" style="width: 160px;margin-right: 0px;border-right: none; padding-left: 4px;border-radius: 4px 0px 0px 4px;" onblur="checkIfExist()" onchange="change('compName')">
-					<select id="id_compName_last" onchange="change('compName_last')">
+					<input id="id_compName" type="text"  class="text_itemInput" style="width: 160px;margin-right: 0px;border-right: none; padding-left: 4px;border-radius: 4px 0px 0px 4px;" onblur="checkIfExist()">
+					<select id="id_compName_last" onblur="checkIfExist()">
 						<option value="有限责任公司">有限责任公司</option>
 						<option value="股份有限公司">股份有限公司</option>
 					</select>
@@ -189,16 +186,16 @@
 				<p class="text_DivName">企业联系方式</p>
 				<div class="view_ItemDiv_info">
 					<p class="text_inputName" style="width: 86px;margin-left: 45px">法人姓名</p>
-					<input type="text" id="id_corporation" class="text_itemInput" style="width: 150px;margin-right: 49px;">
+					<input type="text" id="id_corporation" class="text_itemInput" style="width: 150px;margin-right: 49px;" onchange="change('corporation')">
 					<p class="text_inputName">联系电话</p>
-					<input type="text" id="id_corporation_phone" maxlength="11" class="text_itemInput">
+					<input type="text" id="id_corporation_phone" maxlength="11" class="text_itemInput" onchange="change('corporation_phone')">
 					<p class="text_warn" id="id_warn_corporation" style="display: none;">*</p>
 				</div>
 				<div class="view_ItemDiv_info">
 					<p class="text_inputName" style="width: 86px;margin-left: 45px;">主要负责人</p>
-					<input type="text" id="id_charge_person" class="text_itemInput" style="width: 150px;margin-right: 49px;">
+					<input type="text" id="id_charge_person" class="text_itemInput" style="width: 150px;margin-right: 49px;" onchange="change('charge_person')">
 					<p class="text_inputName">联系电话</p>
-					<input type="text" id="id_charge_phone" maxlength="11" class="text_itemInput">
+					<input type="text" id="id_charge_phone" maxlength="11" class="text_itemInput" onchange="change('charge_phone')">
 					<p class="text_warn" id="id_warn_charge" style="display: none;">*</p>
 				</div>
 			</div>
@@ -215,27 +212,47 @@
 	<script type="text/javascript">
 		exist = true;
 		edit = false;
-		userType =  decodeURI(window.location.search.split("?")[1].split("=")[1]);
 		if (window.location.search.search('&')<0) {
 			name="";
 			edit=false;
+			userType =  decodeURI(window.location.search.split("?")[1].split("=")[1]);
+			$(function(){
+				$(".view_tab").css("display","flex");
+			});
 		}else{
 			name = decodeURI(window.location.search.split("?")[1].split("=")[2]);
+			userType =  decodeURI(window.location.search.split("?")[1].split("=")[1].split("&")[0]);
 			edit=true;
+			$(function(){
+				$(".view_tab").css("display","none");
+			});
 		}
 		if (userType=="super") {
 			$(function(){
-				$("#id_div_star").show();
+				$("#id_div_star").css("display","flex");
 			});
 		}else{
 			$(function(){
 				$("#id_div_star").hide();
 			});
 		}
+		if (userType.search("super")>=0) {  //任何一种管理员
+			$(function(){
+				$(".view_tab").css("display","none");
+				$(".view_title").hide();
+				$("#id_btn_goBefore").hide();
+			});
+		}else{
+			$(function(){
+				$(".view_tab").css("display","flex");
+				$(".view_title").css("display","flex");
+				$("#id_btn_goBefore").css("display","flex");
+			});
+		}
 		starSelected = 0;
 		if (name!="") {
 			var request = new XMLHttpRequest;
-			request.open("GET","../ajax/getData_sql.php?flag=transComp_one$compName="+name);
+			request.open("GET","../ajax/getData_sql.php?flag=transComp_one_edit&compName="+name);
 			request.send();
 			request.onreadystatechange = function(){
 				if (request.readyState===4) {
@@ -247,7 +264,7 @@
 							$("#id_compName").val(firstName);
 							var selector = "#id_compName_last>option[value='"+lastName+"']";
 							$(selector).attr("selected",true);
-							$("#idregiste_money").val(result.registe_money);
+							$("#id_registe_money").val(result.registe_money);
 							$("#id_registe_address").val(result.registe_address);
 							$("#id_registe_date").val(result.registe_date);
 							$("#id_registe_valid_date").val(result.registe_valid_date);
@@ -255,7 +272,7 @@
 							$("#id_corporation_phone").val(result.corporation_phone);
 							$("#id_charge_person").val(result.charge_person);
 							$("#id_charge_phone").val(result.charge_phone);
-							$("#id_qualification").val(result.id_qualification);
+							$("#id_qualification").val(result.qualification);
 							$("#id_btn_goBefore").hide();
 							var myscope = result.scope;
 							if (myscope.search("person")>=0) {
@@ -341,7 +358,6 @@
 				document.getElementById("id_warn_scope").style.display = "none";
 				done++;
 			}
-
 			if (document.getElementById("id_compName").value=="") {
 				document.getElementById("id_warn_compName").style.display = "block";
 			}else{
@@ -404,9 +420,12 @@
 			}
 		}
 		function checkIfExist(){
-			if (edit = false) {
+			if (edit == false) {
+				var compLastNames = document.getElementById("id_compName_last");
+				var sindex = compLastNames.selectedIndex;
+				var compName = document.getElementById("id_compName").value+compLastNames.options[sindex].value;
 				var request = new XMLHttpRequest;
-				request.open("GET","../ajax/ifExist.php?flag=compName&compType=tb_transcomp&compName="+document.getElementById("id_compName").value);
+				request.open("GET","../ajax/ifExist.php?flag=FullcompName&compType=tb_transcomp&compName="+compName);
 				request.send();
 				request.onreadystatechange = function(){
 					if (request.readyState===4) {
@@ -420,7 +439,7 @@
 							}else{
 								exist = true;
 								$(function(){
-									$("#id_warn_exist").show();
+									$("#id_warn_exist").css("display","flex");
 								});
 							}
 						}else{
@@ -454,21 +473,33 @@
 			}
 			return scope;
 		}
+		//编辑的都有哪些
 		changes = "";
 		function change(FLAG){
-			if (changes.search(FLAG)<0) {
-				changes = changes+","+FLAG;
+			if (edit==true) {
+				if (changes.search(FLAG)<0) {
+					changes = changes+","+FLAG;
+				}
 			}
-			changes.substr(1,changes.length-1);
 		}
 		function addComp(){
 			if (edit==true) {
+				changes = changes.substr(1,changes.length-1);
 				var columns = changes.split(",");
-				var sql = "update tb_transcomp set"
-				for (var i = 0; i <columns.length; i++) {
+				var sql = "update tb_transcomp set "
+				if (changes.length>0) {
+					for (var i = 0; i <columns.length; i++) {
 					sql = sql+columns[i]+"='"+document.getElementById("id_"+columns[i]).value+"',"
+					}
 				}
-				sql = sql+"scope='"+getScope()+"',star="+starSelected+"where name='"+name+"'";
+				sql = sql+"scope='"+getScope()+"',star="+starSelected;
+				var compLastNames = document.getElementById("id_compName_last");
+				var sindex = compLastNames.selectedIndex;
+				var compName = document.getElementById("id_compName").value+compLastNames.options[sindex].value;
+				if (compName!=name) {
+					sql = sql+",name='"+compName+"'";
+				}
+				sql = sql+" where name='"+name+"'";
 				var request = new XMLHttpRequest;
 				request.open("POST","../ajax/updateDB.php",true);
 				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
@@ -477,8 +508,10 @@
 					if (request.readyState===4) {
 						if (request.status===200) {
 							var result = request.responseText;
-							console.log(result);
 							alert(result);
+							if (result=="更新成功") {
+								window.close();
+							}
 						}else{
 							alert("error:"+request.status);
 						}
@@ -511,7 +544,12 @@
 							if (request.status===200) {
 								var result = JSON.parse(request.responseText);
 								if (result.success) {
-									window.location.href ="logup_Step3_administer.html?compName="+document.getElementById("id_compName").value+"&usertype=transcomp";
+									if (userType.search("super")<0) {
+										window.location.href ="logup_Step3_administer.html?compName="+document.getElementById("id_compName").value+"&usertype=transcomp";
+									}else{
+										alert("添加成功");
+										window.close();
+									}
 								}else{
 									alert("添加出错！错误原因："+result.reason);
 								}

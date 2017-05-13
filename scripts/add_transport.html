@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>汽车评星系统-注册</title>
+	<title>客运站</title>
 	<link rel="icon" type="image/png" href="../images/icon_star2.png">
 	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
 	<script type="text/javascript" src="../styles/myjs.js"></script>
@@ -120,9 +120,6 @@
 			<img class="img_title" src="../images/login_back.jpg">
 			<p class="text_title">汽车评星系统 | 注册</p>
 		</div>
-		<div class="view_title_client">
-		<!-- 这里先留着，回来如果需要的话，可以加一个用户的图标，是space-between的效果 -->
-		</div>
 	</div>
 	<div class="view_container">
 		<ul class="view_tab">
@@ -142,7 +139,7 @@
 				<p class="text_DivName">客运站基本信息</p>
 				<div class="view_ItemDiv_info" style="margin-bottom: 5px;">
 					<p class="text_inputName" style="width: 90px;">客运站名称</p>
-					<input id="id_compName" type="text"  class="text_itemInput" onblur="checkIfExist()" style="width: 150px;">
+					<input id="id_name" type="text"  class="text_itemInput" onblur="checkIfExist()" style="width: 150px;" onchange="change('name')">
 					<div class="div_warn" id="id_div_star" style="margin-left: 25px;margin-right: 20px;">
 						<p class="text_inputName" style="width: 36px;">星级</p>
 						<img class="img_icon" id="id_star1" onmouseover="wantToselect('id_star1')" onmouseout="cancelWant('id_star1')" onclick="selectStar('id_star1')" src="../images/star_gray.png">
@@ -159,14 +156,14 @@
 				</div>
 				<div class="view_ItemDiv_info" style="margin-top: 23px;">
 					<p class="text_inputName" style="width: 115px;" >客运站地理位置</p>
-					<input id="id_location" type="text"  class="text_itemInput" style="width: 365px;">
+					<input id="id_location" type="text"  class="text_itemInput" style="width: 365px;" onchange="change('location')">
 					<p class="text_warn" id="id_warn_location" style="display: none;">*</p>
 				</div>
 				<div class="view_ItemDiv_info">
 					<p class="text_inputName">创立日期</p>
-					<input id="id_registe_date" type="date" class="text_itemInput" style="width: 145px;margin-right: 20px;padding-left:10px;">   <!--值是2017-01-03的形式-->
+					<input id="id_registe_date" type="date" class="text_itemInput" style="width: 145px;margin-right: 20px;padding-left:10px;" onchange="change('registe_date')">   <!--值是2017-01-03的形式-->
 					<p class="text_inputName" style="width: 100px;">经营有效期至</p>
-					<input id="id_registe_valid_date" type="date" class="text_itemInput" style="width: 145px;padding-left: 10px;">
+					<input id="id_registe_valid_date" type="date" class="text_itemInput" style="width: 145px;padding-left: 10px;" onchange="change('registe_valid_date')">
 					<p class="text_warn" id="id_warn_date" style="display: none;">*</p>
 				</div>
 			</div>
@@ -175,9 +172,9 @@
 				<p class="text_DivName">客运站联系方式</p>
 				<div class="view_ItemDiv_info">
 					<p class="text_inputName" style="width: 86px;">主要负责人</p>
-					<input id="id_charge_person"  type="text"  class="text_itemInput" style="width: 90px;">
+					<input id="id_charge_person"  type="text"  class="text_itemInput" style="width: 90px;" onchange="change('charge_person')">
 					<p class="text_inputName" maxlength="11" style="margin-left: 10px; width: 40px;">电话</p>
-					<input id="id_charge_phone"  type="text"  class="text_itemInput" maxlength="11">
+					<input id="id_charge_phone"  type="text"  class="text_itemInput" maxlength="11" onchange="change('charge_phone')">
 					<p class="text_warn" id="id_warn_charge" style="display: none;">*</p>
 				</div>
 			</div>
@@ -194,8 +191,22 @@
 	</div>
 	<script type="text/javascript">
 		exist = false;
-		userType = window.location.search.split("?")[1].split("=")[1];
-		starSelected = 0;
+		edit = false;
+		if (window.location.search.search('&')<0) {
+			name="";
+			edit=false;
+			userType =  decodeURI(window.location.search.split("?")[1].split("=")[1]);
+			$(function(){
+				$(".view_tab").css("display","flex");
+			});
+		}else{
+			name = decodeURI(window.location.search.split("?")[1].split("=")[2]);
+			userType =  decodeURI(window.location.search.split("?")[1].split("=")[1].split("&")[0]);
+			edit=true;
+			$(function(){
+				$(".view_tab").css("display","none");
+			});
+		}
 		if (userType=="super") {
 			$(function(){
 				$("#id_div_star").show();
@@ -205,6 +216,59 @@
 				$("#id_div_star").hide();
 			});
 		}
+		if (userType.search("super")>=0) {  //任何一种管理员
+			$(function(){
+				$(".view_tab").css("display","none");
+				$(".view_title").css("display","none");
+				$("#id_btn_goBefore").hide();
+			});
+		}else{
+			$(function(){
+				$(".view_tab").css("display","flex");
+				$(".view_title").css("display","flex");
+				$("#id_btn_goBefore").css("display","flex");
+			});
+		}
+		if (name!="") {
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=transport_one_edit&compName="+name);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						$(function(){
+							$("#id_name").val(name);
+							$("#id_location").val(result.location);
+							$("#id_registe_date").val(result.registe_date);
+							$("#id_registe_valid_date").val(result.registe_valid_date);
+							$("#id_charge_person").val(result.charge_person);
+							$("#id_charge_phone").val(result.charge_phone);
+							$("#id_btn_goBefore").hide();
+						});
+						starSelected=result.star;
+						var i=1;
+						while(i<=starSelected){
+							var id = 'id_star'+i;
+							document.getElementById(id).src="../images/star_gold.png";
+							i++;
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		if (userType=="super") {
+			$(function(){
+				$("#id_div_star").show();
+			});
+		}else{
+			$(function(){
+				$("#id_div_star").hide();
+			});
+		}
+		starSelected = 0;
 		function selectStar(starID){
 			var i = starID.substr(starID.length-1,1);
 			i = parseInt(i);
@@ -262,100 +326,149 @@
 			}
 		}
 		function checkIfExist(){
-			var request = new XMLHttpRequest;
-			request.open("GET","../ajax/ifExist.php?flag=compName&compType=tb_transport&compName="+document.getElementById("id_compName").value,true);
-			request.send();
-			request.onreadystatechange = function(){
-				if (request.readyState===4) {
-					if (request.status===200) {
-						var result = JSON.parse(request.responseText);
-						if (result.length==0) {
-							exist = false;
-							$(function(){
-								$("#id_warn_exist").hide();
-							});
+			if (edit==false) {
+				var request = new XMLHttpRequest;
+				request.open("GET","../ajax/ifExist.php?flag=FullcompName&compType=tb_transport&compName="+document.getElementById("id_name").value,true);
+				request.send();
+				request.onreadystatechange = function(){
+					if (request.readyState===4) {
+						if (request.status===200) {
+							console.log(request.responseText);
+							var result = JSON.parse(request.responseText);
+							if (result.length==0) {
+								exist = false;
+								$(function(){
+									$("#id_warn_exist").hide();
+								});
+							}else{
+								exist = true;
+								$(function(){
+									$("#id_warn_exist").css("display","flex");
+								});
+							}
 						}else{
-							exist = true;
-							$(function(){
-								$("#id_warn_exist").show();
-							});
+							alert("error:"+request.status);
 						}
-					}else{
-						alert("error:"+request.status);
 					}
 				}
 			}
 		}
+		//编辑的都有哪些
+		changes = "";
+		function change(FLAG){
+			if (edit==true) {
+				if (changes.search(FLAG)<0) {
+					changes = changes+","+FLAG;
+				}
+			}
+		}
 		function addComp(){
-			var doneNum = 0;
-			var done = false;
-			var compName = document.getElementById("id_compName").value;
-			var location = document.getElementById("id_location").value;
-			var charge_phone = document.getElementById("id_charge_phone").value;
-			var charge_person = document.getElementById("id_charge_person").value;
-			var registe_date = document.getElementById("id_registe_date").value;
-			var registe_valid_date=document.getElementById("id_registe_valid_date").value;
-			if (compName==""){
-				document.getElementById("id_warn_compName").style.display = "block";
-				console.log("compName_warn");
-			}else{
-				doneNum++;
-				document.getElementById("id_warn_compName").style.display = "none";
-			}
-			if(location==""){
-				document.getElementById("id_warn_location").style.display = "block";
-			}else{
-				doneNum++;
-				document.getElementById("id_warn_location").style.display = "none";
-			} 
-			if(charge_phone=""||charge_person==""){
-				document.getElementById("id_warn_charge").style.display = "block";
-			}else{
-				document.getElementById("id_warn_charge").style.display = "none";
-				doneNum++;
-			} 
-			if(registe_date==""||registe_valid_date==""){
-				document.getElementById("id_warn_date").style.display = "block";
-			}else{
-				document.getElementById("id_warn_date").style.display = "none";
-				doneNum ++;
-			}
-			if (userType=="super") {
-				if (!starSelected) {
-					document.getElementById("id_warn_compName").style.display = "block";
-				}else{
-					doneNum ++;
-					document.getElementById("id_warn_compName").style.display = "none";
+			if (edit==true) {
+				changes = changes.substr(1,changes.length-1);
+				var columns = changes.split(",");
+				var sql = "update tb_transport set "
+				if (changes.length>0) {
+					for (var i = 0; i <columns.length; i++) {
+					sql = sql+columns[i]+"='"+document.getElementById("id_"+columns[i]).value+"',"
+					}
 				}
-				if (doneNum===5) {
-					done = true;
-				}else{
-					done = false;
-				}
-			}else{
-				if (doneNum===4) {
-					done = true;
-				}else{
-					done = false;
-				}
-			}
-			console.log(done);
-			if (done && (!exist)) {
+				sql = sql+"star="+starSelected+" where name='"+name+"'";
+				console.log("sql:"+sql);
 				var request = new XMLHttpRequest;
-				request.open("POST","../ajax/WriteDB.php",true);
+				request.open("POST","../ajax/updateDB.php",true);
 				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-				request.send("flag=add_transport&compName="+compName+"&location="+location+"&charge_phone="+charge_phone+"&charge_person="+charge_person+"&registe_date="+registe_date+"&registe_valid_date="+registe_valid_date+"&star="+starSelected);
+				request.send("sql="+sql+"&flag=update");
 				request.onreadystatechange = function(){
 					if (request.readyState===4) {
 						if (request.status===200) {
-							var result = JSON.parse(request.responseText);
-							if (result.success) {
-								window.location.href ="logup_Step3_administer.html?compName="+document.getElementById("id_compName").value+"&userType=transport";
-							}else{
-								alert("添加出错！错误原因："+result.reason);
+							var result = request.responseText;
+							console.log(result);
+							alert(result);
+							if (result=="更新成功") {
+								window.close();
 							}
 						}else{
 							alert("error:"+request.status);
+						}
+					}
+				}
+			}else{
+				var doneNum = 0;
+				var done = false;
+				var compName = document.getElementById("id_name").value;
+				var location = document.getElementById("id_location").value;
+				var charge_phone = document.getElementById("id_charge_phone").value;
+				console.log(charge_phone);
+				var charge_person = document.getElementById("id_charge_person").value;
+				var registe_date = document.getElementById("id_registe_date").value;
+				var registe_valid_date=document.getElementById("id_registe_valid_date").value;
+				if (compName==""){
+					document.getElementById("id_warn_compName").style.display = "block";
+					console.log("compName_warn");
+				}else{
+					doneNum++;
+					document.getElementById("id_warn_compName").style.display = "none";
+				}
+				if(location==""){
+					document.getElementById("id_warn_location").style.display = "block";
+				}else{
+					doneNum++;
+					document.getElementById("id_warn_location").style.display = "none";
+				} 
+				if(charge_phone==""||charge_person==""){
+					document.getElementById("id_warn_charge").style.display = "block";
+				}else{
+					document.getElementById("id_warn_charge").style.display = "none";
+					doneNum++;
+				} 
+				if(registe_date==""||registe_valid_date==""){
+					document.getElementById("id_warn_date").style.display = "block";
+				}else{
+					document.getElementById("id_warn_date").style.display = "none";
+					doneNum ++;
+				}
+				if (userType=="super") {
+					if (!starSelected) {
+						document.getElementById("id_warn_compName").style.display = "block";
+					}else{
+						doneNum ++;
+						document.getElementById("id_warn_compName").style.display = "none";
+					}
+					if (doneNum===5) {
+						done = true;
+					}else{
+						done = false;
+					}
+				}else{
+					if (doneNum===4) {
+						done = true;
+					}else{
+						done = false;
+					}
+				}
+				if (done && (!exist)) {
+					var request = new XMLHttpRequest;
+					request.open("POST","../ajax/WriteDB.php",true);
+					request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+					request.send("flag=add_transport&compName="+compName+"&location="+location+"&charge_phone="+charge_phone+"&charge_person="+charge_person+"&registe_date="+registe_date+"&registe_valid_date="+registe_valid_date+"&star="+starSelected);
+					request.onreadystatechange = function(){
+						if (request.readyState===4) {
+							if (request.status===200) {
+								console.log(request.responseText);
+								var result = JSON.parse(request.responseText);
+								if (result.success) {
+									if (userType.search("super")<0) {
+										window.location.href ="logup_Step3_administer.html?compName="+document.getElementById("id_name").value+"&userType=transport";
+									}else{
+										alert("添加成功");
+										window.close();
+									}	
+								}else{
+									alert("添加出错！错误原因："+result.reason);
+								}
+							}else{
+								alert("error:"+request.status);
+							}
 						}
 					}
 				}

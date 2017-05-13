@@ -338,6 +338,9 @@
 									document.getElementById('id_warnText').innerHTML = "您还未注册，请先注册！";
 									document.getElementById("id_cantLoginBox").style.display = "flex";
 									changeVerifyCode();
+									document.getElementById("id_imgWarn").src = "../images/null.png";
+									checkpass=false;
+									document.getElementById("id_verifyCode").value="";
 									break;
 								case "pass":
 									window.location.href = "hello.html";
@@ -345,6 +348,9 @@
 								case "error":
 									document.getElementById('id_warnText').innerHTML = "密码错误！";
 									changeVerifyCode();
+									document.getElementById("id_imgWarn").src = "../images/null.png";
+									checkpass=false;
+									document.getElementById("id_verifyCode").value="";
 									break;
 							}
 						}else{

@@ -247,35 +247,35 @@
 			$("#id_a_compName").attr("href",encodeURI("show_mainComp_one.html?compName="+compName));
 		});
 		var request = new XMLHttpRequest();
-				request.open("GET","../ajax/getData_sql.php?flag=mainComp_one&compName="+compName,true);
-				request.send();
-				request.onreadystatechange = function(){
-					if (request.readyState===4) {
-						if (request.status===200) {
-							var result = JSON.parse(request.responseText);
-							$(function(){
-								if(result.main_classify=="1"){
-									$("#id_main_classify").html("一级维护");
-								}
-								else if(result.main_classify=="2"){
-									$("#id_main_classify").html("二级维护");
-								}
-
-								$("#id_scope").html(result.scope);
-								$("#id_chargerPhone").html(result.charge_phone);
-								$("#id_chargerName").html(result.charge_person);
-								$("#id_compAddress").html(result.registe_address);
-								while(result.star>0){
-									var id = "#id_star"+result.star;
-									$(id).attr("src","../images/star_gold.png");
-									result.star--;
-								}
-							});
-						}else{
-							alert("error"+request.status);
+		request.open("GET","../ajax/getData_sql.php?flag=mainComp_one&compName="+compName,true);
+		request.send();
+		request.onreadystatechange = function(){
+			if (request.readyState===4) {
+				if (request.status===200) {
+					var result = JSON.parse(request.responseText);
+					$(function(){
+						if(result.main_classify=="1"){
+							$("#id_main_classify").html("一级维护");
 						}
-					}
+						else if(result.main_classify=="2"){
+							$("#id_main_classify").html("二级维护");
+						}
+
+						$("#id_scope").html(result.scope);
+						$("#id_chargerPhone").html(result.charge_phone);
+						$("#id_chargerName").html(result.charge_person);
+						$("#id_compAddress").html(result.registe_address);
+						while(result.star>0){
+							var id = "#id_star"+result.star;
+							$(id).attr("src","../images/star_gold.png");
+							result.star--;
+						}
+					});
+				}else{
+					alert("error"+request.status);
 				}
+			}
+		}
 	</script>
 </body>
 </html>

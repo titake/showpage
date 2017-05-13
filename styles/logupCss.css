@@ -171,13 +171,15 @@ button{
 	margin: 0px;
 }
 .text_warn{
-	margin-left: 4px;
 	font-size: 14.5px;
 	font-family: 宋体;
 	color: #ff0000;
 	font-weight: 600;
 	display: inline;
 	text-align: left;
+	padding: 0px;
+	margin: 0px;
+	margin-left: 4px;
 }
 /*footer*/
 .view_footer{

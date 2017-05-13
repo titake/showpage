@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>车辆信息</title>
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<script type="text/javascript" src="../styles/myjs.js"></script>
+	<script type="text/javascript" src="../lib/jquery-3.2.0.js"></script>
+	<style type="text/css">
+		/*驾驶员信息模块样式*/
+		.view_driverInfo{
+			display: flex;
+			flex-direction: column;
+			width: 900px;
+			justify-content: flex-start;
+			align-items: center;
+		}
+		/*子模块样式*/
+		.view_BigDiv_info{
+			display: flex;
+			flex-direction: column;
+			width: 820px;
+			justify-content: flex-start;
+			align-items: center;
+			border: none;
+			border-bottom: dashed 1px #a0a0a0;
+			padding-bottom: 50px;
+			padding-top: 14px;
+		}
+		.text_DivName{
+			width: 820px;
+			font-size: 14.5px;
+			font-family: 黑体;
+			color: #585858;
+			font-weight: 600;
+			margin-bottom: 30px;
+			text-align: center;			
+		}
+		/*子模块中每行div的样式*/
+		.text_input{
+			width: 220px;
+			height: 34px;
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			padding-left: 8px;
+			overflow: hidden;
+			border: solid;
+			border-color: #DBDBDB;
+			border-width: 1px;
+			border-radius: 4px;
+			margin: 0px;
+		}
+		.text_chexbox{
+			width: 55px;
+			height: 30px;
+			margin: 0px;
+			font-size: 14.5px;
+			font-family: 宋体;
+			color: #585858;
+			font-weight: 600;
+			display: inline;
+			text-align: left;
+		}
+		.checkbox_css{
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			margin-left: 8px;
+		}
+		.content_item_column{
+			display: flex;
+			flex-direction: column;
+			width: 120px;
+			align-items: flex-start;
+			justify-content: flex-start;
+		}
+		.content_item_row{
+			display: flex;
+			flex-direction: row;
+			width: 276px;
+			align-items: flex-start;
+		}
+		.img_driver{
+			width: 140px;
+			height: 140px;
+			margin-left: 10px;
+			background-image: url('../images/up.png');
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+		.textPs_item{
+			font-size: 14.5px;
+			color: #959595;
+			margin-top: 8px;
+		}
+		.text_option{
+			width: 180px;
+			height: 34px;
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #585858;
+			padding-left: 20px;
+			overflow: hidden;
+			border: solid;
+			border-color: #DBDBDB;
+			border-width: 1px;
+			border-radius: 4px;
+			margin-left: 5px;
+		}
+		.btn_logup{
+			width: 120px;
+			height: 38px;
+			background: #00B20B;
+			border: none;
+			border-radius: 4px;
+			color: #fff;
+			padding: 0px;
+			text-align: center;
+			font-size: 14.5px;
+			margin-bottom: 50px;
+		}
+		.view_left{
+			width: 352.5px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-end;
+		}
+		.view_right{
+			width: 352.5px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			border-left: dotted 1px #999;
+		}
+		.btn_block{
+			height: 40px;
+			width: 120px;
+			background: rgba(90,90,90,0.9);
+			color: rgba(255,255,255,0.9);
+			font-family: 黑体;
+			font-size: 14.5px;
+			border-radius: 2px;
+			border: none;
+			margin-right: 35px;
+		}
+		.div_star{
+			margin-left: 35px;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: flex-end;
+		}
+		.ul_prompt{
+			margin: 0px;
+			padding: 0px;
+			border: solid 1px #ccc;
+		}
+		.li_prompt{
+			margin:0px;
+			padding: 0px;
+			height: 35px;
+			width:100%;
+			list-style: none;
+			font-family: 宋体;
+			font-size: 14.5px;
+			color: #141414;
+		}
+	</style>
+</head>
+<body>
+	<div class="view_content_column" style="margin-top: 30px;">
+		<div class="view_driverInfo">
+			<!--基本信息模块-->
+			<div class="view_BigDiv_info">
+				<p class="text_DivName">车辆基本信息</p>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName">车辆照片</p>
+					<div class="img_driver" id="id_div_photo">
+						<form action="../admin/uploadCarPhoto.php" enctype="multipart/form-data" method="post" id="id_form_img">
+							<input type="file" style="opacity: 0;filter: alpha(opacity=10);width: 150px;height: 150px;" name="photo_driver" onchange="document.getElementById('id_form_img').submit()">
+						</form>
+					</div>
+					<p class="text_warn" id="id_warn_photo" style="display: none;margin-left: 20px;"></p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName">车牌号</p>
+					<input type="text" id="id_plate_num" onfocus="checkPhoto()" class="text_input" style="width: 100px" onchange="change('plate_num')">
+					<p class="text_inputName" style="width: 80px;margin-left: 33px;">品牌与型号</p>
+					<input type="text" id="id_car_brand" class="text_input" style="width: 192px" onchange="change('car_brand')">
+					<p class="text_inputName" style="margin-left: 33px;">车辆类型</p>
+					<input type="text" id="id_car_classify" class="text_input" style="width: 102px" onchange="change('car_classify')">
+					<p class="text_warn" id="id_warn_plate_num" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName">发动机号</p>
+					<input type="text" id="id_engine_num" class="text_input" style="width: 162px;" onchange="change('engine_num')">
+					<p class="text_inputName" style="width: 80px;margin-left: 33px;">车辆识别号</p>
+					<input type="text" id="id_vin" class="text_input" style="width: 162px" onchange="change('vin')">
+					<p class="text_warn" id="id_warn_engine_num" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName">运营证号</p>
+					<input type="text" id="id_operate_num" class="text_input" style="width: 162px" onchange="change('operate_num')">
+					<p id="id_file" class="text_inputName" style="margin-left: 43px;">档案编号</p>
+					<input type="text" id="id_file_num" class="text_input" style="width: 162px" onchange="change('file_num')">
+					<p class="text_inputName" style="margin-left: 33px;">核载人数</p>
+					<input type="text" id="id_people_num" class="text_input" style="width: 64px" onchange="change('people_num')">
+					<p class="text_warn" id="id_warn_operate_num" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName">注册日期</p>
+					<input id="id_date_registe" class="text_input" type="date" style="width: 162px;" onchange="change('date_registe')">
+					<p class="text_inputName" style="margin-left: 43px;">发证日期</p>
+					<input id="id_date_getLicence" class="text_input" type="date" style="width: 162px;" onchange="change('date_getLicence')">
+					<p class="text_warn" id="id_warn_registe" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName">年审日期</p>
+					<input id="id_date_verify" class="text_input" type="date" style="width: 162px;" onchange="change('date_verify')">
+					<p class="text_inputName" style="width: 80px; margin-left: 33px;">检验有效期</p>
+					<input id="id_date_valid" class="text_input" type="date" style="width: 162px;" onchange="change('date_valid')">
+					<p class="text_warn" id="id_warn_verify" style="display: none;">*</p>
+				</div>
+				<!-- 危险品货车独有 -->
+				<div class="view_ItemDiv_info" id="id_danger">
+					<p class="text_inputName" style="width: 80px;">危险品名称</p>
+					<input type="text" id="id_danger_name" class="text_input" style="width: 162px" onchange="change('danger_name')">
+					<p class="text_warn" id="id_warn_danger" style="display: none;">*</p>
+				</div>
+				<!-- 班车，公交车有共同点 -->
+				<div class="view_ItemDiv_info" id="id_bus">
+					<p class="text_inputName">运营里程</p>
+					<input type="text" id="id_operate_mileage" class="text_input" style="width: 102px" maxlength="30" onchange="change('operate_mileage')">
+					<!-- 线路牌有效期是班车独有 -->
+					<p class="text_inputName" style="width: 93px;margin-left: 33px;" id="id_shuttle">线路牌有效期</p>
+					<input type="date" id="id_operate_valid_date" class="text_input" style="width: 134px" onchange="change('operate_valid_date')">
+					<p class="text_warn" id="id_warn_operate" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info" id="id_bus2">
+					<p class="text_inputName">运营线路</p>
+					<textarea id="id_operate_line" style="width: 615px;height: 76px;" onchange="change('operate_line')"></textarea>
+					<p class="text_warn" id="id_warn_operate_line" style="display: none;">*</p>
+				</div>
+				<!-- 出租车独有 -->
+				<div class="view_ItemDiv_info" id="id_taxi">
+					<p class="text_inputName" style="width: 80px;">经营有效期</p>
+					<input type="date" id="id_date_opera_valid" class="text_input" style="width: 162px" onchange="change('date_opera_valid')">
+					<p class="text_warn" id="id_warn_taxi" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info" style="margin-bottom: 0px;">
+					<p class="text_inputName">所属企业</p>
+					<input type="text" id="id_comp_name" class="text_input" style="width: 615px" onkeyup="checkComp()" onchange="change('comp_name')">
+					<p class="text_warn" id="id_warn_comp" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info" style="display: none;" id="id_prompt_comp">
+					<p class="text_inputName"></p>
+					<ul class="ul_prompt" style="width: 624.33px;" id="id_promptUL_comp">
+						<li class="li_prompt"></li>
+					</ul>
+				</div>
+			</div>
+			<!--保险信息模块-->
+			<div class="view_BigDiv_info">
+				<p class="text_DivName">保险信息</p>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName" style="width: 113px;">交强险单号</p>
+					<input id="id_impunity_num"  type="text" class="text_input"  onchange="change_insur('impunity_num')">
+					<p class="text_inputName" style="margin-left: 64px;">到期时间</p>
+					<input id="id_impunity_date"  type="date" class="text_input" onchange="change_insur('impunity_date')" >
+					<p class="text_warn" id="id_warn_impunity" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName" style="width: 113px;">商业险单号</p>
+					<input id="id_commercial_num"  type="text" class="text_input"  onchange="change_insur('commercial_num')">
+					<p class="text_inputName" style="margin-left: 64px;">到期时间</p>
+					<input id="id_commercial_date"  type="date" class="text_input" onchange="change_insur('commercial_date')" >
+					<p class="text_warn" id="id_warn_commercial" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName" style="width: 113px;">承运责任险单号</p>
+					<input id="id_liability_num"  type="text" class="text_input"  onchange="change_insur('liability_num')">
+					<p class="text_inputName" style="margin-left: 64px;">到期时间</p>
+					<input id="id_liability_date"  type="date" class="text_input" onchange="change_insur('liability_date')" >
+					<p class="text_warn" id="id_warn_liability" style="display: none;">*</p>
+				</div>
+				<div class="view_ItemDiv_info">
+					<p class="text_inputName" style="width: 113px;">投保公司</p>
+					<input id="id_insur_comp_name"  type="text" class="text_input" onchange="change_insur('insur_comp_name')" >
+					<p class="text_inputName" style="margin-left: 64px;">联系电话</p>
+					<input id="id_comp_phone"  type="text" maxlength="11" class="text_input" onchange="change_insur('comp_phone')" >
+					<p class="text_warn" id="id_warn_insurcomp" style="display: none;">*</p>
+				</div>
+			</div>
+			<!-- 关联司机模块 -->
+			<div class="view_BigDiv_info" id="id_div_permi" style="border-bottom: none;">
+				<p class="text_DivName">关联驾驶员信息</p>
+				<div class="view_ItemDiv_info" style="justify-content: center;">
+					<p class="text_inputName" style="width: 126px" >驾驶员一身份证号</p>
+					<input id="id_driver1" type="text" maxlength="20" name="driver_phone1" class="text_input" onblur="checkDriver1()"  onchange="change('driver1')">
+					<p class="text_warn" id="id_warn_driver1" style="display: none;">该驾驶员不存在！</p>
+				</div>
+				<div class="view_ItemDiv_info" style="justify-content: center;">
+					<p class="text_inputName" style="width: 126px;">驾驶员二身份证号</p>
+					<input id="id_driver2" class="text_input" type="text" maxlength="20" name="driverLicense_gainTime" style="margin-right: 0px;" onblur="checkdriver2()" onchange="change('driver2')">
+					<p class="text_warn" id="id_warn_driver2" style="display: none;">该驾驶员不存在！</p>
+				</div>
+			</div>
+		</div>
+		<button class="btn_logup" id="id_btn_addCar" onmouseover="turnToBlur('id_btn_addCar')" onmouseout="turnToClear('id_btn_addCar')" onclick="addCar()">完成</button>
+	</div>
+	<div class="view_footer">
+		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+	</div>
+	<script type="text/javascript">
+		carType = decodeURI(window.location.search.split("?")[1].split("&")[0].split("=")[1]);  //?carType=  &upload= 顺序不可以变
+		plate_num = "";
+		switch (carType){
+			case 'taxi':
+				$(function(){
+					$("#id_danger").hide();
+					$("#id_bus").hide();
+					$("#id_bus2").hide();
+					$("#id_taxi").css("display","flex");
+				});
+				break;
+			case 'bus':
+				$(function(){
+					$("#id_danger").hide();
+					$("#id_bus").css("display","flex");
+					$("#id_bus2").css("display","flex");
+					$("#id_shuttle").hide();
+					$("#id_operate_valid_date").hide();
+					$("#id_taxi").hide();
+				});
+				break;
+			case 'shuttle':
+				$(function(){
+					$("#id_danger").hide();
+					$("#id_bus").css("display","flex");
+					$("#id_bus2").css("display","flex");
+					$("#id_taxi").css("display","none");
+				});
+				break;
+			case 'normal_truck':
+				$(function(){
+					$("#id_danger").hide();
+					$("#id_bus").hide();
+					$("#id_bus2").hide();
+					$("#id_taxi").css("display","none");
+				});
+				break;
+			case 'danger_truck':
+				$(function(){
+					$("#id_danger").css("display","flex");
+					$("#id_bus").hide();
+					$("#id_bus2").hide();
+					$("#id_taxi").css("display","none");
+					$("#id_file").hide();
+					$("#id_file_num").hide();
+				});
+				break;
+			case 'student_car':
+				$(function(){
+					$("#id_danger").hide();
+					$("#id_bus").hide();
+					$("#id_bus2").hide();
+					$("#id_taxi").css("display","none");
+					$("#id_file").hide();
+					$("#id_file_num").hide();
+				});
+				break;
+		}
+		edit = false;
+		if (decodeURI(window.location.search).search("edit=true")>0) {
+			edit = true;
+			//?carType=&upload=&edit=edit&plate_num=  顺序不可变
+			plate_num = decodeURI(location.search.split("?")[1].split("&")[3].split("=")[1]);
+		}else{
+			edit = false;
+			plate_num="";
+		}
+		//这里把车辆类型等存到session中，因为上传照片打印url跳转时，需要根据这个来添加cartype
+		var request_session = new XMLHttpRequest;
+		request_session.open("GET","../ajax/editSession.php?cartype="+carType+"&edit="+edit+"&plate_num="+plate_num+"&flag=set_car",true);
+		request_session.send();
+		request_session.onreadystatechange = function(){
+			if (request_session.readyState===4) {
+				if (request_session.status===200) {
+				}else{
+					alert("error:"+request_session.status);
+				}
+			}
+		}
+		if (edit==true) {
+			var sql = "select * from tb_"+carType+" where plate_num='"+plate_num+"';"
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=dosql_one&sql="+sql,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var response = JSON.parse(request.responseText);
+						if (response.failed==true) {
+							console.log(response.reason);
+							alert(response.reason);
+						}else{
+							$(function(){
+								$("#id_plate_num").val(response["plate_num"]);
+								$("#id_car_classify").val(response.car_classify);
+								$("#id_car_brand").val(response.car_brand);
+								$("#id_comp_name").val(response.comp_name);
+								$("#id_engine_num").val(response.engine_num);
+								$("#id_vin").val(response.vin);
+								$("#id_people_num").val(response.people_num);
+								$("#id_date_registe").val(response.date_registe);
+								$("#id_date_getLicence").val(response.date_getLicence);
+								$("#id_date_verify").val(response.date_verify);
+								$("#id_date_valid").val(response.date_valid);
+								$("#id_operate_num").val(response.operate_num);
+								$("#id_driver1").val(response.driver1);
+								$("#id_driver2").val(response.driver2);
+							});
+							switch (carType){
+								case 'taxi':
+									$(function(){
+										$("#id_file_num").val(response.file_num);
+										$("#id_date_opera_valid").val(response.date_opera_valid);
+									});
+									break;
+								case 'bus':
+									$(function(){
+										$("#id_file_num").val(response.file_num);
+										$("#id_operate_line").val(response.operate_line);
+										$("#id_operate_mileage").val(response.operate_mileage);
+									});
+									break;
+								case 'shuttle':
+									$(function(){
+										$("#id_file_num").val(response.file_num);
+										$("#id_operate_line").val(response.operate_line);
+										$("#id_operate_mileage").val(response.operate_mileage);
+										$("#id_operate_valid_date").val(response.operate_valid_date);
+									});
+									break;
+								case 'normal_truck':
+									$(function(){
+										$("#id_file_num").val(response.file_num);
+									});
+									break;
+								case 'danger_truck':
+									$(function(){
+										$("#id_danger_name").val(response.danger_name);
+									});
+									break;
+								case 'student_car':
+									break;
+							}
+						}
+						sql = "select * from tb_insurance where plate_num='"+plate_num+"';";
+						request = new XMLHttpRequest;
+						request.open("GET","../ajax/getData_sql.php?flag=dosql_one&sql="+sql,true);
+						request.send();
+						request.onreadystatechange = function(){
+							if (request.readyState===4) {
+								if (request.status===200) {
+									var response = JSON.parse(request.responseText);
+									if (response.failed==true) {
+										console.log(response.reason);
+										alert(response.reason);
+									}else{
+										$(function(){
+											$("#id_impunity_num").val(response.impunity_num);
+											$("#id_impunity_date").val(response.impunity_date);
+											$("#id_commercial_num").val(response.commercial_num);
+											$("#id_commercial_date").val(response.commercial_date);
+											$("#id_liability_num").val(response.liability_num);
+											$("#id_liability_date").val(response.liability_date);
+											$("#id_insur_comp_name").val(response.insur_comp_name);
+											$("#id_comp_phone").val(response.comp_phone);
+										});
+									}
+								}else{
+									alert("error:"+request.status);
+								}
+							}
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+
+		uploadSuccess = decodeURI(location.search.split("?")[1].split("&")[1].split("=")[1]);
+		if (uploadSuccess=="failed") {
+			$(function(){
+				$("#id_div_photo").css("background-image","url('../images/failed.png')");
+				$("#id_warn_photo").html("上传失败，请重试");
+				$("#id_warn_photo").show();
+			});
+		}else if (uploadSuccess!="") {
+			var ImgURL = "url(../uploadImg/"+uploadSuccess+")";
+			$(function(){
+				$("#id_div_photo").css("background-image",ImgURL);
+				$("#id_warn_photo").hide();
+			}); 
+		}
+		//检查图片是否上传成功
+		function checkPhoto(){
+			if (uploadSuccess=="") {
+				$(function(){
+					$("#id_warn_photo").html("请先上传照片！");
+					$("#id_warn_photo").show();
+				});
+			}
+		}
+		//查看该企业是否存在
+		compExit = false;
+		function checkComp(){
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/ifExist.php?flag=compName&compType=tb_transcomp&compName="+document.getElementById("id_comp_name").value,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var response =JSON.parse(request.responseText);
+						if (response.length<=0) {
+							console.log(response.reason);
+							compExit = false;
+							$(function(){
+								$("#id_prompt_comp").hide();
+							});
+						}else{
+							compExit = true;
+							var inner = "";
+							for (var i = 0; i <response.length; i++) {
+								inner+= '<li class="li_prompt">'+response[i] +'</li>'
+							}
+							$(function(){
+								$("#id_promptUL_comp").html(inner);
+								$("#id_promptUL_comp >li").click(function(){
+									var value = $(this).html();
+									$("#id_comp_name").val(value);
+									$("#id_prompt_comp").hide();
+								});
+								$("#id_promptUL_comp >li:even").css("backgroundColor","rgba(255,255,255,0.8)");
+								$("#id_promptUL_comp >li:odd").css("backgroundColor","rgba(230,230,230,0.8)");
+								$("#id_promptUL_comp >li").mouseover(function(){
+									$(this).css("backgroundColor","rgba(210,210,210,0.8)");
+								});
+								$("#id_promptUL_comp >li:even").mouseout(function(){
+									$(this).css("backgroundColor","rgba(255,255,255,0.8)");
+								});
+								$("#id_promptUL_comp >li:odd").mouseout(function(){
+									$(this).css("backgroundColor","rgba(230,230,230,0.8)");
+								});
+								$("#id_prompt_comp").css("display","flex");
+							});
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		//查看驾驶员是否存在
+		driverExit1 =true;
+		driverExit2 =true;
+		function checkDriver1(){
+			var idnum = document.getElementById("id_driver1").value;
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/ifExist.php?flag=driver&idnum="+idnum,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var response = JSON.parse(request.responseText);
+						if (response.length<=0) {
+							driverExit1=false;
+							console.log(response.reason);
+							$(function(){
+								$("#id_warn_driver1").show();
+							});
+						}else{
+							driverExit1 = true;
+							$(function(){
+								$("#id_warn_driver1").hide();
+							});
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		function checkdriver2(){
+			var idnum = document.getElementById("id_driver2").value;
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/ifExist.php?flag=driver&idnum="+idnum,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var response = JSON.parse(request.responseText);
+						if (response.length<=0) {
+							driverExit2=false;
+							console.log(response.reason);
+							$(function(){
+								$("#id_warn_driver2").show();
+							});
+						}else{
+							driverExit2 = true;
+							$(function(){
+								$("#id_warn_driver2").hide();
+							});
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+
+		changes_car = "";
+		changes_insur="";
+		function change(FLAG){
+			if (edit==true) {
+				if (changes_car.search(FLAG)<0) {
+					changes_car = changes_car+","+FLAG;
+				}
+			}
+		}
+		function change_insur(FLAG){
+			if (edit==true) {
+				if (changes_insur.search(FLAG)<0) {
+					changes_insur = changes_insur+","+FLAG;
+				}
+			}
+		}
+		//添加车辆
+		function addCar(){
+			if (edit==false) {
+				var done = false;
+				var doneNum = 0;
+
+				if (uploadSuccess=="") {
+					document.getElementById("id_warn_photo").innerHtml = "*";
+					document.getElementById("id_warn_photo").style.display = "block";
+				}else if (uploadSuccess!="failed") {}{
+					doneNum++;
+					document.getElementById("id_warn_photo").style.display = "none";
+				}
+
+				var plate_num_input =document.getElementById("id_plate_num").value;
+				var car_brand =document.getElementById("id_car_brand").value;
+				var car_classify =document.getElementById("id_car_classify").value;
+				if (plate_num_input==""||car_brand==""||car_classify=="") {
+					document.getElementById("id_warn_plate_num").style.display="block";
+				}else{
+					doneNum++;
+					document.getElementById("id_warn_plate_num").style.display="none";
+				}
+				var people_num = document.getElementById("id_people_num").value;
+				var file_num = document.getElementById("id_file_num").value;
+				var operate_num = document.getElementById("id_operate_num").value;
+				switch (carType){
+					case 'taxi':
+					case 'bus':
+					case 'shuttle':
+					case 'normal_truck':
+						if (operate_num==""||file_num==""||people_num=="") {
+							document.getElementById("id_warn_operate_num").style.display="block";
+						}else{
+							doneNum++;
+							document.getElementById("id_warn_operate_num").style.display="none";
+						}
+						break;
+					case 'danger_truck':
+					case 'student_car':
+						if (operate_num==""||people_num=="") {
+							document.getElementById("id_warn_operate_num").style.display="block";
+						}else{
+							doneNum++;
+							document.getElementById("id_warn_operate_num").style.display="none";
+						}
+						break;
+				}
+				//都有的 保险等 10个
+				var date_registe =document.getElementById("id_date_registe").value;
+				var date_getLicence = document.getElementById("id_date_getLicence").value;
+				if (date_registe==""||date_getLicence=="") {
+					document.getElementById("id_warn_registe").style.display="block";
+				}else{
+					doneNum++;
+					document.getElementById("id_warn_registe").style.display="none";
+				}
+				var date_verify =document.getElementById("id_date_verify").value;
+				var date_valid = document.getElementById("id_date_valid").value;
+				if (date_verify==""||date_valid=="") {
+					document.getElementById("id_warn_verify").style.display="block";
+				}else{
+					doneNum++;
+					document.getElementById("id_warn_verify").style.display="none";
+				}
+				var engine_num =document.getElementById("id_engine_num").value;
+				var vin = document.getElementById("id_vin").value;
+				if (engine_num==""||vin=="") {
+					document.getElementById("id_warn_engine_num").style.display="block";
+				}else{
+					doneNum++;
+					document.getElementById("id_warn_engine_num").style.display="none";
+				}
+				var comp_name = document.getElementById("id_comp_name").value;
+				if (comp_name=="") {
+					document.getElementById("id_warn_comp").innerHtml="*";
+					document.getElementById("id_warn_comp").style.display="block";
+				}else{
+					doneNum++;
+					document.getElementById("id_warn_comp").style.display="none";
+				}
+
+				var impunity_num = document.getElementById("id_impunity_num").value;
+				var impunity_date = document.getElementById("id_impunity_date").value;
+				if (impunity_num==""||impunity_date=="") {
+					document.getElementById("id_warn_impunity").style.display="block";
+				}else{
+					doneNum++;
+					document.getElementById("id_warn_impunity").style.display="none";
+				}
+				var commercial_num = document.getElementById("id_commercial_num").value;
+				var commercial_date = document.getElementById("id_commercial_date").value;
+				if (commercial_num==""||commercial_date=="") {
+					document.getElementById("id_warn_commercial").style.display="block";
+				}else{
+					doneNum++;
+					document.getElementById("id_warn_commercial").style.display="none";
+				}
+				var liability_num = document.getElementById("id_liability_num").value;
+				var liability_date = document.getElementById("id_liability_date").value;
+				if (liability_num==""||liability_date=="") {
+					document.getElementById("id_warn_liability").style.display="block";
+				}else{
+					doneNum++;
+					document.getElementById("id_warn_liability").style.display="none";
+				}
+				var insur_comp_name = document.getElementById("id_insur_comp_name").value;
+				var comp_phone = document.getElementById("id_comp_phone").value;
+				if (insur_comp_name==""||comp_phone=="") {
+					document.getElementById("id_warn_insurcomp").style.display="block";
+				}else{
+					doneNum++;
+					document.getElementById("id_warn_insurcomp").style.display="none";
+				}
+				var driver1 = document.getElementById("id_driver1").value;
+				var driver2 = document.getElementById("id_driver2").value;
+				if (driverExit1==true||driver1=="") {
+					doneNum ++;
+					document.getElementById("id_warn_driver1").style.display ="none";
+				}else{
+					document.getElementById("id_warn_driver1").style.display ="flex";
+				}
+				if (driverExit2==true||driver2=="") {
+					doneNum ++;
+					document.getElementById("id_warn_driver2").style.display ="none";
+				}else{
+					document.getElementById("id_warn_driver2").style.display ="flex";
+				}
+				//	
+				switch (carType){
+					case 'taxi':
+						var date_opera_valid = document.getElementById("id_date_opera_valid").value;
+						if (date_opera_valid=="") {
+							document.getElementById("id_warn_taxi").style.display="block";
+						}else{
+							doneNum++;
+							document.getElementById("id_warn_taxi").style.display="none";
+						}
+						if (doneNum===14) {
+							done = true;
+						}else{
+							done = false;
+						}
+						break;
+					case 'bus':
+						var operate_line = document.getElementById("id_operate_line").value;
+						if (operate_line=="") {
+							document.getElementById("id_warn_operate_line").style.display="block";
+						}else{
+							doneNum++;
+							document.getElementById("id_warn_operate_line").style.display="none";
+						}
+						var operate_mileage = document.getElementById("id_operate_mileage").value;
+						if (operate_mileage=="") {
+							document.getElementById("id_warn_operate").style.display="block";
+						}else{
+							doneNum++;
+							document.getElementById("id_warn_operate").style.display="none";
+						}
+						if (doneNum===15) {
+							done = true;
+						}else{
+							done = false;
+						}
+						break;
+					case 'shuttle':
+						var operate_line = document.getElementById("id_operate_line").value;
+						if (operate_line=="") {
+							document.getElementById("id_warn_operate_line").style.display="block";
+						}else{
+							doneNum++;
+							document.getElementById("id_warn_operate_line").style.display="none";
+						}
+						var operate_mileage = document.getElementById("id_operate_mileage").value;
+						var operate_valid_date = document.getElementById("id_operate_valid_date").value;
+						if (operate_mileage==""||operate_valid_date=="") {
+							document.getElementById("id_warn_operate").style.display="block";
+						}else{
+							doneNum++;
+							document.getElementById("id_warn_operate").style.display="none";
+						}
+						if (doneNum===15) {
+							done = true;
+						}else{
+							done = false;
+						}
+						break;
+					case 'danger_truck':
+						var danger_name = document.getElementById("id_danger_name").value;
+						if (danger_name=="") {
+							document.getElementById("id_warn_danger").style.display="block";
+						}else{
+							doneNum++;
+							document.getElementById("id_warn_danger").style.display="none";
+						}
+						if (doneNum===14) {
+							done = true;
+						}else{
+							done = false;
+						}
+						break;
+					case 'normal_truck':
+					case 'student_car':
+						if (doneNum===13) {
+							done = true;
+						}else{
+							done = false;
+						}
+						break;
+				}
+				if (done) {
+					var sql_car = "insert tb_"+carType+" values('"+plate_num_input+"','"+car_classify+"','"+car_brand+"','"+comp_name+"','"+engine_num+"','"+vin+"','"+people_num+"','"+date_registe+"','"+date_getLicence+"','"+date_verify+"','"+date_valid+"','"+uploadSuccess+"','"+operate_num;
+					switch (carType){
+						case 'taxi':
+							sql_car = sql_car+"','"+file_num+"','"+date_opera_valid+"','"+driver1+"','"+driver2+"');";
+							break;
+						case 'bus':
+							sql_car = sql_car+"','"+file_num+"','"+operate_line+"','"+operate_mileage+"','"+driver1+"','"+driver2+"');";
+							break;
+						case 'shuttle':
+							sql_car = sql_car+"','"+file_num+"','"+operate_line+"','"+operate_mileage+"','"+operate_valid_date+"','"+driver1+"','"+driver2+"');";
+							break;
+						case 'danger_truck':
+							sql_car = sql_car+"','"+danger_name+"','"+driver1+"','"+driver2+"');";
+							break;
+						case 'normal_truck':
+							sql_car = sql_car+"','"+file_num+"','"+driver1+"','"+driver2+"');";
+							break;
+						case 'student_car':
+							sql_car = sql_car+"','"+driver1+"','"+driver2+"');";
+							break;
+					}
+					var sql_insur = "insert tb_insurance values('"+plate_num_input+"','"+impunity_num+"','"+impunity_date+"','"+commercial_num+"','"+commercial_date+"','"+liability_num+"','"+liability_date+"','"+insur_comp_name+"','"+comp_phone+"');";
+					var request = new XMLHttpRequest;
+					request.open("POST","../ajax/WriteDB.php",true);
+					request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+					request.send("sqlCar="+sql_car+"&sqlInsur="+sql_insur+
+						"&flag=add_car");
+					request.onreadystatechange = function(){
+						if (request.readyState===4) {
+							if (request.status===200) {
+								console.log("response:"+request.responseText);
+								var response = JSON.parse(request.responseText);
+								if (response.success) {
+									alert("添加成功")
+									window.close();
+								}else{
+									alert("添加失败"+response.reason);
+								}
+							}else{
+								alert("error:"+request.status);
+							}
+						}
+					}
+				}
+			}else{
+				changes_car = changes_car.substr(1,changes_car.length-1);
+				changes_insur = changes_insur.substr(1,changes_insur.length-1);
+				var columns_car = changes_car.split(",");
+				var sql_car = "update tb_"+carType+" set ";
+				if (changes_car.length>0) {
+					for (var i = 0; i <columns_car.length; i++) {
+						sql_car = sql_car+columns_car[i]+"='"+document.getElementById("id_"+columns_car[i]).value+"',";
+					}
+				}
+				sql_car = sql_car+"img='"+uploadSuccess+"' where plate_num='"+plate_num+"';";
+				var columns_insur = changes_insur.split(",");
+				var sql_insur = "update tb_insurance set ";
+				if (changes_insur.length>0) {
+					for (var i = 0; i <columns_insur.length; i++) {
+						sql_insur= sql_insur+columns_insur[i]+"='"+document.getElementById("id_"+columns_insur[i]).value+"',";
+					}
+					sql_insur = sql_insur.substr(0,sql_insur.length-1);
+					sql_insur = sql_insur+" where plate_num='"+plate_num+"';";
+					var request = new XMLHttpRequest;
+					request.open("POST","../ajax/updateDB.php",true);
+					request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+					request.send("sql1="+sql_car+"&sql2="+sql_insur+"&flag=update_two");
+					request.onreadystatechange = function(){
+						if (request.readyState===4) {
+							if (request.status===200) {
+								var result = request.responseText;
+								alert(result);
+								if (result=="更新成功") {
+									window.close();
+								}
+							}else{
+								console.log(result);
+								alert("error:"+request.status);
+							}
+						}
+					}
+				}else{
+					var request = new XMLHttpRequest;
+					request.open("POST","../ajax/updateDB.php",true);
+					request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+					request.send("sql="+sql_car+"&flag=update");
+					request.onreadystatechange = function(){
+						if (request.readyState===4) {
+							if (request.status===200) {
+								var result = request.responseText;
+								alert(result);
+								if (result=="更新成功") {
+									window.close();
+								}
+							}else{
+								console.log(result);
+								alert("error:"+request.status);
+							}
+						}
+					}
+				}
+				
+			}
+			
+		}
+	</script>
+</body>
+</html>

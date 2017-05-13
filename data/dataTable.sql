@@ -98,6 +98,7 @@ CREATE TABLE `tb_others`(
 	`star` tinyint not null default 0 COMMENT '星级'
 )COMMENT '客运站员工表';
 
+-- 车辆表中存放的身份证号是明文
 DROP TABLE IF EXISTS `tb_taxi`;
 CREATE TABLE `tb_taxi`(
 	`plate_num` char(10) primary key COMMENT '车牌号',
@@ -114,7 +115,9 @@ CREATE TABLE `tb_taxi`(
 	`img` varchar(255) not null COMMENT '车辆照片',
 	`operate_num` char(30) COMMENT '运营证号',
 	`file_num` char(25) not null COMMENT '档案编号',
-	`date_opera_valid` date not null COMMENT '经营有效期'
+	`date_opera_valid` date not null COMMENT '经营有效期',
+	`driver1` char(64) COMMENT '驾驶员1',
+	`driver2` char(64) COMMENT '驾驶员2'
 )COMMENT '出租客运车表';
 
 DROP TABLE IF EXISTS `tb_bus`;
@@ -130,11 +133,13 @@ CREATE TABLE `tb_bus`(
 	`date_getLicence` date not null COMMENT '发证日期',
 	`date_verify` date not null COMMENT '年审日期',
 	`date_valid` date not null COMMENT '检验有效期',
-	`file_num` char(25) not null COMMENT '档案编号',
 	`img` varchar(255) not null COMMENT '车辆照片',
 	`operate_num` char(30) COMMENT '运营证号',
+	`file_num` char(25) not null COMMENT '档案编号',
 	`operate_line` text not null COMMENT '运营线路',
-	`operate_mileage` float(4,1) not null COMMENT '运营里程'
+	`operate_mileage` float(7,1) not null COMMENT '运营里程',
+	`driver1` char(64) COMMENT '驾驶员1',
+	`driver2` char(64) COMMENT '驾驶员2'
 )COMMENT '公交车表';
 
 DROP TABLE IF EXISTS `tb_shuttle`;
@@ -150,12 +155,14 @@ CREATE TABLE `tb_shuttle`(
 	`date_getLicence` date not null COMMENT '发证日期',
 	`date_verify` date not null COMMENT '年审日期',
 	`date_valid` date not null COMMENT '检验有效期',
-	`file_num` char(25) not null COMMENT '档案编号',
 	`img` varchar(255) not null COMMENT '车辆照片',
 	`operate_num` char(30) COMMENT '运营证号',
+	`file_num` char(25) not null COMMENT '档案编号',
 	`operate_line` text not null COMMENT '运营线路',
-	`operate_mileage` float(4,1) not null COMMENT '运营里程',
-	`operate_valid_date` date not null COMMENT '线路牌有效期'
+	`operate_mileage` float(7,1) not null COMMENT '运营里程',
+	`operate_valid_date` date not null COMMENT '线路牌有效期',
+	`driver1` char(64) COMMENT '驾驶员1',
+	`driver2` char(64) COMMENT '驾驶员2'
 )COMMENT '班车表';
 
 DROP TABLE IF EXISTS `tb_normal_truck`;
@@ -171,15 +178,18 @@ CREATE TABLE `tb_normal_truck`(
 	`date_getLicence` date not null COMMENT '发证日期',
 	`date_verify` date not null COMMENT '年审日期',
 	`date_valid` date not null COMMENT '检验有效期',
-	`file_num` char(25) not null COMMENT '档案编号',
 	`img` varchar(255) not null COMMENT '车辆照片',
-	`operate_num` char(30) COMMENT '运营证号'
+	`operate_num` char(30) COMMENT '运营证号',
+	`file_num` char(25) not null COMMENT '档案编号',
+	`driver1` char(64) COMMENT '驾驶员1',
+	`driver2` char(64) COMMENT '驾驶员2'
 )COMMENT '普通货车表';
 
 DROP TABLE IF EXISTS `tb_danger_truck`;
 CREATE TABLE `tb_danger_truck`(
 	`plate_num` char(10) primary key COMMENT '车牌号',
-	`car_brand` char(50) not null COMMENT '汽车品牌与型号',
+	`car_classify` char(24) not null COMMENT '车辆类型',
+	`car_brand` char(50) not null COMMENT '品牌与型号',
 	`comp_name` varchar(100) not null COMMENT '所属企业',
 	`engine_num` char(16) not null COMMENT '发动机号',
 	`vin` char(18) not null unique key COMMENT '车辆识别号',
@@ -189,9 +199,10 @@ CREATE TABLE `tb_danger_truck`(
 	`date_verify` date not null COMMENT '年审日期',
 	`date_valid` date not null COMMENT '检验有效期',
 	`img` varchar(255) not null COMMENT '车辆照片',
-	`operate_num` char(30) not null COMMENT '运营证号',
+	`operate_num` char(30) COMMENT '运营证号',
 	`danger_name` char(30) not null COMMENT '危险品名称',
-	`car_classify` char(24) not null COMMENT '车辆类型'
+	`driver1` char(64) COMMENT '驾驶员1',
+	`driver2` char(64) COMMENT '驾驶员2'
 )COMMENT '危险品货车表';
 
 DROP TABLE IF EXISTS `tb_student_car`;
@@ -208,7 +219,9 @@ CREATE TABLE `tb_student_car`(
 	`date_verify` date not null COMMENT '年审日期',
 	`date_valid` date not null COMMENT '检验有效期',
 	`img` varchar(255) not null COMMENT '车辆照片',
-	`operate_num` char(30) not null COMMENT '运营证号'
+	`operate_num` char(30) COMMENT '运营证号',
+	`driver1` char(64) COMMENT '驾驶员1',
+	`driver2` char(64) COMMENT '驾驶员2'
 )COMMENT '教练车表';
 
 DROP TABLE IF EXISTS `tb_insurance`;
@@ -218,8 +231,8 @@ CREATE TABLE `tb_insurance`(
 	`impunity_date` date not null COMMENT '交强险到期时间',
 	`commercial_num` char(30) not null COMMENT '商业险单号',
 	`commercial_date` date not null COMMENT '商业险到期时间',
-	`liability_num` char(30) not null COMMENT '交强险单号',
-	`liability_date` date not null COMMENT '交强险到期时间',
+	`liability_num` char(30) not null COMMENT '承运责任险单号',
+	`liability_date` date not null COMMENT '承运责任险到期时间',
 	`insur_comp_name` varchar(100) not null COMMENT '投保公司',
 	`comp_phone` char(11) not null COMMENT '保险公司联系方式'
 )COMMENT '保险单表';

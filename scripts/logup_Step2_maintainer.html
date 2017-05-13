@@ -105,7 +105,9 @@
 			height: 140px;
 			margin-left: 10px;
 			background-image: url('../images/up.png');
-			background-size: cover;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
 		}
 		.textPs_item{
 			font-size: 14.5px;
@@ -291,7 +293,8 @@
 			});
 		}else if (uploadSuccess!="") {
 			$(function(){
-				$("#id_div_photo").css("background-image","url('../images/success.png')");
+				var ImgURL = "url(../uploadImg/"+uploadSuccess+")";
+				$("#id_div_photo").css("background-image",ImgURL);
 				$("#id_warn_photo").hide();
 			});
 

@@ -29,6 +29,18 @@ switch ($_POST["flag"]) {
 	case 'delete_transComp':
 		deleteTansComp();
 		break;
+	case 'delete_transport':
+		deleteTransport();
+		break;
+	case 'delete_mainComp':
+		deleteMaincomp();
+		break;
+	case 'add_car':
+		addCar();
+		break;
+	case 'dosql':
+		doSQL($_POST["sql"]);
+		break;
 }
 function addTransport(){
 	$mysqli = connectDb();
@@ -189,11 +201,59 @@ function addSuper(){
 }
 function deleteTansComp(){
 	$mysqli = connectDb();
-	$sql = "delete from tb_transcomp where name='{$_GET["name"]}'";
+	$sql = "delete from tb_transcomp where name='{$_POST["name"]}'";
 	$result = $mysqli->query($sql);
 	if ($result==true) {
 		echo "删除成功";
 	}else{
 		echo "删除失败".$mysqli->errno.$mysqli->error;
 	}
+	$mysqli->close();
+}
+function deleteTransport(){
+	$mysqli = connectDb();
+	$sql = "delete from tb_transport where name='{$_POST["name"]}'";
+	$result = $mysqli->query($sql);
+	if ($result==true) {
+		echo "删除成功";
+	}else{
+		echo "删除失败".$mysqli->errno.$mysqli->error;
+	}
+	$mysqli->close();
+}
+function deleteMaincomp(){
+	$mysqli = connectDb();
+	$sql = "delete from tb_maincomp where name='{$_POST["name"]}'";
+	$result = $mysqli->query($sql);
+	if ($result==true) {
+		echo "删除成功";
+	}else{
+		echo "删除失败".$mysqli->errno.$mysqli->error;
+	}
+	$mysqli->close();
+}
+function addCar(){
+	$mysqli = connectDb();
+	$result = $mysqli->query($_POST["sqlCar"]);
+	if ($result ==false) {
+		echo '{"success":false,"reason":"insert tb_car '.$mysqli->errno." is ".$mysqli->error.'"}';
+	}else{
+		$result = $mysqli->query($_POST["sqlInsur"]);
+		if ($result==false) {
+			echo '{"success":false,"reason":"insert tb_insur'.$mysqli->errno." is ".$mysqli->error.'"}';
+		}else{
+			echo '{"success":true}';
+		}
+	}
+	$mysqli->close();
+}
+function doSQL($sql){
+	$mysqli = connectDb();
+	$result = $mysqli->query($sql);
+	if ($result ==false) {
+		echo '{"success":false,"reason":"'.$mysqli->errno." is ".$mysqli->error.'"}';
+	}else{
+		echo '{"success":true}';
+	}
+	$mysqli->close();
 }

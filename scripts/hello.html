@@ -157,7 +157,7 @@
 									console.log(request.responseText);
 									var result = JSON.parse(request.responseText);
 									usertype = result.userType;
-									if (usertype.search(/管理员$/g)>-1) {
+									if (usertype.search(/管理/g)>-1) {
 										document.getElementById("id_user_admin").style.display="flex";
 									}else{
 										document.getElementById("id_user_admin").style.display="none";

@@ -97,7 +97,7 @@
 			align-content: flex-start;
 		}
 		.img_show{
-			height: 160px;
+			width: 200px;
 			size: contain;
 			position: center;
 		}
@@ -113,28 +113,6 @@
 			justify-content: flex-start;
 			align-content: flex-start;
 		}
-		.view_star{
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-start;
-			align-items: center;
-			padding-top: 10px;
-			padding-bottom: 10px;
-		}
-		.div_star{
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
-			align-items: center;
-		}
-		.text_black{
-			background: rgba(60,60,60,0.9);
-			color: rgba(255,255,255,0.9);
-			font-family: 宋体;
-			font-size: 14.5px;
-			text-align: center;
-			padding:10px 20px 10px 20px;
-		}
 	</style>
 	<script type="text/javascript" src="../styles/myjs.js"></script>
 	<script type="text/javascript" src="../lib/jquery-3.2.0.js"></script>
@@ -146,13 +124,13 @@
 			<div id="id_tab_main" class="view_tab_title" onmouseover="turnToBlur('id_tab_main')" onmouseout="turnToClear('id_tab_main')" onclick="window.location.href = 'hello.html'">
 				<p class="text_title_tab">首页</p>
 			</div>
-			<div id="id_tab_transform" class="view_tab_title" style="background: transparent;" onmouseover="turnToBlur('id_tab_transform')" onmouseout="turnToClear('id_tab_transform')" onclick="window.location.href = 'hello_transform.html'">
+			<div id="id_tab_transform" class="view_tab_title"  onmouseover="turnToBlur('id_tab_transform')" onmouseout="turnToClear('id_tab_transform')" onclick="window.location.href = 'hello_transform.html'">
 				<p class="text_title_tab">道路运输</p>
 			</div>
 			<div id="id_tab_teach" class="view_tab_title" onmouseover="turnToBlur('id_tab_teach')" onmouseout="turnToClear('id_tab_teach')" onclick="window.location.href = 'hello_teach.html'">
 				<p class="text_title_tab">驾校</p>
 			</div>
-			<div id="id_tab_maintain" class="view_tab_title" onmouseover="turnToBlur('id_tab_maintain')" onmouseout="turnToClear('id_tab_maintain')" onclick="window.location.href = 'hello_maintain.html'">
+			<div id="id_tab_maintain" class="view_tab_title" style="background: transparent;" onmouseover="turnToBlur('id_tab_maintain')" onmouseout="turnToClear('id_tab_maintain')" onclick="window.location.href = 'hello_maintain.html'">
 				<p class="text_title_tab">车辆维护</p>
 			</div>
 			<div id="id_tab_transport" class="view_tab_title" onmouseover="turnToBlur('id_tab_transport')" onmouseout="turnToClear('id_tab_transport')" onclick="window.location.href = 'hello_transport.html'">
@@ -166,108 +144,110 @@
 	</div>
 	<!--导航-->
 	<div class="view_A_bar">
-		<a class="text_a_bar" style="cursor: pointer;text-align: center;" href="hello_transform.html"></a>
+		<a class="text_a_bar" style="cursor: pointer;text-align: center;" href="hello_maintain.html">车辆维护</a>
 		<p class="text_p_bar" style="margin-left: 6px;margin-right: 6px;"> > </p>
-		<a class="text_a_bar" style="cursor: pointer;text-align: center;" href="show_drivers.html">星级驾驶员</a>
+		<a class="text_a_bar" style="cursor: pointer;text-align: center;" href="show_mainComps.html">所有车辆</a>
 		<p class="text_p_bar" style="margin-left: 6px;margin-right: 6px;"> > </p>
 		<a class="text_a_bar" style="text-align: center;" id="id_a_compName" href="show_mainComp_one.html">plate_num</a>
 	</div>
 	<!--main-->
 	<div class="view_content_column" style="width: 600px;padding-top: 15px;">
-		<div class="item_row_star_star" style="padding-bottom: 20px;border-bottom: dashed 1px #888;">
-			<img src="../uploadImg/" class="img_show" id="id_picture">
+		<div class="item_row_star_star" style="padding-bottom: 20px; border-bottom: dashed 1px #999;">
+			<img src="../uploadImg/" class="img_show">
 			<div class="div_column_center_start" style="height: 160px;margin-left: 20px; ">
-				<div class="item_row_star_star" style="height: 40px;width: 380px;align-content: center;">
-					<p class="text_a_bar" style="width: 80px;" id="id_username">username</p>
-					<p class="text_a_bar" style="width:20px;margin-left: 30px;" id="id_sex">sex</p>
-					<p class="text_a_bar" style="width:190px;margin-left: 30px;" id="id_idcard_num">idcard_num</p>
+				<div class="item_row_star_star" style="height: 30px;width: 300px;align-content: center;">
+					<p class="text_a_bar" style="width: 80px;text-align: left;margin:0px;padding: 0px;">驾驶员一</p>
+					<p class="text_a_bar" style="width: 200px;text-align: center;margin:0px;padding: 0px;" id="id_driver1">xxxx</p>
 				</div>
-				<div class="item_row_star_star" style="height: 40px;width: 380px;align-content: center;">
-					<p class="text_a_bar" style="width: 200px;" id="id_email">2013010912029@uestc.edu.cn</p>
-					<p class="text_a_bar" style="width: 160px;margin-left: 20px;" id="id_phonenum">phonenum</p>
+				<div class="item_row_star_star" style="height: 30px;width: 300px;align-content: center;">
+					<p class="text_a_bar" style="width: 80px;text-align: left;margin:0px;padding: 0px;">驾驶员二</p>
+					<p class="text_a_bar" style="width: 200px;text-align: center;margin:0px;padding: 0px;" id="id_driver2">xxxx</p>
 				</div>
 			</div>
 		</div>
 		<div class="item_column_start_start" style="margin-top: 20px;">
 			<div class="item_row_star_star" style="width: 560px;height: 40px;">
-				<p class="text_a_bar" style="width: 80px;" >初领证时间:</p>
-				<p class="text_a_bar" style="margin-left: 5px;width: 120px;" id="id_date_getLice">2017-09-23</p>
-				<p class="text_a_bar" style="margin-left: 20px;width: 70px;">准驾车型:</p>
-				<p class="text_a_bar" style="margin-left: 5px;width: 180px;" id="id_date_getLicence">date_getLicence</p>
+				<p class="text_a_bar" style="width: 100px;" id="id_plate_num">plate_num</p>
+				<p class="text_a_bar" style="margin-left: 20px;width: 110px;" id="id_car_classify">car_classify</p>
+				<p class="text_a_bar" style="margin-left: 20px;width: 200px;" id="id_car_brand">car_brand</p>
+				<p class="text_a_bar" style="margin-left: 20px;width: 90px;" id="id_people_num">people_num</p>
 			</div>
 			<div class="item_row_star_star" style="width: 560px;height: 40px;">
-				<p class="text_a_bar" style="width: 95px;" >从业资格证号:</p>
-				<p class="text_a_bar" style="margin-left: 5px;width: 105px;" id="id_date_verify">ADKJWI89237JDE</p>
-				<p class="text_a_bar" style="margin-left: 20px;width: 138px;">从业资格证到期时间:</p>
+				<p class="text_a_bar" style="width: 70px;" >注册日期:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 150px;" id="id_date_registe">2017-09-23</p>
+				<p class="text_a_bar" style="margin-left: 20px;width: 70px;">发证日期:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 100px;" id="id_date_getLicence">date_getLicence</p>
+			</div>
+			<div class="item_row_star_star" style="width: 560px;height: 40px;">
+				<p class="text_a_bar" style="width: 70px;" >年审日期:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 150px;" id="id_date_verify">2017-09-23</p>
+				<p class="text_a_bar" style="margin-left: 20px;width: 80px;">检验有效期:</p>
 				<p class="text_a_bar" style="margin-left: 5px;width: 100px;" id="id_date_valid">date_valid</p>
 			</div>
-			
+			<div class="item_row_star_star" style="width: 560px;height: 40px;">
+				<p class="text_a_bar" style="width: 70px;" >发动机号:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 150px;" id="id_engine_num">engine_num</p>
+				<p class="text_a_bar" style="margin-left: 20px;width: 80px;">车辆识别号:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 150px;" id="id_vin">vin</p>
+			</div>
+			<div class="item_row_star_star" style="width: 560px;height: 40px;">
+				<p class="text_a_bar" style="width: 70px;" >运营证号:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 150px;" id="id_operate_num">operate_num</p>
+				<p class="text_a_bar" style="width: 80px;margin-left: 20px;" title="file_num" id="id_file">档案编号:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 150px;" title="file_num" id="id_file_num">file_num</p>
+			</div>
+			<div class="item_row_star_star" style="width: 560px;height: 40px;" id="id_taxi">
+				<p class="text_a_bar" style="width: 80px;" >经营有效期:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 100px;" id="id_date_opera_valid">date_opera_valid</p>
+			</div>
+			<div class="item_row_star_star" style="width: 560px;height: 40px;" id="id_bus">
+				<p class="text_a_bar" style="width: 70px;" >运营里程:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 120px;" id="id_operate_mileage">operate_mileage</p>
+				<p class="text_a_bar" style="width: 100px;margin-left: 20px;" title="shuttle" >线路牌有效期:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 100px;" title="shuttle" id="id_operate_valid_date">operate_valid_date</p>
+			</div>
+			<div class="item_row_star_star" style="width: 560px;margin-bottom: 10px;" id="id_bus2">
+				<p class="text_a_bar" style="width: 70px;" >运营线路:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 490px;" id="id_operate_line">operate_line</p>
+			</div>
+			<div class="item_row_star_star" style="width: 560px;height: 40px;" id="id_danger">
+				<p class="text_a_bar" style="width: 80px;" >危险品名称:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 100px;" id="id_danger_name">danger_name</p>
+			</div>
 			<div class="item_row_star_star" style="width: 560px;padding-bottom: 10px; border-bottom: dashed 1px #888">
 				<p class="text_a_bar" style="width: 80px;" >所属公司名:</p>
 				<p class="text_a_bar" style="margin-left: 5px;width: 475px;" id="id_comp_name">comp_name</p>
 			</div>
-			<div class="view_star" id="id_stars">
-				<div class="div_star" id="id_star_polite" style="margin-top: 10px;">
-					<p class="text_a_bar" style="width: 45px;">文明星</p>
-					<img class="img_icon" id="id_star_polite1" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_polite2" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_polite3" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_polite4" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_polite5" src="../images/star_gray.png">
-				</div>
-				<div class="div_star" id="id_star_safe">
-					<p class="text_a_bar" style="width: 45px;">安全星</p>
-					<img class="img_icon" id="id_star_safe1" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_safe2" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_safe3" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_safe4" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_safe5" src="../images/star_gray.png">
-				</div>
-				<div class="div_star" id="id_star_law">
-					<p class="text_a_bar" style="width: 45px;">守法星</p>
-					<img class="img_icon" id="id_star_law1" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_law2" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_law3" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_law4" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_law5" src="../images/star_gray.png">
-				</div>
-				<div class="div_star" id="id_star_honest">
-					<p class="text_a_bar" style="width: 45px;">诚信星</p>
-					<img class="img_icon" id="id_star_honest1" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_honest2" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_honest3" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_honest4" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_honest5" src="../images/star_gray.png">
-				</div>
-				<div class="div_star" id="id_star_server">
-					<p class="text_a_bar" style="width: 45px;">服务星</p>
-					<img class="img_icon" id="id_star_server1" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_server2" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_server3" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_server4" src="../images/star_gray.png">
-					<img class="img_icon" id="id_star_server5" src="../images/star_gray.png">
-				</div>
+			<div class="item_row_star_star" style="width: 560px;height: 40px;">
+				<p class="text_a_bar" style="width: 113px;" >交强险单号:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 150px;" id="id_impunity_num">impunity_date</p>
+				<p class="text_a_bar" style="margin-left: 20px;width: 138px;">交强险到期时间:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 100px;" id="id_impunity_date">impunity_date</p>
 			</div>
-			<div class="view_star" id="id_div_block">
-				<p class="text_black">该驾驶员在黑名单中</p>
+			<div class="item_row_star_star" style="width: 560px;height: 40px;">
+				<p class="text_a_bar" style="width: 113px;" >商业险单号:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 150px;" id="id_commercial_num">commercial_num</p>
+				<p class="text_a_bar" style="margin-left: 20px;width: 138px;">商业险到期时间:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 100px;" id="id_commercial_date">commercial_date</p>
 			</div>
-			<div class=""></div>
+			<div class="item_row_star_star" style="width: 560px;height: 40px;">
+				<p class="text_a_bar" style="width: 113px;" >承运责任险单号:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 150px;" id="id_liability_num">liability_num</p>
+				<p class="text_a_bar" style="margin-left: 20px;width: 138px;">承运责任险到期时间:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 100px;" id="id_liability_date">liability_date</p>
+			</div>
+			<div class="item_row_star_star" style="width: 560px;height: 40px;margin-bottom: 20px;">
+				<p class="text_a_bar" style="width: 70px;" >投保公司:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 150px;" id="id_insur_comp_name">insur_comp_name</p>
+				<p class="text_a_bar" style="margin-left: 20px;width: 138px;">投保公司联系方式:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 150px;" id="id_comp_phone">comp_phone</p>
+			</div>
 		</div>
 	</div>
 	<div class="view_footer" style="margin-top: 110px;">
 		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
 	</div>
 	<script type="text/javascript">
-		block = false;
-		star_politeSelected = 0;
-		star_safeSelected=0;
-		star_lawSelected=0;
-		star_honestSelected=0;
-		star_serverSelected=0;
-		
-
-
-
 		//?cartype=&plate_num=
 		plate_num = decodeURI(window.location.search.split("?")[1].split("&")[1].split("=")[1]);   
 		cartype = decodeURI(location.search.split("?")[1].split("&")[0].split("=")[1]);
@@ -367,7 +347,7 @@
 		switch (cartype){
 			case 'taxi':
 				$(function(){
-					$("#id_danger").hide();
+					$("id_danger").hide();
 					$("#id_bus").hide();
 					$("#id_bus2").hide();
 					$("#id_taxi").css("display","flex");
@@ -375,12 +355,11 @@
 				break;
 			case 'bus':
 				$(function(){
+					$("#id_taxi").hide();
 					$("#id_danger").hide();
 					$("#id_bus").css("display","flex");
 					$("#id_bus2").css("display","flex");
-					$("#id_shuttle").hide();
-					$("#id_operate_valid_date").hide();
-					$("#id_taxi").hide();
+					$("#id_bus>p[title=shuttle]").hide();
 				});
 				break;
 			case 'shuttle':
@@ -396,7 +375,7 @@
 					$("#id_danger").hide();
 					$("#id_bus").hide();
 					$("#id_bus2").hide();
-					$("#id_taxi").css("display","none");
+					$("#id_taxi").hide();
 				});
 				break;
 			case 'danger_truck':
@@ -404,7 +383,7 @@
 					$("#id_danger").css("display","flex");
 					$("#id_bus").hide();
 					$("#id_bus2").hide();
-					$("#id_taxi").css("display","none");
+					$("#id_taxi").hide();
 					$("#id_file").hide();
 					$("#id_file_num").hide();
 				});
@@ -414,7 +393,7 @@
 					$("#id_danger").hide();
 					$("#id_bus").hide();
 					$("#id_bus2").hide();
-					$("#id_taxi").css("display","none");
+					$("#id_taxi").hide();
 					$("#id_file").hide();
 					$("#id_file_num").hide();
 				});

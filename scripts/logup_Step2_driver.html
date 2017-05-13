@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>汽车评星系统-注册</title>
+	<title>驾驶员信息</title>
 	<link rel="icon" type="image/png" href="../images/icon_star2.png">
 	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
 	<script type="text/javascript" src="../styles/myjs.js"></script>
@@ -96,7 +96,9 @@
 			height: 140px;
 			margin-left: 10px;
 			background-image: url('../images/up.png');
-			background-size: cover;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
 		}
 		.textPs_item{
 			font-size: 14.5px;
@@ -208,9 +210,9 @@
 					</div>
 					<div class="view_ItemDiv_info">
 						<p class="text_inputName">姓名</p>
-						<input type="text" id="id_username" name="driver_name" onfocus="checkPhoto()" class="text_input" style="width: 80px">
+						<input type="text" id="id_username" name="driver_name" onfocus="checkPhoto()" class="text_input" style="width: 80px" onchange="change(this)">
 						<p class="text_inputName" style="text-align: center;">性别</p>
-						<select class="text_option" style="width: 50px;padding-left: 6px;margin-right: 47px;" id="id_sex">
+						<select class="text_option" style="width: 50px;padding-left: 6px;margin-right: 47px;" id="id_sex" onchange="change_select(this)">
 							<option class="text_option" style="width: 50px;padding-left: 6px;">男</option>
 							<option class="text_option" style="width: 50px;padding-left: 6px;">女</option>
 						</select>
@@ -218,12 +220,12 @@
 					</div>
 					<div class="view_ItemDiv_info">
 						<p class="text_inputName">联系电话</p>
-						<input type="text" name="driver_phone1" id="id_phonenum" maxlength="11" class="text_input" style="margin-right: 76.8px;">
+						<input type="text" name="driver_phone1" id="id_phonenum" maxlength="11" class="text_input" style="margin-right: 76.8px;" onchange="change(this)">
 						<p class="text_warn" id="id_warn_phone" style="display: none;">*</p>
 					</div>
 					<div class="view_ItemDiv_info">
 						<p class="text_inputName">通讯地址</p>
-						<input type="text" id="id_address" name="driver_address" maxlength="80" class="text_input" style="width:611px; margin-right: 0px; ">
+						<input type="text" id="id_address" name="driver_address" maxlength="80" class="text_input" style="width:611px; margin-right: 0px; " onchange="change(this)">
 						<p class="text_warn" id="id_warn_address" style="display: none;">*</p>
 					</div>
 				</div>
@@ -232,14 +234,14 @@
 					<p class="text_DivName">驾驶证信息</p>
 					<div class="view_ItemDiv_info">
 						<p class="text_inputName">驾驶证号</p>
-						<input id="id_driveLicence_id" maxlength="20" type="text" name="driver_phone1" class="text_input" style="margin-right: 33.8px;">
+						<input id="id_driveLicence_id" maxlength="20" type="text" name="driver_phone1" class="text_input" style="margin-right: 33.8px;" onchange="change(this)">
 						<p class="text_inputName" style="width: 113px;">初次领证日期</p>
-						<input id="id_date_getLice" class="text_input" type="date" name="driverLicense_gainTime" style="margin-right: 0px;">
+						<input id="id_date_getLice" class="text_input" type="date" name="driverLicense_gainTime" style="margin-right: 0px;" onchange="change(this)">
 						<p class="text_warn" id="id_warn_driveLicence" style="display: none;">*</p>
 					</div>
 					<div class="view_ItemDiv_info">
 						<p class="text_inputName">档案编号</p>
-						<input id="id_driverLicence_num" type="text" name="driver_phone1" class="text_input" style="margin-right: 33.8px;">
+						<input id="id_driverLicence_num" type="text" name="driver_phone1" class="text_input" style="margin-right: 33.8px;" onchange="change(this)">
 						<div class="content_item_column" style="width: 80px;">
 							<p class="text_inputName">准驾车型</p>
 							<p class="textPs_item" style="margin-top: 0px;">多选</p>
@@ -267,14 +269,14 @@
 					<p class="text_DivName">从业资格证信息</p>
 					<div class="view_ItemDiv_info">
 						<p class="text_inputName" style="width: 113px;">从业资格证号</p>
-						<input id="id_job_permi_id" type="text" name="driver_phone1" class="text_input" >
+						<input id="id_job_permi_id" type="text" name="driver_phone1" class="text_input"  onchange="change(this)">
 						<p class="text_inputName">有效期至</p>
-						<input id="id_job_permi_date" class="text_input" type="date" name="driverLicense_gainTime" style="margin-right: 0px;">
+						<input id="id_job_permi_date" class="text_input" type="date" name="driverLicense_gainTime" style="margin-right: 0px;" onchange="change(this)">
 						<p class="text_warn" id="id_warn_jobPermi" style="display: none;">*</p>
 					</div>
 					<div class="view_ItemDiv_info">
 						<p class="text_inputName" style="width: 113px;">从业资格类别</p>
-						<select class="text_option" id="id_classify"> 
+						<select class="text_option" id="id_job_permi_classify" onchange="change_select(this)"> 
 							<option class="text_option">旅客运输</option>
 							<option class="text_option">货物运输</option>
 							<option class="text_option">危险货物运输</option>
@@ -348,20 +350,33 @@
 		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
 	</div>
 	<script type="text/javascript">
-		userType = window.location.search.split("?")[1].split("&")[0].split("=")[1];  //?usertype=  &upload= 顺序不可以变
-		if (userType=="super") {
+		exist = true;
+		edit = false;
+		//?usertype=  &upload= &idcard_num=顺序不可以变
+		userType = window.location.search.split("?")[1].split("&")[0].split("=")[1];  
+		if (userType.search("super")>=0) {  //任何一种管理员
 			$(function(){
 				$("#id_div_star").show();
 				$("#id_div_permi").css("border-bottom","dashed 1px #a0a0a0");
+				$(".view_tab").css("display","none");
+				$(".view_title").hide();
+				$("#id_btn_goBefore").hide();
 			});
 		}else{
 			$(function(){
 				$("#id_div_star").hide();
 				$("#id_div_permi").css("border-bottom","none");
+				$(".view_tab").css("display","flex");
+				$(".view_title").css("display","flex");
+				$("#id_btn_goBefore").css("display","flex");
 			});
 		}
 		block = false;
-
+		star_politeSelected = 0;
+		star_safeSelected=0;
+		star_lawSelected=0;
+		star_honestSelected=0;
+		star_serverSelected=0;
 		uploadSuccess = location.search.split("?")[1].split("&")[1].split("=")[1];
 		if (uploadSuccess=="failed") {
 			$(function(){
@@ -371,17 +386,110 @@
 			});
 		}else if (uploadSuccess!="") {
 			$(function(){
-				$("#id_div_photo").css("background-image","url('../images/success.png')");
+				var ImgURL = "url(../uploadImg/"+uploadSuccess+")";
+				$("#id_div_photo").css("background-image",ImgURL);
 				$("#id_warn_photo").hide();
 			});
-
 		}
-
-		star_politeSelected = 0;
-		star_safeSelected=0;
-		star_lawSelected=0;
-		star_honestSelected=0;
-		star_serverSelected=0;
+		//判断是否是edit
+		if (window.location.search.split("?")[1].split("&")[2]===undefined) {
+			edit=false;
+		}else{
+			edit=true;
+			idcard_num = window.location.search.split("?")[1].split("&")[2].split("=")[1];
+			var sql = "select * from tb_driver where idcard_num='"+idcard_num+"';";
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=dosql_one&sql="+sql);
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						console.log("response:"+request.responseText);
+						var response = JSON.parse(request.responseText);
+						if (response.failed==false) {
+							console.log(response.reason);
+							alert(response.reason);
+						}else{
+							$(function(){
+								$("#id_username").val(response.username);
+								var selector = "#id_sex>option[value='"+response.sex+"']";
+								$(selector).attr("selected",true);
+								$("#id_driveLicence_id").val(response.driveLicence_id);
+								$("#id_driverLicence_num").val(response.driverLicence_num);
+								$("#id_date_getLice").val(response.date_getLice);
+								var cars_permi =response.cars_permi;
+								if (cars_permi.search("A1")>=0) {
+									$("#id_A1").attr("checked",true);
+								}else if(cars_permi.search("A2")>=0){
+									$("#id_A2").attr("checked",true);
+								}else if(cars_permi.search("A3")>=0){
+									$("#id_A3").attr("checked",true);
+								}else if(cars_permi.search("B1")>=0){
+									$("#id_B1").attr("checked",true);
+								}else if(cars_permi.search("B2")>=0){
+									$("#id_B2").attr("checked",true);
+								}else if(cars_permi.search("C1")>=0){
+									$("#id_C1").attr("checked",true);
+								}else if(cars_permi.search("C2")>=0){
+									$("#id_C2").attr("checked",true);
+								}else if(cars_permi.search("C3")>=0){
+									$("#id_C3").attr("checked",true);
+								}else if(cars_permi.search("E")>=0){
+									$("#id_E").attr("checked",true);
+								}
+								$("#id_job_permi_id").val(response.job_permi_id);
+								selector= "#id_job_permi_classify>option[value=']"+response.job_permi_classify+"']";
+								$(selector).attr("selected",true);
+								$("#id_job_permi_date").val(response.job_permi_date);
+								$("#id_email").val(response.email);
+								$("#id_phonenum").val(response.phonenum);
+								$("#id_address").val(response.address);
+								uploadSuccess = response.picture;
+								var ImgURL="../uploadImg/"+uploadSuccess;
+								$("#id_div_photo").css("background-image",ImgURL);
+								block = response.ifblock;
+								star_politeSelected = response.star_polite;
+								star_safeSelected = response.star_safe;
+								star_lawSelected= response.star_law;
+								star_honestSelected = response.star_honest;
+								star_serverSelected = response.star_server;
+								var i=1;
+								while(i<=star_politeSelected){
+									var id = 'id_star_polite'+i;
+									document.getElementById(id).src="../images/star_gold.png";
+									i++;
+								}
+								i=1;
+								while(i<=star_safeSelected){
+									var id = 'id_star_safe'+i;
+									document.getElementById(id).src="../images/star_gold.png";
+									i++;
+								}
+								i=1;
+								while(i<=star_lawSelected){
+									var id = 'id_star_law'+i;
+									document.getElementById(id).src="../images/star_gold.png";
+									i++;
+								}
+								i=1;
+								while(i<=star_honestSelected){
+									var id = 'id_star_honest'+i;
+									document.getElementById(id).src="../images/star_gold.png";
+									i++;
+								}
+								i=1;
+								while(i<=star_serverSelected){
+									var id = 'id_star_server'+i;
+									document.getElementById(id).src="../images/star_gold.png";
+									i++;
+								}
+							});
+						}
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
 		function selectStar(starID){
 			if (!block) {
 				var i = starID.substr(starID.length-1,1);
@@ -541,6 +649,27 @@
 				});
 			}
 		}
+		
+		//编辑的都有哪些
+		changes = "";
+		function change(OBJ){
+			if (edit==true) {
+				var flag = OBJ.id.substr(3,OBJ.id.length-3);  //substr(start ,length)
+				if (changes.search(flag)<0) {
+					changes = changes+","+flag;
+				}
+			}
+		}
+		changes_select = "";
+		function change_select(OBJ){
+			if (edit==true) {
+				var flag = OBJ.id.substr(3,OBJ.id.length-3);  //substr(start ,length)
+				if (changes_select.search(flag)<0) {
+					changes_select = changes_select+","+flag;
+				}
+			}
+		}
+		//获得准驾车型
 		function getCarsPermi(){
 			var permi = "";
 			var permiNum = 0;
@@ -615,138 +744,178 @@
 			return permi;
 		}
 		function addDriver(){
-			var done = false;
-			var doneNum = 0;
-
-			if (uploadSuccess=="") {
-				document.getElementById("id_warn_photo").innerHtml = "*";
-				document.getElementById("id_warn_photo").style.display = "block";
-			}else if (uploadSuccess!="failed") {}{
-				doneNum++;
-				document.getElementById("id_warn_photo").style.display = "none";
-			}
-
-			var username = document.getElementById("id_username").value;
-			if (username.length==0) {
-				document.getElementById("id_warn_name").style.display = "block";
-			}else{
-				document.getElementById("id_warn_name").style.display ="none";
-				doneNum++;
-			}
-			var sindex;
-			var sexs = document.getElementById("id_sex");
-			sindex = sexs.selectedIndex;
-			var sex = sexs.options[sindex].value;
-
-			var phonenum = document.getElementById("id_phonenum").value;
-			if (phonenum.length==0) {
-				document.getElementById("id_warn_phone").style.display = "block";
-			}else{
-				document.getElementById("id_warn_phone").style.display ="none";
-				doneNum++;
-			}
-
-			var address = document.getElementById("id_address").value;
-			if (address.length==0) {
-				document.getElementById("id_warn_address").style.display = "block";
-			}else{
-				document.getElementById("id_warn_address").style.display ="none";
-				doneNum++;
-			}
-
-			var driveLicence_id = document.getElementById("id_driveLicence_id").value;
-			var date_getLice = document.getElementById("id_date_getLice").value;
-			if (driveLicence_id.length==0 ||date_getLice==0) {
-				document.getElementById("id_warn_driveLicence").style.display = "block";
-			}else{
-				document.getElementById("id_warn_driveLicence").style.display ="none";
-				doneNum++;
-			}
-
-			var driverLicence_num = document.getElementById("id_driverLicence_num").value;
-			var cars_permi = getCarsPermi();
-			if (driverLicence_num=="" || cars_permi=="") {
-				document.getElementById("id_warn_permi").style.display = "block";
-			}else{
-				document.getElementById("id_warn_permi").style.display ="none";
-				doneNum++;
-			}
-
-			var job_permi_id = document.getElementById("id_job_permi_id").value;
-			var job_permi_date = document.getElementById("id_job_permi_date").value;
-			if (job_permi_id=="" || job_permi_date=="") {
-				document.getElementById("id_warn_jobPermi").style.display = "block";
-			}else{
-				document.getElementById("id_warn_jobPermi").style.display ="none";
-				doneNum++;
-			}
-
-			var job_classifys = document.getElementById("id_classify");
-			sindex = job_classifys.selectedIndex;
-			var job_permi_classify = job_classifys.options[sindex].value;
-			if (job_permi_classify=="") {
-				document.getElementById("id_warn_jobClassify").style.display = "block";
-			}else{
-				document.getElementById("id_warn_jobClassify").style.display ="none";
-				doneNum++;
-			}
-
-			if (doneNum===8) {
-				done = true;
-			}else{
-				done = false;
-			}
-
-			if (userType=="super") {
-				if (!block) {
-					done = done & checkStar();
+			if (edit==true) {
+				changes = changes.substr(1,changes.length-1);
+				var columns;
+				var sql = "update tb_driver set ";
+				if (changes.length>0) {
+					columns = changes.split(",");
+					for (var i = 0; i <columns.length; i++) {
+						sql = sql+columns[i]+"='"+document.getElementById("id_"+columns[i]).value+"',"
+					}
 				}
-			}
-			if (block) {
-				var ifblock = 1;
-			}else{
-				var ifblock = 0;
-			}
-			if (done) {
+				if (changes_select>0) {
+					columns = changes.split(",");
+					for (var i = 0; i <columns.length; i++) {
+						var selects = document.getElementById("id_"+columns[i]);
+						var sindex = selects.selectedIndex;
+						sql = sql+columns[i]+"='"+selects.options[sindex].value+"',"
+					}
+				}
+				sql = sql+"cars_permi='"+getCarsPermi()+"',star_polite="+star_politeSelected+",star_safe="+star_safeSelected+",star_law="+star_lawSelected+",star_honest="+star_honestSelected+",star_server="+star_serverSelected+" where idcard_num='"+idcard_num+"';";
 				var request = new XMLHttpRequest;
-				request.open("POST","../ajax/WriteDB.php",true);
+				request.open("POST","../ajax/updateDB.php",true);
 				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-				request.send("username="+username+
-					"&sex="+sex+
-					"&driveLicence_id="+driveLicence_id+
-					"&driverLicence_num="+driverLicence_num+
-					"&date_getLice="+date_getLice+
-					"&cars_permi="+cars_permi+
-					"&job_permi_id="+job_permi_id+
-					"&job_permi_classify="+job_permi_classify+
-					"&job_permi_date="+job_permi_date+
-					"&phonenum="+phonenum+
-					"&address="+address+
-					"&picture="+uploadSuccess+
-					"&ifblock="+ifblock+
-					"&star_polite="+star_politeSelected+
-					"&star_safe="+star_safeSelected+
-					"&star_law="+star_lawSelected+
-					"&star_honest="+star_honestSelected+
-					"&star_server="+star_serverSelected+
-					"&flag=add_driver");
+				request.send("sql="+sql+"&flag=update");
 				request.onreadystatechange = function(){
 					if (request.readyState===4) {
 						if (request.status===200) {
-							console.log("response:"+request.responseText);
-							var response = JSON.parse(request.responseText);
-							if (response.success) {
-								console.log("注册成功");
-								openWindow("hello.html");
-							}else{
-								alert("注册失败："+response.reason);
+							var result = request.responseText;
+							console.log(result);
+							alert(result);
+							if (result=="更新成功") {
+								window.close();
 							}
 						}else{
 							alert("error:"+request.status);
 						}
 					}
 				}
+			}else{
+				var done = false;
+				var doneNum = 0;
+
+				if (uploadSuccess=="") {
+					document.getElementById("id_warn_photo").innerHtml = "*";
+					document.getElementById("id_warn_photo").style.display = "block";
+				}else if (uploadSuccess!="failed") {}{
+					doneNum++;
+					document.getElementById("id_warn_photo").style.display = "none";
+				}
+
+				var username = document.getElementById("id_username").value;
+				if (username.length==0) {
+					document.getElementById("id_warn_name").style.display = "block";
+				}else{
+					document.getElementById("id_warn_name").style.display ="none";
+					doneNum++;
+				}
+				var sindex;
+				var sexs = document.getElementById("id_sex");
+				sindex = sexs.selectedIndex;
+				var sex = sexs.options[sindex].value;
+
+				var phonenum = document.getElementById("id_phonenum").value;
+				if (phonenum.length==0) {
+					document.getElementById("id_warn_phone").style.display = "block";
+				}else{
+					document.getElementById("id_warn_phone").style.display ="none";
+					doneNum++;
+				}
+
+				var address = document.getElementById("id_address").value;
+				if (address.length==0) {
+					document.getElementById("id_warn_address").style.display = "block";
+				}else{
+					document.getElementById("id_warn_address").style.display ="none";
+					doneNum++;
+				}
+
+				var driveLicence_id = document.getElementById("id_driveLicence_id").value;
+				var date_getLice = document.getElementById("id_date_getLice").value;
+				if (driveLicence_id.length==0 ||date_getLice==0) {
+					document.getElementById("id_warn_driveLicence").style.display = "block";
+				}else{
+					document.getElementById("id_warn_driveLicence").style.display ="none";
+					doneNum++;
+				}
+
+				var driverLicence_num = document.getElementById("id_driverLicence_num").value;
+				var cars_permi = getCarsPermi();
+				if (driverLicence_num=="" || cars_permi=="") {
+					document.getElementById("id_warn_permi").style.display = "block";
+				}else{
+					document.getElementById("id_warn_permi").style.display ="none";
+					doneNum++;
+				}
+
+				var job_permi_id = document.getElementById("id_job_permi_id").value;
+				var job_permi_date = document.getElementById("id_job_permi_date").value;
+				if (job_permi_id=="" || job_permi_date=="") {
+					document.getElementById("id_warn_jobPermi").style.display = "block";
+				}else{
+					document.getElementById("id_warn_jobPermi").style.display ="none";
+					doneNum++;
+				}
+
+				var job_classifys = document.getElementById("id_job_permi_classify");
+				sindex = job_classifys.selectedIndex;
+				var job_permi_classify = job_classifys.options[sindex].value;
+				if (job_permi_classify=="") {
+					document.getElementById("id_warn_jobClassify").style.display = "block";
+				}else{
+					document.getElementById("id_warn_jobClassify").style.display ="none";
+					doneNum++;
+				}
+
+				if (doneNum===8) {
+					done = true;
+				}else{
+					done = false;
+				}
+
+				if (userType=="super") {
+					if (!block) {
+						done = done & checkStar();
+					}
+				}
+				if (block) {
+					var ifblock = 1;
+				}else{
+					var ifblock = 0;
+				}
+				if (done) {
+					var request = new XMLHttpRequest;
+					request.open("POST","../ajax/WriteDB.php",true);
+					request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+					request.send("username="+username+
+						"&sex="+sex+
+						"&driveLicence_id="+driveLicence_id+
+						"&driverLicence_num="+driverLicence_num+
+						"&date_getLice="+date_getLice+
+						"&cars_permi="+cars_permi+
+						"&job_permi_id="+job_permi_id+
+						"&job_permi_classify="+job_permi_classify+
+						"&job_permi_date="+job_permi_date+
+						"&phonenum="+phonenum+
+						"&address="+address+
+						"&picture="+uploadSuccess+
+						"&ifblock="+ifblock+
+						"&star_polite="+star_politeSelected+
+						"&star_safe="+star_safeSelected+
+						"&star_law="+star_lawSelected+
+						"&star_honest="+star_honestSelected+
+						"&star_server="+star_serverSelected+
+						"&flag=add_driver");
+					request.onreadystatechange = function(){
+						if (request.readyState===4) {
+							if (request.status===200) {
+								console.log("response:"+request.responseText);
+								var response = JSON.parse(request.responseText);
+								if (response.success) {
+									console.log("注册成功");
+									openWindow("hello.html");
+								}else{
+									alert("注册失败："+response.reason);
+								}
+							}else{
+								alert("error:"+request.status);
+							}
+						}
+					}
+				}
 			}
+			
 		}
 	</script>
 </body>
