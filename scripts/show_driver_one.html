@@ -2,38 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>汽车评星系统</title>
+	<title>驾驶员详细信息</title>
 	<link rel="icon" type="image/png" href="../images/icon_star2.png">  <!-- ./是当前目录   ../是上一级父目录    /是根目录  -->
 	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
 	<style type="text/css">
-		.view_title{
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			height:50px;
-			justify-content: flex-end;
-			align-items: center;
-			background: transparent;
-		}
-		.view_title_left{
-			width: 50%;
-			height: 50px;
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
-			align-items: center;
-			float: left;
-		}
-		.view_title_right{
-			width: 50%;
-			height: 50px;
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-end;
-			align-items: center;
-			float: right;
-			background: rgba(255,255,255,0.8);
-		}
 		.view_tab_title{
 			width: 20%;
 			height: 50px;
@@ -159,10 +131,6 @@
 				<p class="text_title_tab">客运站</p>
 			</div>
 		</div>
-		<div class="view_title_right">
-			<a class="text_title" href="login.html" id="id_btn_login" style="margin-right: 10px" onmouseover="turnToBlur('id_btn_login')" onmouseout="turnToClear('id_btn_login')">登录</a>
-			<a class="text_title" href="logup_Step1.html" id="id_btn_logup" style="margin:0px 100px 0px 20px" onmouseover="turnToBlur('id_btn_logup')" onmouseout="turnToClear('id_btn_logup')">注册</a> 
-		</div>
 	</div>
 	<!--导航-->
 	<div class="view_A_bar">
@@ -170,7 +138,7 @@
 		<p class="text_p_bar" style="margin-left: 6px;margin-right: 6px;"> > </p>
 		<a class="text_a_bar" style="cursor: pointer;text-align: center;" href="show_drivers.html">星级驾驶员</a>
 		<p class="text_p_bar" style="margin-left: 6px;margin-right: 6px;"> > </p>
-		<a class="text_a_bar" style="text-align: center;" id="id_a_compName" href="show_mainComp_one.html">plate_num</a>
+		<a class="text_a_bar" style="text-align: center;cursor: pointer;" id="id_a_compName" href="show_driver_one.html?">xxx</a>
 	</div>
 	<!--main-->
 	<div class="view_content_column" style="width: 600px;padding-top: 15px;">
@@ -193,18 +161,18 @@
 				<p class="text_a_bar" style="width: 80px;" >初领证时间:</p>
 				<p class="text_a_bar" style="margin-left: 5px;width: 120px;" id="id_date_getLice">2017-09-23</p>
 				<p class="text_a_bar" style="margin-left: 20px;width: 70px;">准驾车型:</p>
-				<p class="text_a_bar" style="margin-left: 5px;width: 180px;" id="id_date_getLicence">date_getLicence</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 180px;" id="id_cars_permi">date_getLicence</p>
 			</div>
 			<div class="item_row_star_star" style="width: 560px;height: 40px;">
 				<p class="text_a_bar" style="width: 95px;" >从业资格证号:</p>
-				<p class="text_a_bar" style="margin-left: 5px;width: 105px;" id="id_date_verify">ADKJWI89237JDE</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 105px;" id="id_job_permi_id">ADKJWI89237JDE</p>
 				<p class="text_a_bar" style="margin-left: 20px;width: 138px;">从业资格证到期时间:</p>
-				<p class="text_a_bar" style="margin-left: 5px;width: 100px;" id="id_date_valid">date_valid</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 100px;" id="id_job_permi_date">date_valid</p>
 			</div>
 			
 			<div class="item_row_star_star" style="width: 560px;padding-bottom: 10px; border-bottom: dashed 1px #888">
-				<p class="text_a_bar" style="width: 80px;" >所属公司名:</p>
-				<p class="text_a_bar" style="margin-left: 5px;width: 475px;" id="id_comp_name">comp_name</p>
+				<p class="text_a_bar" style="width: 100px;" >从业资格类别:</p>
+				<p class="text_a_bar" style="margin-left: 5px;width: 400px;" id="id_job_permi_classify">comp_name</p>
 			</div>
 			<div class="view_star" id="id_stars">
 				<div class="div_star" id="id_star_polite" style="margin-top: 10px;">
@@ -258,167 +226,92 @@
 		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
 	</div>
 	<script type="text/javascript">
-		block = false;
-		star_politeSelected = 0;
-		star_safeSelected=0;
-		star_lawSelected=0;
-		star_honestSelected=0;
-		star_serverSelected=0;
-		
-
-
-
-		//?cartype=&plate_num=
-		plate_num = decodeURI(window.location.search.split("?")[1].split("&")[1].split("=")[1]);   
-		cartype = decodeURI(location.search.split("?")[1].split("&")[0].split("=")[1]);
-		//var compName = compame[1];
+		//?idcard_num=
+		//身份证号是敏感信息，所以不能直接在url中传递
+		//在url中传session的键名
+		//但是在session中存的话，数据量太大，而且表中存放不是身份证号明文，所以采用密文url传输
+		//然后直接通过request在php中解析出idnum即根据idnum查找到的相关信息
+		//?sessionName=
+		sessionName = window.location.search.split("?")[1].split("=")[1];
 		$(function(){
-			$("#id_a_compName").html(plate_num);
+			$("#id_a_compName").html("this");
 			$("#id_a_compName").attr("href",location.href);   //这里url是已经编码过的，所以不需要再编码一次
 		});
-		var sql = "select * from tb_"+cartype+" where plate_num='"+plate_num+"';"
 		var request = new XMLHttpRequest();
-		request.open("GET","../ajax/getData_sql.php?flag=car_one_show&sql="+sql,true);
+		request.open("GET","../ajax/getData_sql.php?flag=sessionName_driver&sessionName="+sessionName,true);
 		request.send();
 		request.onreadystatechange = function(){
 			if (request.readyState===4) {
 				if (request.status===200) {
 					var result = JSON.parse(request.responseText);
-					if (result.failed==true) {
+					if (result.failed == true) {
 						console.log(result.reason);
 						alert(result.reason);
 					}else{
 						$(function(){
-							$(".img_show").attr("src","../uploadImg/"+result.img);
-							$("#id_plate_num").html(result.plate_num);
-							$("#id_car_classify").html(result.car_classify);
-							$("#id_car_brand").html(result.car_brand);
-							$("#id_comp_name").html(result.comp_name);
-							$("#id_engine_num").html(result.engine_num);
-							$("#id_vin").html(result.vin);
-							$("#id_people_num").html("核载"+result.people_num+"人");
-							$("#id_date_registe").html(result.date_registe);
-							$("#id_date_getLicence").html(result.date_getLicence);
-							$("#id_date_verify").html(result.date_verify);
-							$("#id_date_valid").html(result.date_valid);
-							$("#id_operate_num").html(result.operate_num);
-							$("#id_driver1").html(result.driver1);
-							$("#id_driver2").html(result.driver2);
-							switch (cartype){
-								case 'taxi':
-									$("#id_file_num").html(result.file_num);
-									$("#id_date_opera_valid").html(result.date_opera_valid);
-									break;
-								case 'bus':
-									$("#id_file_num").html(result.file_num);
-									$("#id_operate_line").html(result.operate_line);
-									$("#id_operate_mileage").html(result.operate_mileage);
-									break;
-								case 'shuttle':
-									$("#id_file_num").html(result.file_num);
-									$("#id_operate_line").html(result.operate_line);
-									$("#id_operate_mileage").html(result.operate_mileage);
-									$("#id_operate_valid_date").html(result.operate_valid_date);
-									break;
-								case 'normal_truck':
-									$("#id_file_num").html(result.file_num);
-									break;
-								case 'danger_truck':
-									$("#id_danger_name").html(result.danger_name);
-									break;
-								case 'student_car':
-									break;
+							$("#id_picture").attr("src","../uploadImg/"+result.picture);
+							console.log(result.picture);
+							$("#id_idcard_num").html(result.idcard_num);
+							$("#id_username").html(result.username);
+							$("#id_sex").html(result.sex);
+							$("#id_date_getLice").html(result.date_getLice);
+							$("#id_cars_permi").html(result.cars_permi);
+							$("#id_job_permi_id").html(result.job_permi_id);
+							$("#id_job_permi_classify").html(result.job_permi_classify);
+							$("#id_job_permi_date").html(result.job_permi_date);
+							$("#id_email").html(result.email);
+							$("#id_phonenum").html(result.phonenum);
+							$("#id_address").html(result.address);
+							var block = result.ifblock;
+							if (block==1) {
+								$("#id_stars").hide();
+								$("#id_div_block").css("display","flex");
+							}else{
+								var star_politeSelected = result.star_polite;
+								var star_safeSelected = result.star_safe;
+								var star_lawSelected = result.star_law;
+								var star_honestSelected = result.star_honest;
+								var star_serverSelected = result.star_server;
+								var i=1;
+								while(i<=star_politeSelected){
+									var id = 'id_star_polite'+i;
+									$(id).attr("src","../images/star_gold.png");
+									i++;
+								}
+								i=1;
+								while(i<=star_safeSelected){
+									var id = 'id_star_safe'+i;
+									$(id).attr("src","../images/star_gold.png");
+									i++;
+								}
+								i=1;
+								while(i<=star_lawSelected){
+									var id = 'id_star_law'+i;
+									$(id).attr("src","../images/star_gold.png");
+									document.getElementById(id).src="../images/star_gold.png";
+									i++;
+								}
+								i=1;
+								while(i<=star_honestSelected){
+									var id = 'id_star_honest'+i;
+									$(id).attr("src","../images/star_gold.png");
+									i++;
+								}
+								i=1;
+								while(i<=star_serverSelected){
+									var id = 'id_star_server'+i;
+									$(id).attr("src","../images/star_gold.png");
+									i++;
+								}
+								$("#id_div_block").hide();
+								$("#id_stars").css("display","flex");
 							}
 						});
-						sql = "select * from tb_insurance where plate_num='"+plate_num+"';"
-						request = new XMLHttpRequest();
-						request.open("GET","../ajax/getData_sql.php?flag=dosql_one&sql="+sql,true);
-						request.send();
-						request.onreadystatechange = function(){
-							if (request.readyState===4) {
-								if (request.status===200) {
-									result = JSON.parse(request.responseText);
-									if (result.failed==true) {
-										console.log(result.reason);
-										alert(result.reason);
-									}else{
-										$(function(){
-											$("#id_impunity_num").html(result.impunity_num);
-											$("#id_impunity_date").html(result.impunity_date);
-											$("#id_commercial_num").html(result.commercial_num);
-											$("#id_commercial_date").html(result.commercial_date);
-											$("#id_liability_num").html(result.liability_num);
-											$("#id_liability_date").html(result.liability_date);
-											$("#id_insur_comp_name").html(result.insur_comp_name);
-											$("#id_comp_phone").html(result.comp_phone);
-										});
-									}
-								}else{
-									alert("error"+request.status);
-								}
-							}
-						}
 					}
 				}else{
 					alert("error"+request.status);
 				}
 			}
-		}
-		switch (cartype){
-			case 'taxi':
-				$(function(){
-					$("#id_danger").hide();
-					$("#id_bus").hide();
-					$("#id_bus2").hide();
-					$("#id_taxi").css("display","flex");
-				});
-				break;
-			case 'bus':
-				$(function(){
-					$("#id_danger").hide();
-					$("#id_bus").css("display","flex");
-					$("#id_bus2").css("display","flex");
-					$("#id_shuttle").hide();
-					$("#id_operate_valid_date").hide();
-					$("#id_taxi").hide();
-				});
-				break;
-			case 'shuttle':
-				$(function(){
-					$("#id_danger").hide();
-					$("#id_bus").css("display","flex");
-					$("#id_bus2").css("display","flex");
-					$("#id_taxi").css("display","none");
-				});
-				break;
-			case 'normal_truck':
-				$(function(){
-					$("#id_danger").hide();
-					$("#id_bus").hide();
-					$("#id_bus2").hide();
-					$("#id_taxi").css("display","none");
-				});
-				break;
-			case 'danger_truck':
-				$(function(){
-					$("#id_danger").css("display","flex");
-					$("#id_bus").hide();
-					$("#id_bus2").hide();
-					$("#id_taxi").css("display","none");
-					$("#id_file").hide();
-					$("#id_file_num").hide();
-				});
-				break;
-			case 'student_car':
-				$(function(){
-					$("#id_danger").hide();
-					$("#id_bus").hide();
-					$("#id_bus2").hide();
-					$("#id_taxi").css("display","none");
-					$("#id_file").hide();
-					$("#id_file_num").hide();
-				});
-				break;
 		}
 	</script>
 </body>

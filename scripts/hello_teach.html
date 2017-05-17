@@ -116,9 +116,9 @@
 	</div>
 
 	<ul id="id_div_userAdmin" class="view_userAdmin" style="display: none;">
-		<li id="id_user_edit" class="option_userAdmin" onclick="turnToEdit()"> 
+		<!-- <li id="id_user_edit" class="option_userAdmin" onclick="turnToEdit()"> 
 			<img class="img_icon" src="../images/set.png"><p class="text_user" style="width: 80px;">个人设置</p>
-		</li>
+		</li> -->
 		<li id="id_user_admin" class="option_userAdmin" onclick="location.href='admin.html'">
 			<img class="img_icon" src="../images/admin.png"><p class="text_user" style="width: 80px;">信息管理</p>
 		</li>
@@ -132,9 +132,9 @@
 			<div class="view_card" onclick="window.open('show_transcomps.html?compType=teach','_blank');">
 				<p>星级驾校</p>
 			</div>
-			<div class="view_card" onclick="window.open('show_drivers.html?compType=teach','_blank');">
+			<!-- <div class="view_card" onclick="window.open('show_drivers.html?compType=teach','_blank');">
 				<p>星级教练员</p>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<div class="view_footer" style="margin-top: 200px;">
@@ -192,34 +192,34 @@
 				$("#id_div_userAdmin").toggle("normal");
 			});
 		}
-		function turnToEdit(){
-			switch(usertype) {
-				case '驾驶员/教练员':
-					window.location.href='show_driver_one.html?type=edit';
-					break;
-				case '维修工人':
-					window.location.href='show_maintainer_one.html?type=edit';
-					break; 
-				case '客运站员工':
-					window.location.href='show_staff_one.html?type=edit';
-					break; 
-				case '运输公司/驾校管理人员':
-					window.location.href='show_administer_one.html?type=edit';
-					break; 
-				case '维护公司管理人员':
-					window.location.href='show_administer_one.html?type=edit';
-					break; 
-				case '客运站管理人员':
-					window.location.href='show_administer_one.html?type=edit';
-					break; 
-				case '超级管理员':
-					window.location.href='show_administer_one.html?type=edit';
-					break; 
-				case '乘客/学员':
-					window.location.href='show_passenger_one.html?type=edit';
-					break; 
-			}
-		}
+		// function turnToEdit(){
+		// 	switch(usertype) {
+		// 		case '驾驶员/教练员':
+		// 			window.location.href='show_driver_one.html?type=edit';
+		// 			break;
+		// 		case '维修工人':
+		// 			window.location.href='show_maintainer_one.html?type=edit';
+		// 			break; 
+		// 		case '客运站员工':
+		// 			window.location.href='show_staff_one.html?type=edit';
+		// 			break; 
+		// 		case '运输公司/驾校管理人员':
+		// 			window.location.href='show_administer_one.html?type=edit';
+		// 			break; 
+		// 		case '维护公司管理人员':
+		// 			window.location.href='show_administer_one.html?type=edit';
+		// 			break; 
+		// 		case '客运站管理人员':
+		// 			window.location.href='show_administer_one.html?type=edit';
+		// 			break; 
+		// 		case '超级管理员':
+		// 			window.location.href='show_administer_one.html?type=edit';
+		// 			break; 
+		// 		case '乘客/学员':
+		// 			window.location.href='show_passenger_one.html?type=edit';
+		// 			break; 
+		// 	}
+		// }
 	</script>
 </body>
 </html>

@@ -34,6 +34,7 @@
 	align-items: flex-start;
 	margin-right: 20px;
 	margin-top: 20px;
+	cursor: pointer;
 }
 /*点击用户弹出的小方框*/
 .view_userAdmin{
@@ -60,4 +61,10 @@
 	cursor: pointer;
 	padding: 0px;
 	margin: 0px;
+}
+.img_star{
+	width: 14px;
+	height: 14px;
+	margin: 0px;
+	padding: 0px;
 }

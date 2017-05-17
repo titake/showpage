@@ -6,34 +6,6 @@
 	<link rel="icon" type="image/png" href="../images/icon_star2.png">  <!-- ./是当前目录   ../是上一级父目录    /是根目录  -->
 	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
 	<style type="text/css">
-		.view_title{
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			height:50px;
-			justify-content: flex-end;
-			align-items: center;
-			background: transparent;
-		}
-		.view_title_left{
-			width: 50%;
-			height: 50px;
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
-			align-items: center;
-			float: left;
-		}
-		.view_title_right{
-			width: 50%;
-			height: 50px;
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-end;
-			align-items: center;
-			float: right;
-			background: rgba(255,255,255,0.8);
-		}
 		.view_tab_title{
 			width: 20%;
 			height: 50px;
@@ -60,16 +32,7 @@
 			cursor: pointer;
 			text-decoration: none;
 		}
-		.view_A_bar{
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
-			align-items: center;
-			width: 1190px;
-			margin-left: 10px;
-			margin-top: 16px;
-			margin-bottom: 16px;
-		}
+		
 		.text_a_bar{
 			font-size: 14.5px;
 			font-weight: 400;
@@ -159,6 +122,62 @@
 			width: 16px;
 			height: 16px;
 		}
+		.view_toolbar{
+			margin-top: 16px;
+			width: 968px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+			align-items: center;
+		}
+		.input_search{
+			margin-left: 60px;
+			width: 114px;
+			height: 30px;
+			padding-left: 6px;
+			border: solid 1px #aaa;
+			border-right: dashed 1px #ccc;
+			border-radius: 3px 0px 0px 3px;
+		}
+		.select_search{
+			margin: 0px;
+			padding-left: 6px;
+			width: 94px;
+			height: 33.3px;
+			border: solid 1px #aaa;
+			border-left: none;
+			border-radius: 0px 3px 3px 0px;
+		}
+		.text_option{
+			margin: 0px;
+			padding-left: 6px;
+			width: 94px;
+		}
+		.ul_content{
+			display: flex;
+			padding: 0px;
+			margin: 0px;
+			margin-top: 16px;
+			flex-direction: column;
+			width: 968px;
+			background-color: rgba(255,255,255,0.9);
+			border: solid 1px #aaa;
+			border-radius: 1px;
+		}
+		.li_content{
+			list-style-type: none;
+			padding: 0px;
+			margin: 0px;
+			width: 948px;
+			height: 40px;
+			padding-left: 10px;
+			padding-right: 10px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			cursor: pointer;
+		}
 	</style>
 	<script type="text/javascript" src="../styles/myjs.js"></script>
 	<script type="text/javascript" src="../lib/jquery-3.2.0.js"></script>
@@ -183,95 +202,184 @@
 				<p class="text_title_tab">客运站</p>
 			</div>
 		</div>
-		<div class="view_title_right">
+		<!-- <div class="view_title_right">
 			<a class="text_title" href="login.html" id="id_btn_login" style="margin-right: 10px" onmouseover="turnToBlur('id_btn_login')" onmouseout="turnToClear('id_btn_login')">登录</a>
 			<a class="text_title" href="logup_Step1.html" id="id_btn_logup" style="margin:0px 100px 0px 20px" onmouseover="turnToBlur('id_btn_logup')" onmouseout="turnToClear('id_btn_logup')">注册</a> 
-		</div>
-	</div>
-	<!--导航-->
-	<div class="view_A_bar">
-		<a class="text_a_bar" href="hello_maintain.html">车辆维护</a>
-		<p class="text_p_bar" style="margin-left: 6px;margin-right: 6px;"> > </p>
-		<a class="text_a_bar" href="show_mainComps.html">星级维护企业</a>
+		</div> -->
+
 	</div>
 	<!--main-->
-	<div class="view_content_column" style="width: 600px;padding-top: 15px;">
-		<p id="id_compName">xxx公司</p>
-		<div class="view_compInfo">
-			<div class="view_compInfo_left">
-				<div class="item_info">
-					<p class="text_itemInfo" >主要负责人：</p>
-					<p class="text_itemInfo" id="id_chargerName">xxx</p>
-				</div>
-				<div class="item_info">
-					<p class="text_itemInfo" >联系方式：</p>
-					<p class="text_itemInfo" id="id_chargerPhone">xxx</p>
-				</div>
-				<div class="item_info"">
-					<p class="text_itemInfo" style="width: 92px;">该公司地址：</p>
-					<p class="text_itemInfo" style="width: 288px;" id="id_compAddress">思创很成都市西源大道200号电子科技大学清水河校区图书馆pjkwejkjhjfdwlifhiiewjlqj</p>
-				</div>
-			</div>
-			<div class="view_compInfo_right">
-				<div class="item_info" style="align-items:center;">
-					<p class="text_itemInfo" >评星：</p>
-					<img id="id_star1" class="img_star" src="../images/star_gray.png">
-					<img id="id_star2" class="img_star" src="../images/star_gray.png">
-					<img id="id_star3" class="img_star" src="../images/star_gray.png">
-					<img id="id_star4" class="img_star" src="../images/star_gray.png">
-					<img id="id_star5" class="img_star" src="../images/star_gray.png">
-				</div>
-				<div class="item_info" >
-					<p class="text_itemInfo" style="width: 78px;">经营范围：</p>
-					<p class="text_itemInfo" style="width: 102px;" id="id_scope">一级维护，二级维护</p>
-				</div>
-				<div class="item_info" >
-					<p class="text_itemInfo" style="width: 78px;">维护级别：</p>
-					<p class="text_itemInfo" style="width: 102px;" id="id_main_classify">一级维护，二级维护</p>
-				</div>
-			</div>
-		</div>		
+	<div class="view_content"  id="id_admin_comp">
+		<!--工具栏-->
+		<div class="view_toolbar">
+			<input type="text" class="input_search" id="id_where_comp">
+			<select class="select_search" id="id_comp_options">
+				<option class="text_option">企业名</option>
+				<option class="text_option">法人名</option>
+				<option class="text_option">主要负责人</option>
+			</select>
+			<img src="../images/search.png" class="img_icon" style="margin-left: 6px;cursor: pointer;" onclick="searchComp()">
+		</div>
+		<!-- 内容列表 -->
+		<ul class="ul_content" id="id_ul_comps">
+		</ul>
 	</div>
 	<div class="view_footer" style="margin-top: 110px;">
 		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
 	</div>
 	<script type="text/javascript">
-		var compName = decodeURI(window.location.search.split("?")[1].split("=")[1]);
-		$(function(){
-			$("#id_compName").html(compName);
-			$("#id_a_compName").html(compName);
-			$("#id_a_compName").attr("href",encodeURI("show_mainComp_one.html?compName="+compName));
-		});
-		var request = new XMLHttpRequest();
-				request.open("GET","../ajax/getData_sql.php?flag=mainComp_one&compName="+compName,true);
-				request.send();
-				request.onreadystatechange = function(){
-					if (request.readyState===4) {
-						if (request.status===200) {
-							var result = JSON.parse(request.responseText);
-							$(function(){
-								if(result.main_classify=="1"){
-									$("#id_main_classify").html("一级维护");
-								}
-								else if(result.main_classify=="2"){
-									$("#id_main_classify").html("二级维护");
-								}
-
-								$("#id_scope").html(result.scope);
-								$("#id_chargerPhone").html(result.charge_phone);
-								$("#id_chargerName").html(result.charge_person);
-								$("#id_compAddress").html(result.registe_address);
-								while(result.star>0){
-									var id = "#id_star"+result.star;
-									$(id).attr("src","../images/star_gold.png");
-									result.star--;
+		function getCompUL(){
+			$(function(){
+				$("#id_comp_options").html('<option class="text_option">企业名</option> <option class="text_option">法人名</option>	<option class="text_option">主要负责人</option>');
+			});
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=mainComps",true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						var inner="";
+						if (result.length>0) {
+							for (var i = 0; i<result.length; i++) {
+								var j = "list"+i;
+								inner = inner+'<li class="li_content"><p class="text_normal" title="name" style="width: 150px;">'+result[j]['name']+'</p><p class="text_normal" title="address" style="width: 578px;margin-left: 50px;">'+result[j]['registe_address']+'</p><p class="p_btn" title="li_edit" style="margin-left: 50px;">编辑</p><p class="p_btn" title="li_delete" >删除</p></li>';
+							}
+						}else{
+							console.log(result.reason);
+						}
+						$(function(){
+							$("#id_ul_comps").html(inner);
+							$("#id_ul_comps >li:even").css("background-color","rgba(220,220,220,0.8)");
+							$("#id_ul_comps >li").mouseover(function(){$(this).css("background-color","rgba(230,230,230,0.9)")});
+							$("#id_ul_comps >li:even").mouseout(function(){$(this).css("background-color","rgba(220,220,220,0.8)")});
+							$("#id_ul_comps >li:odd").mouseout(function(){$(this).css("background-color","rgba(250,250,250,0.9)")});
+							$("#id_ul_comps >li>p[title='name']").click(function(){
+								var name = $(this).html();
+								window.open(encodeURI("show_mainComp_one.html?compname="+name),"_blank");
+							});
+							$("#id_ul_comps >li>p[title='address']").click(function(){
+								var name = $(this).prev().html();
+								window.open(encodeURI("show_mainComp_one.html?compname="+name),"_blank");
+							});
+							$("#id_ul_comps >li>p[title='li_edit']").click(function(){
+								var name = $(this).prevAll('p[title=name]').html();
+								window.open(encodeURI("add_maintComp.html?usertype=super&name="+name),"_blank");
+							});
+							$("#id_ul_comps >li>p[title='li_delete']").click(function(){
+								if (window.confirm("确认注销该企业？")) {
+									var name = $(this).prevAll('p[title=name]').html();
+									var request = new XMLHttpRequest;
+									request.open("POST","../ajax/WriteDB.php",true);
+									request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+									request.send("name="+name+"&flag=delete_mainComp");
+									request.onreadystatechange = function(){
+										if (request.readyState===4) {
+											if (request.status===200) {
+												var response = request.responseText;
+												alert(response);
+												if (response=="删除成功") {
+													getCompUL();
+												}
+											}else{
+												alert("error:"+request.status);
+											}
+										}
+									}
 								}
 							});
-						}else{
-							alert("error"+request.status);
-						}
+						});
+					}else{
+						alert("error:"+request.status);
 					}
 				}
+			}
+		}
+		function addComp(){
+			window.open(encodeURI("add_maintComp.html?usertype=super"),"_blank");
+		}
+		function searchComp(){
+			var selectOptions = document.getElementById("id_comp_options");
+			var sindex = selectOptions.selectedIndex;
+			var reference = selectOptions.options[sindex].value;
+			var sql = "select name,registe_address from tb_maincomp where ";
+			var where = document.getElementById("id_where_comp").value;
+			switch(reference){
+				case '企业名':
+					reference = "name";
+					break;
+				case '法人名':
+					reference = "corporation";
+					break;
+				case '主要负责人':
+					reference = "charge_person";
+					break;
+			}
+			sql = sql +reference+" like '%"+where+"%';";
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=dosql&sql="+sql,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						var inner="";
+						if (result.length>0) {
+							for (var i = 0; i<result.length; i++) {
+								var j = "list"+i;
+								inner = inner+'<li class="li_content"><p class="text_normal" title="name" style="width: 150px;">'+result[j]['name']+'</p><p class="text_normal" title="address" style="width: 578px;margin-left: 50px;">'+result[j]['registe_address']+'</p><p class="p_btn" title="li_edit" style="margin-left: 50px;">编辑</p><p class="p_btn" title="li_delete" >删除</p></li>';
+							}
+						}else{
+							console.log(result.reason);
+						}
+						$(function(){
+							$("#id_ul_comps").html(inner);
+							$("#id_ul_comps >li:even").css("background-color","rgba(220,220,220,0.8)");
+							$("#id_ul_comps >li").mouseover(function(){$(this).css("background-color","rgba(230,230,230,0.9)")});
+							$("#id_ul_comps >li:even").mouseout(function(){$(this).css("background-color","rgba(220,220,220,0.8)")});
+							$("#id_ul_comps >li:odd").mouseout(function(){$(this).css("background-color","rgba(250,250,250,0.9)")});
+							$("#id_ul_comps >li>p[title='name']").click(function(){
+								var name = $(this).html();
+								window.open(encodeURI("show_mainComp_one.html?compname="+name),"_blank");
+							});
+							$("#id_ul_comps >li>p[title='address']").click(function(){
+								var name = $(this).prev().html();
+								window.open(encodeURI("show_mainComp_one.html?compname="+name),"_blank");
+							});
+							$("#id_ul_comps >li>p[title='li_edit']").click(function(){
+								var name = $(this).prevAll('p[title=name]').html();
+								window.open(encodeURI("add_maintComp.html?usertype=super&name="+name),"_blank");
+							});
+							$("#id_ul_comps >li>p[title='li_delete']").click(function(){
+								if (window.confirm("确认注销该企业？")) {
+									var name = $(this).prevAll('p[title=name]').html();
+									var request = new XMLHttpRequest;
+									request.open("POST","../ajax/WriteDB.php",true);
+									request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+									request.send("name="+name+"&flag=delete_mainComp");
+									request.onreadystatechange = function(){
+										if (request.readyState===4) {
+											if (request.status===200) {
+												var response = request.responseText;
+												alert(response);
+												if (response=="删除成功") {
+													getCompUL();
+												}
+											}else{
+												alert("error:"+request.status);
+											}
+										}
+									}
+								}
+							});
+						});
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		getCompUL();
 	</script>
 </body>
 </html>

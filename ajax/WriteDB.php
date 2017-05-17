@@ -17,6 +17,9 @@ switch ($_POST["flag"]) {
 	case 'add_driver':
 		addDriver();
 		break;
+	case 'add_driver_super':
+		addDriver_super();
+		break;
 	case 'add_maintainer':
 		addMaintainer();
 		break;
@@ -34,6 +37,11 @@ switch ($_POST["flag"]) {
 		break;
 	case 'delete_mainComp':
 		deleteMaincomp();
+		break;
+	case 'delete_driver':
+		session_start();
+		$sql = "delete from tb_driver where idcard_num='{$_SESSION['sessionName']}'";
+		doSQL($sql);
 		break;
 	case 'add_car':
 		addCar();
@@ -121,6 +129,32 @@ function addDriver(){
 		echo '{"success":false,"reason":"insert tb_users '.$mysqli->errno." is ".$mysqli->error.'"}';
 	}else{
 		$sql = "insert tb_driver values('{$_SESSION["idnum"]}','{$_POST['username']}','{$_POST["sex"]}','{$_POST["driveLicence_id"]}','{$_POST["driverLicence_num"]}','{$_POST["date_getLice"]}','{$_POST["cars_permi"]}','{$_POST["job_permi_id"]}','{$_POST["job_permi_classify"]}','{$_POST["job_permi_date"]}','{$_SESSION["email"]}','{$_POST["phonenum"]}','{$_POST["address"]}','{$_POST["picture"]}',{$_POST["ifblock"]},{$_POST["star_polite"]},{$_POST["star_safe"]},{$_POST["star_law"]},{$_POST["star_honest"]},{$_POST["star_server"]});";
+		$result = $mysqli->query($sql);
+		if ($result==false) {
+			echo '{"success":false,"reason":"insert administer'.$mysqli->errno." is ".$mysqli->error.'"}';
+		}else{
+			echo '{"success":true}';
+			if (!isset($_COOKIE["user_email"])) {
+				setcookie("user_email",$_SESSION["email"],strtotime('+3 months'));
+			}
+		}
+	}
+	$mysqli->close();
+}
+function addDriver_super(){
+	$mysqli = connectDb();
+	$idcard_num = $_POST["idcard_num"];
+	$methods = openssl_get_cipher_methods();  
+	$key1 = 'titake_password';
+	$iv = 'titake_iv_codeiv';
+	$idnum_encrypt = openssl_encrypt($idcard_num, $methods[0], $key1,0,$iv);
+	$password = password_hash("123456",PASSWORD_DEFAULT);
+	$sql = "insert tb_users values('{$_POST["email"]}','{$password}','{$_SESSION["userType"]}');";
+	$result = $mysqli->query($sql);
+	if ($result ==false) {
+		echo '{"success":false,"reason":"insert tb_users '.$mysqli->errno." is ".$mysqli->error.'"}';
+	}else{
+		$sql = "insert tb_driver values('{$idnum_encrypt}','{$_POST['username']}','{$_POST["sex"]}','{$_POST["driveLicence_id"]}','{$_POST["driverLicence_num"]}','{$_POST["date_getLice"]}','{$_POST["cars_permi"]}','{$_POST["job_permi_id"]}','{$_POST["job_permi_classify"]}','{$_POST["job_permi_date"]}','{$_POST["email"]}','{$_POST["phonenum"]}','{$_POST["address"]}','{$_POST["picture"]}',{$_POST["ifblock"]},{$_POST["star_polite"]},{$_POST["star_safe"]},{$_POST["star_law"]},{$_POST["star_honest"]},{$_POST["star_server"]});";
 		$result = $mysqli->query($sql);
 		if ($result==false) {
 			echo '{"success":false,"reason":"insert administer'.$mysqli->errno." is ".$mysqli->error.'"}';

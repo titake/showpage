@@ -216,11 +216,13 @@
 							<option class="text_option" style="width: 50px;padding-left: 6px;">男</option>
 							<option class="text_option" style="width: 50px;padding-left: 6px;">女</option>
 						</select>
+						<input class="text_input" type="text" placeholder="身份证号" maxlength="20" id="id_idcard_num" style="display: none;">
 						<p class="text_warn" id="id_warn_name" style="display: none;">*</p>
 					</div>
 					<div class="view_ItemDiv_info">
-						<p class="text_inputName">联系电话</p>
-						<input type="text" name="driver_phone1" id="id_phonenum" maxlength="11" class="text_input" style="margin-right: 76.8px;" onchange="change(this)">
+						<p class="text_inputName">联系方式</p>
+						<input type="text" name="driver_phone1" id="id_phonenum" maxlength="11" class="text_input" placeholder="手机号" style="margin-right: 76.8px;" onchange="change(this)">
+						<input class="text_input" type="text" id="id_email" placeholder="邮箱" style="display: none;">
 						<p class="text_warn" id="id_warn_phone" style="display: none;">*</p>
 					</div>
 					<div class="view_ItemDiv_info">
@@ -350,14 +352,32 @@
 		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
 	</div>
 	<script type="text/javascript">
+		var request = new XMLHttpRequest;
+		request.open("GET","../ajax/editSession.php?flag=set&name=url_search&url_search="+encodeURI(location.search));
+		console.log(encodeURI(location.search));
+		request.send();
+		request.onreadystatechange = function(){
+			if (request.readyState===4) {
+				if (request.status===200) {
+					console.log(request.responseText);
+				}else{
+					alert("error:"+request.status);
+				}
+			}
+		}
 		exist = true;
 		edit = false;
-		//?usertype=  &upload= &idcard_num=顺序不可以变
+		add_super = false;
+		//?usertype=  &upload= &sessionName(idcard_numi)=顺序不可以变
+		sessionName = "";
 		userType = window.location.search.split("?")[1].split("&")[0].split("=")[1];  
-		if (userType.search("super")>=0) {  //任何一种管理员
+		if (userType.search("super")>=0) {  //任何一种管理
+			add_super = true;
 			$(function(){
 				$("#id_div_star").show();
 				$("#id_div_permi").css("border-bottom","dashed 1px #a0a0a0");
+				$("#id_idcard_num").show();
+				$("#id_email").show()
 				$(".view_tab").css("display","none");
 				$(".view_title").hide();
 				$("#id_btn_goBefore").hide();
@@ -396,20 +416,26 @@
 			edit=false;
 		}else{
 			edit=true;
-			idcard_num = window.location.search.split("?")[1].split("&")[2].split("=")[1];
-			var sql = "select * from tb_driver where idcard_num='"+idcard_num+"';";
+			$(function(){
+				$(".view_tab").hide();
+				$(".view_title").hide();
+				$("#id_btn_goBefore").hide();
+			});
+			//idcard_numf放在session中
+			sessionName = window.location.search.split("?")[1].split("&")[2].split("=")[1];
 			var request = new XMLHttpRequest;
-			request.open("GET","../ajax/getData_sql.php?flag=dosql_one&sql="+sql);
+			request.open("GET","../ajax/getData_sql.php?flag=sessionName_driver_edit&sessionName="+sessionName);
+			request.send();
 			request.onreadystatechange = function(){
 				if (request.readyState===4) {
 					if (request.status===200) {
-						console.log("response:"+request.responseText);
 						var response = JSON.parse(request.responseText);
-						if (response.failed==false) {
+						if (response.failed==true) {
 							console.log(response.reason);
 							alert(response.reason);
 						}else{
 							$(function(){
+								$("#id_idcard_num").val(response.idcard_num);
 								$("#id_username").val(response.username);
 								var selector = "#id_sex>option[value='"+response.sex+"']";
 								$(selector).attr("selected",true);
@@ -419,21 +445,29 @@
 								var cars_permi =response.cars_permi;
 								if (cars_permi.search("A1")>=0) {
 									$("#id_A1").attr("checked",true);
-								}else if(cars_permi.search("A2")>=0){
+								}
+								if(cars_permi.search("A2")>=0){
 									$("#id_A2").attr("checked",true);
-								}else if(cars_permi.search("A3")>=0){
+								}
+								if(cars_permi.search("A3")>=0){
 									$("#id_A3").attr("checked",true);
-								}else if(cars_permi.search("B1")>=0){
+								}
+								if(cars_permi.search("B1")>=0){
 									$("#id_B1").attr("checked",true);
-								}else if(cars_permi.search("B2")>=0){
+								}
+								if(cars_permi.search("B2")>=0){
 									$("#id_B2").attr("checked",true);
-								}else if(cars_permi.search("C1")>=0){
+								}
+								if(cars_permi.search("C1")>=0){
 									$("#id_C1").attr("checked",true);
-								}else if(cars_permi.search("C2")>=0){
+								}
+								if(cars_permi.search("C2")>=0){
 									$("#id_C2").attr("checked",true);
-								}else if(cars_permi.search("C3")>=0){
+								}
+								if(cars_permi.search("C3")>=0){
 									$("#id_C3").attr("checked",true);
-								}else if(cars_permi.search("E")>=0){
+								}
+								if(cars_permi.search("E")>=0){
 									$("#id_E").attr("checked",true);
 								}
 								$("#id_job_permi_id").val(response.job_permi_id);
@@ -444,43 +478,57 @@
 								$("#id_phonenum").val(response.phonenum);
 								$("#id_address").val(response.address);
 								uploadSuccess = response.picture;
-								var ImgURL="../uploadImg/"+uploadSuccess;
+								var ImgURL="url(../uploadImg/"+uploadSuccess+")";
 								$("#id_div_photo").css("background-image",ImgURL);
 								block = response.ifblock;
-								star_politeSelected = response.star_polite;
-								star_safeSelected = response.star_safe;
-								star_lawSelected= response.star_law;
-								star_honestSelected = response.star_honest;
-								star_serverSelected = response.star_server;
-								var i=1;
-								while(i<=star_politeSelected){
-									var id = 'id_star_polite'+i;
-									document.getElementById(id).src="../images/star_gold.png";
-									i++;
-								}
-								i=1;
-								while(i<=star_safeSelected){
-									var id = 'id_star_safe'+i;
-									document.getElementById(id).src="../images/star_gold.png";
-									i++;
-								}
-								i=1;
-								while(i<=star_lawSelected){
-									var id = 'id_star_law'+i;
-									document.getElementById(id).src="../images/star_gold.png";
-									i++;
-								}
-								i=1;
-								while(i<=star_honestSelected){
-									var id = 'id_star_honest'+i;
-									document.getElementById(id).src="../images/star_gold.png";
-									i++;
-								}
-								i=1;
-								while(i<=star_serverSelected){
-									var id = 'id_star_server'+i;
-									document.getElementById(id).src="../images/star_gold.png";
-									i++;
+								if (block==1) {
+									block = true;
+									$(function(){
+										$(".div_star > p").css("color","#bbb");
+										$(".btn_block").html("取消加入黑名单");
+									});
+								}else{
+									block = false;
+									$(function(){
+										$(".div_star > p").css("color","#444");
+										$(".btn_block").html("加入黑名单");
+									});
+									star_politeSelected = response.star_polite;
+									star_safeSelected = response.star_safe;
+									star_lawSelected= response.star_law;
+									star_honestSelected = response.star_honest;
+									star_serverSelected = response.star_server;
+									console.log(star_politeSelected);
+									var i=1;
+									while(i<=star_politeSelected){
+										var id = 'id_star_polite'+i;
+										document.getElementById(id).src="../images/star_gold.png";
+										i++;
+									}
+									i=1;
+									while(i<=star_safeSelected){
+										var id = 'id_star_safe'+i;
+										document.getElementById(id).src="../images/star_gold.png";
+										i++;
+									}
+									i=1;
+									while(i<=star_lawSelected){
+										var id = 'id_star_law'+i;
+										document.getElementById(id).src="../images/star_gold.png";
+										i++;
+									}
+									i=1;
+									while(i<=star_honestSelected){
+										var id = 'id_star_honest'+i;
+										document.getElementById(id).src="../images/star_gold.png";
+										i++;
+									}
+									i=1;
+									while(i<=star_serverSelected){
+										var id = 'id_star_server'+i;
+										document.getElementById(id).src="../images/star_gold.png";
+										i++;
+									}
 								}
 							});
 						}
@@ -744,7 +792,9 @@
 			return permi;
 		}
 		function addDriver(){
+			console.log(edit);
 			if (edit==true) {
+				console.log(edit);
 				changes = changes.substr(1,changes.length-1);
 				var columns;
 				var sql = "update tb_driver set ";
@@ -762,11 +812,12 @@
 						sql = sql+columns[i]+"='"+selects.options[sindex].value+"',"
 					}
 				}
-				sql = sql+"cars_permi='"+getCarsPermi()+"',star_polite="+star_politeSelected+",star_safe="+star_safeSelected+",star_law="+star_lawSelected+",star_honest="+star_honestSelected+",star_server="+star_serverSelected+" where idcard_num='"+idcard_num+"';";
+				sql = sql+"cars_permi='"+getCarsPermi()+"',star_polite="+star_politeSelected+",star_safe="+star_safeSelected+",star_law="+star_lawSelected+",star_honest="+star_honestSelected+",star_server="+star_serverSelected+" where idcard_num=";
+				console.log(sql);
 				var request = new XMLHttpRequest;
 				request.open("POST","../ajax/updateDB.php",true);
 				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-				request.send("sql="+sql+"&flag=update");
+				request.send("sql="+sql+"&sessionName="+sessionName+"&flag=update_session");
 				request.onreadystatechange = function(){
 					if (request.readyState===4) {
 						if (request.status===200) {
@@ -857,59 +908,118 @@
 					document.getElementById("id_warn_jobClassify").style.display ="none";
 					doneNum++;
 				}
-
-				if (doneNum===8) {
+				if (userType=="super") {
+					var idcard_num = document.getElementById("id_idcard_num").value;
+					var email = document.getElementById("id_email");
+					if (idcard_num==""){
+						document.getElementById("id_warn_name").style.display = "block";
+					}else{
+						document.getElementById("id_warn_name").style.display = "none";
+						doneNum++;
+					}
+					if(email=="") {
+						document.getElementById("id_warn_phone").style.display = "block";
+					}else{
+						document.getElementById("id_warn_phone").style.display = "none";
+						doneNum++;
+					}
+					if (doneNum===10) {
+						done = true;
+					}else{
+						done =false;
+					}
+					if (!block) {
+						done = done & checkStar();
+					}
+				}else if (doneNum===8) {
 					done = true;
 				}else{
 					done = false;
 				}
 
-				if (userType=="super") {
-					if (!block) {
-						done = done & checkStar();
-					}
-				}
+				
 				if (block) {
 					var ifblock = 1;
 				}else{
 					var ifblock = 0;
 				}
 				if (done) {
-					var request = new XMLHttpRequest;
-					request.open("POST","../ajax/WriteDB.php",true);
-					request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-					request.send("username="+username+
-						"&sex="+sex+
-						"&driveLicence_id="+driveLicence_id+
-						"&driverLicence_num="+driverLicence_num+
-						"&date_getLice="+date_getLice+
-						"&cars_permi="+cars_permi+
-						"&job_permi_id="+job_permi_id+
-						"&job_permi_classify="+job_permi_classify+
-						"&job_permi_date="+job_permi_date+
-						"&phonenum="+phonenum+
-						"&address="+address+
-						"&picture="+uploadSuccess+
-						"&ifblock="+ifblock+
-						"&star_polite="+star_politeSelected+
-						"&star_safe="+star_safeSelected+
-						"&star_law="+star_lawSelected+
-						"&star_honest="+star_honestSelected+
-						"&star_server="+star_serverSelected+
-						"&flag=add_driver");
-					request.onreadystatechange = function(){
-						if (request.readyState===4) {
-							if (request.status===200) {
-								console.log("response:"+request.responseText);
-								var response = JSON.parse(request.responseText);
-								if (response.success) {
-									console.log("注册成功");
-									openWindow("hello.html");
+					if (userType=="super") {
+						var request = new XMLHttpRequest;
+						request.open("POST","../ajax/WriteDB.php",true);
+						request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+						request.send("idcard_num="+idcard_num+
+							"&username="+username+
+							"&sex="+sex+
+							"&driveLicence_id="+driveLicence_id+
+							"&driverLicence_num="+driverLicence_num+
+							"&date_getLice="+date_getLice+
+							"&cars_permi="+cars_permi+
+							"&job_permi_id="+job_permi_id+
+							"&job_permi_classify="+job_permi_classify+
+							"&job_permi_date="+job_permi_date+
+							"&phonenum="+phonenum+
+							"&email="+email+
+							"&address="+address+
+							"&picture="+uploadSuccess+
+							"&ifblock="+ifblock+
+							"&star_polite="+star_politeSelected+
+							"&star_safe="+star_safeSelected+
+							"&star_law="+star_lawSelected+
+							"&star_honest="+star_honestSelected+
+							"&star_server="+star_serverSelected+
+							"&flag=add_driver_super");
+						request.onreadystatechange = function(){
+							if (request.readyState===4) {
+								if (request.status===200) {
+									var response = JSON.parse(request.responseText);
+									if (response.success) {
+										alert("添加成功");
+										window.close();
+									}else{
+										alert("添加失败："+response.reason);
+									}
 								}else{
-									alert("注册失败："+response.reason);
+									alert("error:"+request.status);
 								}
-							}else{
-								alert("error:"+request.status);
+							}
+						}
+					}else{
+						var request = new XMLHttpRequest;
+						request.open("POST","../ajax/WriteDB.php",true);
+						request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+						request.send("username="+username+
+							"&sex="+sex+
+							"&driveLicence_id="+driveLicence_id+
+							"&driverLicence_num="+driverLicence_num+
+							"&date_getLice="+date_getLice+
+							"&cars_permi="+cars_permi+
+							"&job_permi_id="+job_permi_id+
+							"&job_permi_classify="+job_permi_classify+
+							"&job_permi_date="+job_permi_date+
+							"&phonenum="+phonenum+
+							"&address="+address+
+							"&picture="+uploadSuccess+
+							"&ifblock="+ifblock+
+							"&star_polite="+star_politeSelected+
+							"&star_safe="+star_safeSelected+
+							"&star_law="+star_lawSelected+
+							"&star_honest="+star_honestSelected+
+							"&star_server="+star_serverSelected+
+							"&flag=add_driver");
+						request.onreadystatechange = function(){
+							if (request.readyState===4) {
+								if (request.status===200) {
+									var response = JSON.parse(request.responseText);
+									if (response.success) {
+										console.log("注册成功");
+										openWindow("hello.html");
+									}else{
+										alert("注册失败："+response.reason);
+									}
+								}else{
+									alert("error:"+request.status);
+								}
 							}
 						}
 					}

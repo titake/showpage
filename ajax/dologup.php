@@ -22,6 +22,7 @@ function logupStep1(){
 	$key = 'titake_password';
 	$iv = 'titake_iv_codeiv';
 	$idnum_encrypt = openssl_encrypt($_POST['idnum'], $methods[0], $key,0,$iv);
+	session_set_cookie_params(12*3600);
 	session_start();
 	$_SESSION['userType'] = $userType;
 	$_SESSION['password'] = $password;
@@ -61,6 +62,8 @@ function logupStep1(){
 					echo 'logup_Step2_passenger.html';
 					if (!isset($_COOKIE["user_email"])) {
 						setcookie("user_email",$_SESSION["email"],strtotime('+3 months'));
+					}else{
+						setcookie("user_email","",time()-1);
 					}
 				}
 			}

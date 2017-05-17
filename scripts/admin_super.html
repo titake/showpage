@@ -61,6 +61,7 @@
 			flex-direction: column;
 			justify-content: flex-start;
 			align-items: flex-start;
+			cursor:pointer ;
 		}
 		.li_direction{
 			margin: 0px;
@@ -72,6 +73,7 @@
 			font-weight: 200;
 			text-align: left;
 			height: 20px;
+			cursor: pointer;
 		}
 
 		.view_content{
@@ -211,9 +213,9 @@
 		<a class="text_user" id="id_icon_user"  style="margin-right: 50px;" onmouseover="turnToBlur('id_icon_user')" onmouseout="turnToClear('id_icon_user')" onclick="Mytoggle('id_div_userAdmin')"></a>
 	</div>
 	<ul id="id_div_userAdmin" class="view_userAdmin" style="display: none;top: 112px;background-color: rgba(50,50,50,0.9);">
-		<li id="id_user_edit" class="option_userAdmin" onclick="turnToEdit()"> 
+		<!-- <li id="id_user_edit" class="option_userAdmin" onclick="turnToEdit()"> 
 			<img class="img_icon" src="../images/set_white.png"><p class="text_user" style="width: 80px;color: rgb(240,240,240);">个人设置</p>
-		</li>
+		</li> -->
 		<li id="id_user_admin" class="option_userAdmin" onclick="location.href='admin.html'">
 			<img class="img_icon" src="../images/admin_white.png"><p class="text_user" style="width: 80px;color: rgb(240,240,240);">信息管理</p>
 		</li>
@@ -265,10 +267,10 @@
 					<p class="text_direction">驾驶员管理</p>
 				</div>
 				<ul class="ul_direction" style="display: none;" id="id_ul_dirDriver">
-					<li class="li_direction" onclick="getUL('drivers')">驾驶员列表</li>
+					<li class="li_direction" onclick="getDriverUl()">驾驶员列表</li>
 				</ul>
 			</div>
-			<div class="view_direction">
+			<!-- <div class="view_direction">
 				<div class="view_direction_name" onclick="Mytoggle('id_ul_dirMisdeed')">
 					<img class="img_icon" src="../images/plus.png" id="id_img_dirMisdeed">
 					<p class="text_direction">违规管理</p>
@@ -278,7 +280,7 @@
 					<li class="li_direction" onclick="getUL('misdeed_driver')">驾驶员违规列表</li>
 					<li class="li_direction" onclick="getUL('misdeed_other')">其他员工违规列表</li>
 				</ul>
-			</div>
+			</div> -->
 		</div>
 	<!--内容-->
 	<!-- 企业管理 -->
@@ -319,7 +321,7 @@
 					<option class="text_option">发动机号</option>
 					<option class="text_option">车辆识别号</option>
 				</select>
-				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;" onclick="searchCar()">
+				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;cursor: pointer;" onclick="searchCar()">
 			</div>
 			<!-- 内容列表 -->
 			<ul class="ul_content" id="id_ul_car">
@@ -328,58 +330,34 @@
 			</ul>
 		</div>
 	<!-- 驾驶员管理 -->
-		<div class="view_content" style="display: none;" >
+		<div class="view_content" style="display: none;" id="id_admin_driver">
 			<!--工具栏-->
 			<div class="view_toolbar">
-				<div class="view_add" onclick="addComp()"> 
+				<div class="view_add" onclick="addDriver()"> 
 					<img src="../images/add.png" class="img_icon">
 					<p class="text_normal">添加驾驶员</p>
 				</div>
-				<input type="text" class="input_search">
-				<select class="select_search">
-					<option class="text_option">企业名</option>
-					<option class="text_option">法人名</option>
-					<option class="text_option">主要负责人</option>
+				<input type="text" class="input_search" id="id_where_driver">
+				<select class="select_search" id="id_options_driver">
+					<option class="text_option">姓名</option>
+					<option class="text_option">性别</option>
+					<option class="text_option">驾驶证号</option>
+					<option class="text_option">档案编号</option>
+					<option class="text_option">从业资格证号</option>
+					<option class="text_option">联系电话</option>
 				</select>
-				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;" onclick="searchComp()">
+				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;cursor: pointer;" onclick="searchDriver()">
 			</div>
 			<!-- 内容列表 -->
-			<ul class="ul_content">
+			<ul class="ul_content" id="id_ul_drivers">
 				<li class="li_content">
-					<p class="text_normal">xxx责任有限公司</p>
-					<p class="p_btn">编辑</p>
-					<p class="p_btn">删除</p>
-				</li>
-			</ul>
-		</div>
-	<!-- 违规管理 -->
-		<div class="view_content" style="display: none;" >
-			<!--工具栏-->
-			<div class="view_toolbar">
-				<div class="view_add" onclick="addComp()"> 
-					<img src="../images/add.png" class="img_icon">
-					<p class="text_normal">添加企业</p>
-				</div>
-				<input type="text" class="input_search" id="id_where">
-				<select class="select_search" id="id_comp">
-					<option class="text_option">企业名</option>
-					<option class="text_option">法人名</option>
-					<option class="text_option">主要负责人</option>
-				</select>
-				<img src="../images/search.png" class="img_icon" style="margin-left: 6px;" onclick="searchComp()">
-			</div>
-			<!-- 内容列表 -->
-			<ul class="ul_content">
-				<li class="li_content">
-					<p class="text_normal">xxx责任有限公司</p>
-					<p class="p_btn">编辑</p>
-					<p class="p_btn">删除</p>
 				</li>
 			</ul>
 		</div>
 	</div>
 	<div class="view_footer">
 		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+		<img src="../images/star_gray.png" title="star_polite1">
 	</div>
 	
 	<script type="text/javascript">
@@ -399,7 +377,6 @@
 						request.onreadystatechange = function(){
 							if (request.readyState===4) {
 								if (request.status===200) {
-									console.log(request.responseText);
 									var result = JSON.parse(request.responseText);
 									usertype = result.userType;
 									if (usertype!="超级管理员")
@@ -420,7 +397,7 @@
 				}
 			}
 		}
-		//交替显示与隐藏对象
+	//交替显示与隐藏对象
 		function Mytoggle(elementID){
 			$(function(){
 				$("#"+elementID).toggle("normal");
@@ -434,36 +411,36 @@
 				}
 			});
 		}
-		//title中的用户的个人信息设置点击事件
-		function turnToEdit(){
-			switch(usertype) {
-				case '驾驶员/教练员':
-					window.location.href='show_driver_one.html?type=edit';
-					break;
-				case '维修工人':
-					window.location.href='show_maintainer_one.html?type=edit';
-					break; 
-				case '客运站员工':
-					window.location.href='show_staff_one.html?type=edit';
-					break; 
-				case '运输公司/驾校管理人员':
-					window.location.href='show_administer_one.html?type=edit';
-					break; 
-				case '维护公司管理人员':
-					window.location.href='show_administer_one.html?type=edit';
-					break; 
-				case '客运站管理人员':
-					window.location.href='show_administer_one.html?type=edit';
-					break; 
-				case '超级管理员':
-					window.location.href='show_administer_one.html?type=edit';
-					break; 
-				case '乘客/学员':
-					window.location.href='show_passenger_one.html?type=edit';
-					break; 
-			}
-		}
-		//获取企业表
+	//title中的用户的个人信息设置点击事件
+		// function turnToEdit(){
+		// 	switch(usertype) {
+		// 		case '驾驶员/教练员':
+		// 			window.location.href='logup_Step2_driver.html?';
+		// 			break;
+		// 		case '维修工人':
+		// 			window.location.href='show_maintainer_one.html?type=edit';
+		// 			break; 
+		// 		case '客运站员工':
+		// 			window.location.href='show_staff_one.html?type=edit';
+		// 			break; 
+		// 		case '运输公司/驾校管理人员':
+		// 			window.location.href='show_administer_one.html?type=edit';
+		// 			break; 
+		// 		case '维护公司管理人员':
+		// 			window.location.href='show_administer_one.html?type=edit';
+		// 			break; 
+		// 		case '客运站管理人员':
+		// 			window.location.href='show_administer_one.html?type=edit';
+		// 			break; 
+		// 		case '超级管理员':
+		// 			window.location.href='show_administer_one.html?type=edit';
+		// 			break; 
+		// 		case '乘客/学员':
+		// 			window.location.href='show_passenger_one.html?type=edit';
+		// 			break; 
+		// 	}
+		// }
+	//企业管理
 		function getCompUL(FLAG){
 			switch (FLAG) {
 				case 'transComps_person':
@@ -639,7 +616,6 @@
 				}
 			}
 		}
-		// 添加企业
 		function addComp(){
 			switch(document.getElementById("id_title3_right").innerHTML){
 				case '客运企业列表':
@@ -655,7 +631,6 @@
 					break;
 			}
 		}
-		//搜索企业
 		function searchComp(){
 			var selectOptions = document.getElementById("id_comp_options");
 			var sindex = selectOptions.selectedIndex;
@@ -828,7 +803,7 @@
 				}
 			}
 		}
-
+	//车辆管理
 		function getCarUL(CarType){
 			switch(CarType){
 				case 'taxi':
@@ -880,10 +855,10 @@
 			request.open("GET","../ajax/getData_sql.php?flag=cars&sql="+sql,true);
 			request.send();
 			request.onreadystatechange = function(){
+				console.log(CarType);
 				if (request.readyState===4) {
 					if (request.status===200) {
 						var result = JSON.parse(request.responseText);
-						console.log(result);
 						var inner="";
 						if (result.length>0) {
 							for (var i = 0; i<result.length; i++) {
@@ -907,7 +882,16 @@
 								var plate_num = $(this).prev().html();
 								window.open(encodeURI("show_car_one.html?cartype="+CarType+"&plate_num="+plate_num),"_blank");
 							});
-							
+							$("#id_ul_car >li>p[title='driver1']").click(function(){
+								if ($(this).html()!="") {
+									window.open("show_driver_one.html?sessionName=li_"+$(this).parent().attr("index")+"driver1","_blank");
+								}
+							});
+							$("#id_ul_car >li>p[title='driver2']").click(function(){
+								if ($(this).html()!="") {
+									window.open("show_driver_one.html?sessionName=li_"+$(this).parent().attr("index")+"driver2","_blank");
+								}
+							});
 							$("#id_ul_car >li>p[title='li_edit']").click(function(){
 								var img = $(this).prevAll("p[title=img]").html();
 								var plate_num = $(this).prevAll("p[title=plate_num]").html();
@@ -947,7 +931,6 @@
 				}
 			}
 		}
-		//添加车辆
 		function addCar(){
 			var flag;
 			switch(document.getElementById("id_title3_right").innerHTML){
@@ -970,64 +953,90 @@
 					flag = "student_car";
 					break;
 			}
-			console.log(flag);
 			window.open(encodeURI("add_car.html?cartype="+flag+"&success="),"_blank");
 		}
 		function searchCar(){
 			var flag;
-			var sql;
-			switch(document.getElementById("id_title3_right").value){
+			var sql = "";
+			var tbName = "";
+			var CarType;
+			switch(document.getElementById("id_title3_right").innerHTML){
 				case '出租车列表':
+					CarType="taxi";
+					break;
+				case '公交车列表':
+					CarType="bus";
+					break;
+				case '班车列表':
+					CarType="shuttle";
+					break;
+				case '普通货车列表':
+					CarType="normal_truck";
+					break;
+				case '危险品运输车列表':
+					CarType="danger_truck";
+					break;
+				case '教练车列表':
+					CarType="student_car";
+					break;	
+			}
+			switch(document.getElementById("id_title3_right").innerHTML){
+				case '出租车列表':
+					tbName = "tb_taxi";
 					sql = "select plate_num,car_classify,driver1,driver2,img from tb_taxi where ";
 					break;
 				case '公交车列表':
+					tbName = "tb_bus";
 					sql = "select plate_num,car_classify,driver1,driver2,img from tb_bus where ";
 					break;
 				case '班车列表':
+					tbName = "tb_shuttle";
 					sql = "select plate_num,car_classify,driver1,driver2,img from tb_shuttle where ";
 					break;
 				case '普通货车列表':
+					tbName = "tb_normal_truck";
 					sql = "select plate_num,car_classify,driver1,driver2,img from tb_normal_truck where ";
 					break;
 				case '危险品运输车列表':
+					tbName = "tb_danger_truck";
 					sql = "select plate_num,car_classify,driver1,driver2,img from tb_danger_truck where ";
 					break;
 				case '教练车列表':
+					tbName = "tb_student_car";
 					sql = "select plate_num,car_classify,driver1,driver2,img from tb_student_car where ";
 					break;
 			}
-			var selectOptions = document.getElementById("id_comp_options");
+			var selectOptions = document.getElementById("id_options_cars");
 			var sindex = selectOptions.selectedIndex;
 			var reference = selectOptions.options[sindex].value;
 			var where = document.getElementById("id_where_car").value;
-			var flag = "dosql";
+			var flag = "cars";
 			switch(reference){
 				case '车牌号':
-					sql = sql+"plate_num like '%"+where+"'%;";
+					sql = sql+"plate_num like '%"+where+"%';";
 					break;
-				case '车辆类型':
-					sql = sql+"car_classify like '%"+where+"'%;";
+				case '车型':
+					sql = sql+"car_classify like '%"+where+"%';";
 					break;
 				case '所属单位':
-					sql = sql+"comp_name like '%"+where+"'%;";
+					sql = sql+"comp_name like '%"+where+"%';";
 					break;
 				case '驾驶员姓名':
-					sql = "select idcard_num from tb_driver where username like '"+where+"%';"
+					sql = "select idcard_num from tb_driver where username like '%"+where+"%';"
 					flag = "searchcar_username";
 					break;
 				case '档案编号':
-					sql = sql+"file_num like '%"+where+"'%;";
+					sql = sql+"file_num like '%"+where+"%';";
 					break;
 				case '发动机号':
-					sql = sql+"engine_num like '%"+where+"'%;";
+					sql = sql+"engine_num like '%"+where+"%';";
 					break;
 				case '车辆识别号':
-					sql = sql+"vin like '%"+where+"'%;";
+					sql = sql+"vin like '%"+where+"%';";
 					break;
 			}
-			sql = sql +reference+" like '%"+where+"%';";
 			var request = new XMLHttpRequest;
-			request.open("GET","../ajax/getData_sql.php?flag"+flag+"&sql="+sql,true);
+			request.open("GET","../ajax/getData_sql.php?flag="+flag+"&sql="+sql+"&tbName="+tbName,true);
 			request.send();
 			request.onreadystatechange = function(){
 				if (request.readyState===4) {
@@ -1056,7 +1065,16 @@
 								var plate_num = $(this).prev().html();
 								window.open(encodeURI("show_car_one.html?cartype="+CarType+"&plate_num="+plate_num),"_blank");
 							});
-							
+							$("#id_ul_car >li>p[title='driver1']").click(function(){
+								if ($(this).html()!="") {
+									window.open("show_driver_one.html?sessionName=li_"+$(this).parent().attr("index")+"driver1","_blank");
+								}
+							});
+							$("#id_ul_car >li>p[title='driver2']").click(function(){
+								if ($(this).html()!="") {
+									window.open("show_driver_one.html?sessionName=li_"+$(this).parent().attr("index")+"driver2","_blank");
+								}
+							});
 							$("#id_ul_car >li>p[title='li_edit']").click(function(){
 								console.log("CarType:"+CarType);
 								var img = $(this).prevAll("p[title=img]").html();
@@ -1090,6 +1108,328 @@
 								}
 							});
 							$("#id_admin_car").css("display","flex");
+						});
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+
+	//驾驶员管理
+		function getDriverUl(CarType){
+			$(function(){
+				$("id_title3_right").html("驾驶员列表");
+			})
+			var sql = "select idcard_num,username,sex,job_permi_classify,ifblock,star_polite,star_safe,star_law,star_honest,star_server from tb_driver;";
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=drivers&sql="+sql,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						var inner="";
+						if (result.length>0) {
+							inner = inner+'<li class="li_content" style="border-bottom:solid 1px #888;justify-content:flex-start;"><p class="text_normal" style="width: 80px;">姓名</p><p class="text_normal" style="width: 40px;margin-left: 10px;">性别</p><p class="text_normal" style="width: 140px;margin-left: 20px;margin-right:25px;">从业资格类别</p><p class="text_normal" style="width: 83px;text-align:center;">文明星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">安全星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">守法星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">诚信星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">服务星</p></li>';
+							for (var i = 0; i<result.length; i++) {
+								var j = "list"+i;
+								inner = inner+'<li class="li_content" index="'+i+'"><p class="text_normal" style="width: 90px;">'+result[j]['username']+'</p><p class="text_normal" style="width: 15px;margin-left: 20px;">'+result[j]['sex']+'</p><p class="text_normal" style="width: 140px;margin-left: 20px;margin-right:25px;">'+result[j]['job_permi_classify']+'</p>';
+								var ifblock = result[j]['ifblock'];
+								if (ifblock==1) {
+									inner = inner+'<p class="text_normal" style="width: 20px;margin-left: 20px;">该驾驶员在黑名单中';
+								}else{
+									var star_polite = result[j]['star_polite'];
+									var i=1;
+									while(i<=star_polite){
+										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
+										i++;
+									}
+									star_polite++;
+									while(star_polite<=5){
+										inner = inner+'<img class="img_star" src="../images/star_gray.png">';
+										star_polite++;
+									}
+									var star_safe = result[j]['star_safe'];
+									if (star_safe>0) {
+										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
+									}else{
+										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+									}
+									i=2;
+									while(i<star_safe){
+										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
+										i++;
+									}
+									star_safe++;
+									while(star_safe<=5){
+										inner = inner+'<img class="img_star" src="../images/star_gray.png">';
+										star_safe++;
+									}
+									var star_law = result[j]['star_law'];
+									if (star_law>0) {
+										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
+									}else{
+										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+									}
+									i=2;
+									while(i<star_law){
+										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
+										i++;
+									}
+									star_law++;
+									while(star_law<=5){
+										inner = inner+'<img class="img_star" src="../images/star_gray.png">';
+										star_law++;
+									}
+									var star_honest = result[j]['star_honest'];
+									if (star_honest>0) {
+										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
+									}else{
+										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+									}
+									i=2;
+									while(i<star_honest){
+										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
+										i++;
+									}
+									star_honest++;
+									while(star_honest<=5){
+										inner = inner+'<img class="img_star" src="../images/star_gray.png">';
+										star_honest++;
+									}
+									var star_server = result[j]['star_server'];
+									if (star_server>0) {
+										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
+									}else{
+										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+									}
+									i=2;
+									while(i<star_server){
+										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
+										i++;
+									}
+									star_server++;
+									while(star_server<=5){
+										inner = inner+'<img class="img_star" src="../images/star_gray.png">';
+										star_server++
+									}
+								}
+								inner = inner+ '<p class="p_btn" title="li_edit">编辑</p><p class="p_btn" title="li_delete" >删除</p></li>';
+							}
+						}else{
+							console.log(result.reason);
+						}
+						$(function(){
+							$("#id_ul_drivers").html(inner);
+							$("#id_ul_drivers >li:even").css("background-color","rgba(220,220,220,0.8)");
+							$("#id_ul_drivers >li").mouseover(function(){$(this).css("background-color","rgba(230,230,230,0.9)")});
+							$("#id_ul_drivers >li:even").mouseout(function(){$(this).css("background-color","rgba(220,220,220,0.8)")});
+							$("#id_ul_drivers >li:odd").mouseout(function(){$(this).css("background-color","rgba(250,250,250,0.9)")});
+							$("#id_ul_drivers >li>p[title='li_edit']").prevAll().click(function(){
+								window.open("show_driver_one.html?sessionName=idcard_num"+$(this).parent().attr("index"),"_blank");
+							});
+							$("#id_ul_drivers >li>p[title='li_edit']").click(function(){
+								window.open("logup_Step2_driver.html?usertype=super&upload=&sessionName=idcard_num"+$(this).parent().attr("index"),"_blank");
+							});
+							$("#id_ul_drivers >li>p[title='li_delete']").click(function(){
+								if (window.confirm("确认删除该驾驶员？")) {
+									var sessionName = "idcard_num"+$(this).parent().attr("index");
+									var request = new XMLHttpRequest;
+									request.open("POST","../ajax/WriteDB.php?sessionName="+name+"&flag=delete_driver",true);
+									request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+									request.send("flag=dosql&sql="+sql);
+									request.onreadystatechange = function(){
+										if (request.readyState===4) {
+											if (request.status===200) {
+												var response = JSON.parse(request.responseText);
+												if (response.success==true) {
+													alert("删除成功");
+													getDriverUl();
+												}else{
+													console.log(response.reason);
+													alert("删除失败"+response.reason);
+												}
+											}else{
+												alert("error:"+request.status);
+											}
+										}
+									}
+								}
+							});
+							$("#id_admin_driver").css("display","flex");
+						});
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		function addDriver(){
+			window.open("logup_Step2_driver.html?usertype=super&pic=","_blank");
+		}
+		function searchDriver(){
+			var sql = "select idcard_num,username,sex,job_permi_classify,ifblock,star_polite,star_safe,star_law,star_honest,star_server from tb_driver where ";
+			var selectOptions = document.getElementById("id_options_driver");
+			var sindex = selectOptions.selectedIndex;
+			var reference = selectOptions.options[sindex].value;
+			var where = document.getElementById("id_where_driver").value;
+			switch(reference){
+				case '姓名':
+					sql = sql+"name like '%"+where+"%';";
+					break;
+				case '性别':
+					sql = sql+"sex like '%"+where+"%';";
+					break;
+				case '驾驶证号':
+					sql = sql+"driveLicence_id like '%"+where+"%';";
+					break;
+				case '档案编号':
+					sql = sql+"driverLicence_num like '%"+where+"%';"
+					break;
+				case '从业资格证号':
+					sql = sql+"job_permi_id like '%"+where+"%';";
+					break;
+				case '联系电话':
+					sql = sql+"phonenum like '%"+where+"%';";
+					break;
+			}
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=dosql&sql="+sql,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						var inner="";
+						if (result.length>0) {
+							inner = inner+'<li class="li_content" style="border-bottom:solid 1px #888;justify-content:flex-start;"><p class="text_normal" style="width: 80px;">姓名</p><p class="text_normal" style="width: 40px;margin-left: 10px;">性别</p><p class="text_normal" style="width: 140px;margin-left: 20px;margin-right:25px;">从业资格类别</p><p class="text_normal" style="width: 83px;text-align:center;">文明星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">安全星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">守法星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">诚信星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">服务星</p></li>';
+							for (var i = 0; i<result.length; i++) {
+								var j = "list"+i;
+								inner = inner+'<li class="li_content" index="'+i+'"><p class="text_normal" style="width: 90px;">'+result[j]['username']+'</p><p class="text_normal" style="width: 15px;margin-left: 20px;">'+result[j]['sex']+'</p><p class="text_normal" style="width: 140px;margin-left: 20px;margin-right:25px;">'+result[j]['job_permi_classify']+'</p>';
+								var ifblock = result[j]['ifblock'];
+								if (ifblock==1) {
+									inner = inner+'<p class="text_normal" style="width: 20px;margin-left: 20px;">该驾驶员在黑名单中';
+								}else{
+									var star_polite = result[j]['star_polite'];
+									var i=1;
+									while(i<=star_polite){
+										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
+										i++;
+									}
+									star_polite++;
+									while(star_polite<=5){
+										inner = inner+'<img class="img_star" src="../images/star_gray.png">';
+										star_polite++;
+									}
+									var star_safe = result[j]['star_safe'];
+									if (star_safe>0) {
+										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
+									}else{
+										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+									}
+									i=2;
+									while(i<star_safe){
+										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
+										i++;
+									}
+									star_safe++;
+									while(star_safe<=5){
+										inner = inner+'<img class="img_star" src="../images/star_gray.png">';
+										star_safe++;
+									}
+									var star_law = result[j]['star_law'];
+									if (star_law>0) {
+										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
+									}else{
+										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+									}
+									i=2;
+									while(i<star_law){
+										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
+										i++;
+									}
+									star_law++;
+									while(star_law<=5){
+										inner = inner+'<img class="img_star" src="../images/star_gray.png">';
+										star_law++;
+									}
+									var star_honest = result[j]['star_honest'];
+									if (star_honest>0) {
+										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
+									}else{
+										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+									}
+									i=2;
+									while(i<star_honest){
+										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
+										i++;
+									}
+									star_honest++;
+									while(star_honest<=5){
+										inner = inner+'<img class="img_star" src="../images/star_gray.png">';
+										star_honest++;
+									}
+									var star_server = result[j]['star_server'];
+									if (star_server>0) {
+										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
+									}else{
+										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+									}
+									i=2;
+									while(i<star_server){
+										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
+										i++;
+									}
+									star_server++;
+									while(star_server<=5){
+										inner = inner+'<img class="img_star" src="../images/star_gray.png">';
+										star_server++
+									}
+								}
+								inner = inner+ '<p class="p_btn" title="li_edit">编辑</p><p class="p_btn" title="li_delete" >删除</p></li>';
+							}
+						}else{
+							console.log(result.reason);
+						}
+						$(function(){
+							$("#id_ul_drivers").html(inner);
+							$("#id_ul_drivers >li:even").css("background-color","rgba(220,220,220,0.8)");
+							$("#id_ul_drivers >li").mouseover(function(){$(this).css("background-color","rgba(230,230,230,0.9)")});
+							$("#id_ul_drivers >li:even").mouseout(function(){$(this).css("background-color","rgba(220,220,220,0.8)")});
+							$("#id_ul_drivers >li:odd").mouseout(function(){$(this).css("background-color","rgba(250,250,250,0.9)")});
+							$("#id_ul_drivers >li>p[title='li_edit']").prevAll().click(function(){
+								window.open("show_driver_one.html?sessionName=idcard_num"+$(this).parent().attr("index"),"_blank");
+							});
+							$("#id_ul_drivers >li>p[title='li_edit']").click(function(){
+								window.open("logup_Step2_driver.html?usertype=super&upload=&sessionName=idcard_num"+$(this).parent().attr("index"),"_blank");
+							});
+							$("#id_ul_drivers >li>p[title='li_delete']").click(function(){
+								if (window.confirm("确认删除该驾驶员？")) {
+									var sessionName = "idcard_num"+$(this).parent().attr("index");
+									var request = new XMLHttpRequest;
+									request.open("POST","../ajax/WriteDB.php?sessionName="+name+"&flag=delete_driver",true);
+									request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+									request.send("flag=dosql&sql="+sql);
+									request.onreadystatechange = function(){
+										if (request.readyState===4) {
+											if (request.status===200) {
+												var response = JSON.parse(request.responseText);
+												if (response.success==true) {
+													alert("删除成功");
+													getDriverUl();
+												}else{
+													console.log(response.reason);
+													alert("删除失败"+response.reason);
+												}
+											}else{
+												alert("error:"+request.status);
+											}
+										}
+									}
+								}
+							});
+							$("#id_admin_driver").css("display","flex");
 						});
 					}else{
 						alert("error:"+request.status);

@@ -60,6 +60,15 @@
 			justify-content: flex-start;
 			align-items:center;
 		}
+		.view_row{
+			width: 1200px;
+			height: 40px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+			margin-top: 20px;
+		}
 		.text_ulName{
 			font-size: 16px;
 			font-weight: 400;
@@ -107,7 +116,7 @@
 			<div id="id_tab_main" class="view_tab_title" onmouseover="turnToBlur('id_tab_main')" onmouseout="turnToClear('id_tab_main')" onclick="window.location.href = 'hello.html'">
 				<p class="text_title_tab">首页</p>
 			</div>
-			<div id="id_tab_transform" class="view_tab_title" style="background-color: transparent;"  onmouseover="turnToBlur('id_tab_transform')" onmouseout="turnToClear('id_tab_transform')" onclick="window.location.href = 'hello_transform.html'">
+			<div id="id_tab_transform" class="view_tab_title"  onmouseover="turnToBlur('id_tab_transform')" onmouseout="turnToClear('id_tab_transform')" onclick="window.location.href = 'hello_transform.html'">
 				<p class="text_title_tab">道路运输</p>
 			</div>
 			<div id="id_tab_teach" class="view_tab_title" onmouseover="turnToBlur('id_tab_teach')" onmouseout="turnToClear('id_tab_teach')" onclick="window.location.href = 'hello_teach.html'">
@@ -141,10 +150,28 @@
 		</li>
 	</ul>
 	<!--内容-->
+	<div class="view_main" id="id_view_hello" style="display: none;">
+		<div class="view_cards">
+			<div class="view_card"  onclick="window.open('show_misdeed.html?type=comp','_self');">
+				<p>企业违规列表</p>
+			</div>
+			<div class="view_card" onclick="window.open('show_misdeed.html?type=driver','_self')">
+				<p>驾驶员违规列表</p>
+			</div>
+			<div class="view_card" onclick="window.open('show_misdeed.html?type=staff','_self')">
+				<p>其他员工违规列表</p>
+			</div>
+		</div>
+	</div>
 	<div class="view_misdeeds" id="id_view_misdeed">
+		<div class="view_row">
+			<button class="btn_logup" style="width: 130px;margin: 0px;margin-left: 20px;" id="id_btn_comp"  onmouseover="turnToBlur('id_btn_comp')" onmouseout="turnToClear('id_btn_comp')" onclick="getUrl('comp')">企业违规列表</button>
+			<button class="btn_logup" style="width: 130px;margin: 0px;margin-left: 20px;" id="id_btn_driver"  onmouseover="turnToBlur('id_btn_driver')" onmouseout="turnToClear('id_btn_driver')" onclick="getUrl('driver')">驾驶员违规列表</button>
+			<button class="btn_logup" style="width: 130px;margin: 0px;margin-left: 20px;" id="id_btn_staff"  onmouseover="turnToBlur('id_btn_staff')" onmouseout="turnToClear('id_btn_staff')" onclick="getUrl('staff')">其他员工违规列表</button>
+		</div>
 		<div class="view_content_column" style="margin-top: 20px;align-items: center;">
 			<p class="text_ulName" id="id_ulName">xxx违规列表</p>
-			<ul class="ul_misdeed" id="id_ul"></ul>
+			<ul class="ul_misdeed" id="id_misdeedUL"></ul>
 		</div>
 	</div>
 	<div class="view_footer">
@@ -197,7 +224,6 @@
 				}
 			}
 		}
-
 		function toggleAdmin(){
 			$(function(){
 				$("#id_div_userAdmin").toggle("normal");
@@ -206,7 +232,7 @@
 		// function turnToEdit(){
 		// 	switch(usertype) {
 		// 		case '驾驶员/教练员':
-		// 			window.location.href='logup_Step2_driver.html?type=edit';
+		// 			window.location.href='show_driver_one.html?type=edit';
 		// 			break;
 		// 		case '维修工人':
 		// 			window.location.href='show_maintainer_one.html?type=edit';
@@ -288,7 +314,18 @@
 				}
 			}
 		}
-		getUrl(location.search.split("?")[1].split("=")[1]);
+		if (location.search=="") {
+			$(function(){
+				$("#id_view_hello").css("display","flex");
+				$("#id_view_misdeed").hide();
+			});
+		}else{
+			getUrl(location.search.split("?")[1].split("=")[1]);
+			$(function(){
+				$("#id_view_hello").hide();
+				$("#id_view_misdeed").css("display","flex");
+			});
+		}
 	</script>
 </body>
-</html> 
+</html>

@@ -81,6 +81,30 @@
 			cursor: default;  
 			margin-bottom: 250px;  
 		}
+		.hello_show{
+			width: 1200px;
+			height: 500px;
+		}
+		.show_background{
+			width: 1200px;
+			height: 500px;
+			background-size: cover;
+			background-repeat: no-repeat;
+			cursor: pointer;
+		}
+		.text_show{
+			width: 1200px;
+			height: 260px;
+			background-color: rgba(255,255,255,0.6);
+			font-size: 22px;
+			font-weight: 600;
+			font-family: 宋体;
+			text-align: center;
+			color: rgb(0,0,0);
+			text-align: center;
+			padding-top: 240px;
+			margin: 0px;
+		}
 		/*.page{
 			position: absolute;
 			top: 50px;
@@ -131,7 +155,32 @@
 		</li>
 	</ul>
 	<!--首页-->
-	<div class="view_main">
+	<div class="view_main" id="id_view_main" style="flex-direction: column;">
+		<div class="hello_show">
+			<div class="show_background" style="background-image: url(../images/hello_transform.jpg);">
+				<p class="text_show" onclick="window.open('hello_transform.html','_self')">交通运输挂牌评星</p>
+			</div>
+		</div> 
+		<div class="hello_show">
+			<div class="show_background" style="background-image: url(../images/hello_teach2.jpg);">
+				<p class="text_show" onclick="window.open('hello_teach.html','_self')">驾校挂牌评星</p>
+			</div>
+		</div> 
+		<div class="hello_show">
+			<div class="show_background" style="background-image: url(../images/hello_maint2.jpg);">
+				<p class="text_show" onclick="window.open('hello_maintain.html','_self')">维修挂牌评星</p>
+			</div>
+		</div> 
+		<div class="hello_show">
+			<div class="show_background" style="background-image: url(../images/hello_transport2.jpg);">
+				<p class="text_show" onclick="window.open('hello_transport.html','_self')">客运站挂牌评星</p>
+			</div>
+		</div> 
+		<div class="hello_show">
+			<div class="show_background" style="background-image: url(../images/hello_misdeed2.jpg);">
+				<p class="text_show" onclick="window.open('show_misdeed.html','_self')">违规违章通报</p>
+			</div>
+		</div> 
 	</div>
 	<div class="view_footer">
 		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
@@ -184,6 +233,7 @@
 				}
 			}
 		}
+		//由用户类型，选择要打开管理页面
 		function openAdmin(){
 			switch (usertype){
 				case "超级管理员":
@@ -205,6 +255,7 @@
 				$("#id_div_userAdmin").toggle("normal");
 			});
 		}
+		//对自己的信息进行编辑
 		function turnToEdit(){
 			switch(usertype) {
 				case '驾驶员/教练员':
@@ -233,6 +284,7 @@
 					break; 
 			}
 		}
+
 	</script>
 </body>
 </html>

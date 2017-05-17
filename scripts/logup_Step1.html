@@ -159,7 +159,9 @@
 		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
 	</div>
 	<script type="text/javascript">
-		warn = false;
+		warn_nickname = false;
+		warn_email = false;
+		warn_idnum=false;
 		function submitForm(){
 			if (document.getElementById('id_check_agreement').checked==false) {
 				alert("请先同意xxx协议");
@@ -167,7 +169,7 @@
 				alert("请输入注册信息");
 			}else if (document.getElementById('id_password').value!=document.getElementById('id_password_sure').value) {
 				alert("两次输入的密码不一样");
-			}else if (!warn) {
+			}else if (!warn_email&&!warn_idnum&&!warn_nickname) {
 				var request = new XMLHttpRequest;
 				request.open("POST","../ajax/dologup.php",true);
 				request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
@@ -216,7 +218,7 @@
 						var nicknameWarn = document.getElementById('id_nickname_warn');
 						nicknameWarn.style.color = response.color;
 						nicknameWarn.innerHTML = response.value;
-						warn = response.warning;
+						warn_nickname= response.warning;
 					}else{
 						alert("error:"+request.status);
 					}
@@ -237,10 +239,10 @@
 							if (response.exist) {
 								emailWarn.innerHTML = '您已注册过请<a href="login.html">登录</a>';
 								emailWarn.style.color = "#ff0000";
-								warn = true;
+								warn_email = true;
 							}else{
 								emailWarn.innerHTML = '';
-								warn = false;
+								warn_email = false;
 							}
 						}else{
 							alert("error"+request.status);
@@ -260,10 +262,10 @@
 							response = JSON.parse(request.responseText);
 							if (response.exist) {
 								document.getElementById("id_idnum_warn").innerHTML = '您已注册过请<a href="login.html">登录</a>';
-								warn = true;
+								warn_idnum = true;
 							}else{
 								document.getElementById("id_idnum_warn").innerHTML = "";
-								warn = false;
+								warn_idnum = false;
 							}
 						}else{
 							alert("error:"+request.status);
