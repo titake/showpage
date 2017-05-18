@@ -353,13 +353,11 @@
 	</div>
 	<script type="text/javascript">
 		var request = new XMLHttpRequest;
-		request.open("GET","../ajax/editSession.php?flag=set&name=url_search&url_search="+encodeURI(location.search));
-		console.log(encodeURI(location.search));
+		request.open("GET","../ajax/editSession.php?flag=set&name=url_search&url_search="+location.search.replace(new RegExp(/&/g),"?"));
 		request.send();
 		request.onreadystatechange = function(){
 			if (request.readyState===4) {
 				if (request.status===200) {
-					console.log(request.responseText);
 				}else{
 					alert("error:"+request.status);
 				}
@@ -481,6 +479,7 @@
 								var ImgURL="url(../uploadImg/"+uploadSuccess+")";
 								$("#id_div_photo").css("background-image",ImgURL);
 								block = response.ifblock;
+								console.log(block);
 								if (block==1) {
 									block = true;
 									$(function(){
@@ -651,7 +650,7 @@
 			}
 		}
 		function checkStar(){
-			var donuNum = 0;
+			var doneNum = 0;
 			if (star_politeSelected==0) {
 				document.getElementById("id_warn_star_polite").display = "block";
 			}else{
@@ -812,7 +811,12 @@
 						sql = sql+columns[i]+"='"+selects.options[sindex].value+"',"
 					}
 				}
-				sql = sql+"cars_permi='"+getCarsPermi()+"',star_polite="+star_politeSelected+",star_safe="+star_safeSelected+",star_law="+star_lawSelected+",star_honest="+star_honestSelected+",star_server="+star_serverSelected+" where idcard_num=";
+				if (block) {
+					var ifblock = 1;
+				}else{
+					var ifblock = 0;
+				}
+				sql = sql+"ifblock="+ifblock+",cars_permi='"+getCarsPermi()+"',star_polite="+star_politeSelected+",star_safe="+star_safeSelected+",star_law="+star_lawSelected+",star_honest="+star_honestSelected+",star_server="+star_serverSelected+" where idcard_num=";
 				console.log(sql);
 				var request = new XMLHttpRequest;
 				request.open("POST","../ajax/updateDB.php",true);
@@ -841,6 +845,7 @@
 					document.getElementById("id_warn_photo").style.display = "block";
 				}else if (uploadSuccess!="failed") {}{
 					doneNum++;
+					console.log(doneNum);
 					document.getElementById("id_warn_photo").style.display = "none";
 				}
 
@@ -849,6 +854,7 @@
 					document.getElementById("id_warn_name").style.display = "block";
 				}else{
 					document.getElementById("id_warn_name").style.display ="none";
+					console.log(doneNum);
 					doneNum++;
 				}
 				var sindex;
@@ -861,6 +867,7 @@
 					document.getElementById("id_warn_phone").style.display = "block";
 				}else{
 					document.getElementById("id_warn_phone").style.display ="none";
+					console.log(doneNum);
 					doneNum++;
 				}
 
@@ -869,6 +876,7 @@
 					document.getElementById("id_warn_address").style.display = "block";
 				}else{
 					document.getElementById("id_warn_address").style.display ="none";
+					console.log(doneNum);
 					doneNum++;
 				}
 
@@ -878,6 +886,7 @@
 					document.getElementById("id_warn_driveLicence").style.display = "block";
 				}else{
 					document.getElementById("id_warn_driveLicence").style.display ="none";
+					console.log(doneNum);
 					doneNum++;
 				}
 
@@ -887,6 +896,7 @@
 					document.getElementById("id_warn_permi").style.display = "block";
 				}else{
 					document.getElementById("id_warn_permi").style.display ="none";
+					console.log(doneNum);
 					doneNum++;
 				}
 
@@ -896,6 +906,7 @@
 					document.getElementById("id_warn_jobPermi").style.display = "block";
 				}else{
 					document.getElementById("id_warn_jobPermi").style.display ="none";
+					console.log(doneNum);
 					doneNum++;
 				}
 
@@ -906,21 +917,24 @@
 					document.getElementById("id_warn_jobClassify").style.display = "block";
 				}else{
 					document.getElementById("id_warn_jobClassify").style.display ="none";
+					console.log(doneNum);
 					doneNum++;
 				}
 				if (userType=="super") {
 					var idcard_num = document.getElementById("id_idcard_num").value;
-					var email = document.getElementById("id_email");
+					var email = document.getElementById("id_email").value;
 					if (idcard_num==""){
 						document.getElementById("id_warn_name").style.display = "block";
 					}else{
 						document.getElementById("id_warn_name").style.display = "none";
+					console.log(doneNum);
 						doneNum++;
 					}
 					if(email=="") {
 						document.getElementById("id_warn_phone").style.display = "block";
 					}else{
 						document.getElementById("id_warn_phone").style.display = "none";
+					console.log(doneNum);
 						doneNum++;
 					}
 					if (doneNum===10) {
@@ -943,6 +957,7 @@
 				}else{
 					var ifblock = 0;
 				}
+				console.log(doneNum+"and"+done);
 				if (done) {
 					if (userType=="super") {
 						var request = new XMLHttpRequest;
@@ -972,6 +987,7 @@
 						request.onreadystatechange = function(){
 							if (request.readyState===4) {
 								if (request.status===200) {
+									console.log(request.responseText);
 									var response = JSON.parse(request.responseText);
 									if (response.success) {
 										alert("添加成功");

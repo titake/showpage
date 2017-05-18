@@ -200,13 +200,13 @@
 			<div id="id_tab_main" class="view_tab_title" onmouseover="turnToBlur('id_tab_main')" onmouseout="turnToClear('id_tab_main')" onclick="window.location.href = 'hello.html'">
 				<p class="text_title_tab">首页</p>
 			</div>
-			<div id="id_tab_transform" class="view_tab_title"  onmouseover="turnToBlur('id_tab_transform')" onmouseout="turnToClear('id_tab_transform')" onclick="window.location.href = 'hello_transform.html'">
+			<div id="id_tab_transform" class="view_tab_title" style="background: transparent;" onmouseover="turnToBlur('id_tab_transform')" onmouseout="turnToClear('id_tab_transform')" onclick="window.location.href = 'hello_transform.html'">
 				<p class="text_title_tab">道路运输</p>
 			</div>
 			<div id="id_tab_teach" class="view_tab_title" onmouseover="turnToBlur('id_tab_teach')" onmouseout="turnToClear('id_tab_teach')" onclick="window.location.href = 'hello_teach.html'">
 				<p class="text_title_tab">驾校</p>
 			</div>
-			<div id="id_tab_maintain" class="view_tab_title" style="background: transparent;" onmouseover="turnToBlur('id_tab_maintain')" onmouseout="turnToClear('id_tab_maintain')" onclick="window.location.href = 'hello_maintain.html'">
+			<div id="id_tab_maintain" class="view_tab_title"  onmouseover="turnToBlur('id_tab_maintain')" onmouseout="turnToClear('id_tab_maintain')" onclick="window.location.href = 'hello_maintain.html'">
 				<p class="text_title_tab">车辆维护</p>
 			</div>
 			<div id="id_tab_transport" class="view_tab_title" onmouseover="turnToBlur('id_tab_transport')" onmouseout="turnToClear('id_tab_transport')" onclick="window.location.href = 'hello_transport.html'">
@@ -241,10 +241,10 @@
 		function getCompUL(){
 			$(function(){
 				$("#id_comp_options").html('<option class="text_option">企业名</option> <option class="text_option">法人名</option>	<option class="text_option">主要负责人</option>');
-				$("#id_ulName").html("维护企业列表");
+				$("#id_ulName").html("货运企业列表");
 			});
 			var request = new XMLHttpRequest;
-			request.open("GET","../ajax/getData_sql.php?flag=mainComps",true);
+			request.open("GET","../ajax/getData_sql.php?flag=transComps_good",true);
 			request.send();
 			request.onreadystatechange = function(){
 				if (request.readyState===4) {
@@ -267,11 +267,11 @@
 							$("#id_ul_comps >li:odd").mouseout(function(){$(this).css("background-color","rgba(250,250,250,0.9)")});
 							$("#id_ul_comps >li>p[title='name']").click(function(){
 								var name = $(this).html();
-								window.open(encodeURI("show_mainComp_one.html?compname="+name),"_self");
+								window.open(encodeURI("show_transComp_one.html?compname="+name),"_self");
 							});
 							$("#id_ul_comps >li>p[title='address']").click(function(){
 								var name = $(this).prev().html();
-								window.open(encodeURI("show_mainComp_one.html?compname="+name),"_self");
+								window.open(encodeURI("show_transComp_one.html?compname="+name),"_self");
 							});
 						});
 					}else{
@@ -284,7 +284,7 @@
 			var selectOptions = document.getElementById("id_comp_options");
 			var sindex = selectOptions.selectedIndex;
 			var reference = selectOptions.options[sindex].value;
-			var sql = "select name,registe_address from tb_maincomp where ";
+			var sql = "select name,registe_address from tb_transcomp where scope like '%good%' and ";
 			var where = document.getElementById("id_where_comp").value;
 			switch(reference){
 				case '企业名':
@@ -322,11 +322,11 @@
 							$("#id_ul_comps >li:odd").mouseout(function(){$(this).css("background-color","rgba(250,250,250,0.9)")});
 							$("#id_ul_comps >li>p[title='name']").click(function(){
 								var name = $(this).html();
-								window.open(encodeURI("show_mainComp_one.html?compname="+name),"_self");
+								window.open(encodeURI("show_transComp_one.html?compname="+name),"_self");
 							});
 							$("#id_ul_comps >li>p[title='address']").click(function(){
 								var name = $(this).prev().html();
-								window.open(encodeURI("show_mainComp_one.html?compname="+name),"_self");
+								window.open(encodeURI("show_transComp_one.html?compname="+name),"_self");
 							});
 						});
 					}else{

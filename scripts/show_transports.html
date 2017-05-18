@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汽车评星系统</title>
+	<link rel="icon" type="image/png" href="../images/icon_star2.png">  <!-- ./是当前目录   ../是上一级父目录    /是根目录  -->
+	<link rel="stylesheet" type="text/css" href="../styles/logupCss.css">
+	<link rel="stylesheet" type="text/css" href="../styles/mainCss.css">
+	<style type="text/css">
+		.view_tab_title{
+			width: 20%;
+			height: 50px;
+			display: inline;
+			background: rgba(255,255,255,0.8);
+			cursor: pointer;
+			justify-content: center;
+			align-items: center;
+		}
+		.text_title_tab{
+			font-size: 16px;
+			font-weight: 400;
+			font-family: 宋体;
+			text-align: center;
+			color: rgb(0,0,0);
+		}
+		.text_title{
+			font-size: 16px;
+			font-weight: 400;
+			font-family: 宋体;
+			text-align: center;
+			width: 80px;
+			color: rgb(0,0,0);
+			cursor: pointer;
+			text-decoration: none;
+		}
+		
+		.text_a_bar{
+			font-size: 14.5px;
+			font-weight: 400;
+			font-family: 宋体;
+			text-align: center;
+			color: rgb(0,0,0);
+			text-decoration: none;
+			cursor: pointer;
+		}
+		.text_p_bar{
+			font-size: 11px;
+			font-weight: 400;
+			font-family: 宋体;
+			text-align: center;
+			color: rgb(100,100,100);
+			text-decoration: none;
+			cursor: default;
+		}
+		/*首页主界面*/
+		#id_page_main{
+			width:100%;
+			height: 560px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-end;
+			position: absolute;
+			left: 0px;
+			top: 50px;
+		}
+		#id_compName{
+			width: 580px;
+			margin-left: 20px;
+			margin-bottom: 20px;
+			font-size: 32px;
+			font-weight: 800;
+			font-family: 宋体;
+			text-align: start;
+			color: rgb(90,90,90);
+			text-decoration: none;
+			cursor: default;
+		}
+		.view_compInfo{
+			width: 600px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: flex-start;
+		}
+		.view_compInfo_left{
+			width: 380px;
+			margin-left: 20px;
+			margin-bottom: 20px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+			border-right: solid 1px #ccc;
+		}
+		.view_compInfo_right{
+			width: 190px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+			margin-left: 10px;
+		}
+		.item_info{
+			min-height: 28px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: flex-start;
+		}
+		.text_itemInfo{
+			font-size: 15px;
+			font-weight: 400;
+			font-family: 宋体;
+			text-align: start;
+			color: rgb(110,110,110);
+			text-decoration: none;
+			cursor: default;
+			margin-top: 6px;
+			margin-bottom: 6px;
+		}
+		.img_star{
+			width: 16px;
+			height: 16px;
+		}
+		.view_toolbar{
+			margin-top: 16px;
+			width: 820px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+			align-items: center;
+		}
+		.input_search{
+			margin-left: 60px;
+			width: 114px;
+			height: 30px;
+			padding-left: 6px;
+			border: solid 1px #aaa;
+			border-right: dashed 1px #ccc;
+			border-radius: 3px 0px 0px 3px;
+		}
+		.select_search{
+			margin: 0px;
+			padding-left: 6px;
+			width: 94px;
+			height: 34px;
+			border: solid 1px #aaa;
+			border-left: none;
+			border-radius: 0px 3px 3px 0px;
+		}
+		.text_option{
+			margin: 0px;
+			padding-left: 6px;
+			width: 94px;
+		}
+		.ul_content{
+			display: flex;
+			padding: 0px;
+			margin: 0px;
+			margin-top: 16px;
+			flex-direction: column;
+			width: 820px;
+			background-color: rgba(255,255,255,0.9);
+			border: solid 1px #aaa;
+			border-radius: 1px;
+		}
+		.text_normal{
+			color: rgb(60,60,60);
+			font-family: 宋体;
+			font-size: 15px;
+			font-weight: 400;
+			margin: 0px;
+			padding: 0px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.li_content{
+			list-style-type: none;
+			padding: 0px;
+			margin: 0px;
+			width: 800px;
+			height: 40px;
+			padding-left: 10px;
+			padding-right: 10px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			cursor: pointer;
+		}
+	</style>
+	<script type="text/javascript" src="../styles/myjs.js"></script>
+	<script type="text/javascript" src="../lib/jquery-3.2.0.js"></script>
+</head>
+<body>
+	<!--titleBar-->
+	<div class="view_title">
+		<div class="view_title_left">
+			<div id="id_tab_main" class="view_tab_title" onmouseover="turnToBlur('id_tab_main')" onmouseout="turnToClear('id_tab_main')" onclick="window.location.href = 'hello.html'">
+				<p class="text_title_tab">首页</p>
+			</div>
+			<div id="id_tab_transform" class="view_tab_title" onmouseover="turnToBlur('id_tab_transform')" onmouseout="turnToClear('id_tab_transform')" onclick="window.location.href = 'hello_transform.html'">
+				<p class="text_title_tab">道路运输</p>
+			</div>
+			<div id="id_tab_teach" class="view_tab_title" onmouseover="turnToBlur('id_tab_teach')" onmouseout="turnToClear('id_tab_teach')" onclick="window.location.href = 'hello_teach.html'">
+				<p class="text_title_tab">驾校</p>
+			</div>
+			<div id="id_tab_maintain" class="view_tab_title"  onmouseover="turnToBlur('id_tab_maintain')" onmouseout="turnToClear('id_tab_maintain')" onclick="window.location.href = 'hello_maintain.html'">
+				<p class="text_title_tab">车辆维护</p>
+			</div>
+			<div id="id_tab_transport" class="view_tab_title" style="background: transparent;" onmouseover="turnToBlur('id_tab_transport')" onmouseout="turnToClear('id_tab_transport')" onclick="window.location.href = 'hello_transport.html'">
+				<p class="text_title_tab">客运站</p>
+			</div>
+		</div>
+		<!-- <div class="view_title_right">
+			<a class="text_title" href="login.html" id="id_btn_login" style="margin-right: 10px" onmouseover="turnToBlur('id_btn_login')" onmouseout="turnToClear('id_btn_login')">登录</a>
+			<a class="text_title" href="logup_Step1.html" id="id_btn_logup" style="margin:0px 100px 0px 20px" onmouseover="turnToBlur('id_btn_logup')" onmouseout="turnToClear('id_btn_logup')">注册</a> 
+		</div> -->
+	</div>
+	<!--main-->
+	<div class="view_content"  id="id_admin_comp">
+		<!--工具栏-->
+		<div class="view_toolbar">
+			<input type="text" class="input_search" id="id_where_comp">
+			<select class="select_search" id="id_comp_options">
+				<option class="text_option">企业名</option>
+				<option class="text_option">法人名</option>
+				<option class="text_option">主要负责人</option>
+			</select>
+			<img src="../images/search.png" class="img_icon" style="margin-left: 6px;cursor: pointer;" onclick="searchComp()">
+		</div>
+		<p class="text_normal" style="font-size: 18px;font-weight: 600; text-align: center;" id="id_ulName">x</p>
+		<ul class="ul_content" id="id_ul_comps">
+		</ul>
+	</div>
+	<div class="view_footer" style="margin-top: 110px;">
+		<p class="text_footer">Copyright © 2016-2017 titake All Rights Reserved.</p>
+	</div>
+	<script type="text/javascript">
+		function getCompUL(){
+			$(function(){
+				$("#id_comp_options").html('<option class="text_option">企业名</option> <option class="text_option">主要负责人</option>');  
+				$("#id_ulName").html("客运站列表");
+			});
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=transports",true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						var inner="";
+						if (result.length>0) {
+							for (var i = 0; i<result.length; i++) {
+								var j = "list"+i;
+								inner = inner+'<li class="li_content"><p class="text_normal" title="name" style="width: 150px;">'+result[j]['name']+'</p><p class="text_normal" title="address" style="width: 578px;margin-left: 50px;">'+result[j]['location']+'</p></li>';
+							}
+						}else{
+							console.log(result.reason);
+						}
+						$(function(){
+							$("#id_ul_comps").html(inner);
+							$("#id_ul_comps >li:even").css("background-color","rgba(220,220,220,0.8)");
+							$("#id_ul_comps >li").mouseover(function(){$(this).css("background-color","rgba(230,230,230,0.9)")});
+							$("#id_ul_comps >li:even").mouseout(function(){$(this).css("background-color","rgba(220,220,220,0.8)")});
+							$("#id_ul_comps >li:odd").mouseout(function(){$(this).css("background-color","rgba(250,250,250,0.9)")});
+							$("#id_ul_comps >li>p[title='name']").click(function(){
+								var name = $(this).html();
+								window.open(encodeURI("show_transport_one.html?compname="+name),"_self");
+							});
+							$("#id_ul_comps >li>p[title='address']").click(function(){
+								var name = $(this).prev().html();
+								window.open(encodeURI("show_transport_one.html?compname="+name),"_self");
+							});
+						});
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		function searchComp(){
+			var selectOptions = document.getElementById("id_comp_options");
+			var sindex = selectOptions.selectedIndex;
+			var reference = selectOptions.options[sindex].value;
+			var sql = "select name,location from tb_transport where ";
+			var where = document.getElementById("id_where_comp").value;
+			switch(reference){
+				case '企业名':
+					reference = "name";
+					break;
+				case '主要负责人':
+					reference = "charge_person";
+					break;
+			}
+			sql = sql +reference+" like '%"+where+"%';";
+			var request = new XMLHttpRequest;
+			request.open("GET","../ajax/getData_sql.php?flag=dosql&sql="+sql,true);
+			request.send();
+			request.onreadystatechange = function(){
+				if (request.readyState===4) {
+					if (request.status===200) {
+						var result = JSON.parse(request.responseText);
+						var inner="";
+						if (result.length>0) {
+							for (var i = 0; i<result.length; i++) {
+								var j = "list"+i;
+								inner = inner+'<li class="li_content"><p class="text_normal" title="name" style="width: 150px;">'+result[j]['name']+'</p><p class="text_normal" title="address" style="width: 578px;margin-left: 50px;">'+result[j]['location']+'</p></li>';
+							}
+						}else{
+							console.log(result.reason);
+						}
+						$(function(){
+							$("#id_ul_comps").html(inner);
+							$("#id_ul_comps >li:even").css("background-color","rgba(220,220,220,0.8)");
+							$("#id_ul_comps >li").mouseover(function(){$(this).css("background-color","rgba(230,230,230,0.9)")});
+							$("#id_ul_comps >li:even").mouseout(function(){$(this).css("background-color","rgba(220,220,220,0.8)")});
+							$("#id_ul_comps >li:odd").mouseout(function(){$(this).css("background-color","rgba(250,250,250,0.9)")});
+							$("#id_ul_comps >li>p[title='name']").click(function(){
+								var name = $(this).html();
+								window.open(encodeURI("show_transport_one.html?compname="+name),"_self");
+							});
+							$("#id_ul_comps >li>p[title='address']").click(function(){
+								var name = $(this).prev().html();
+								window.open(encodeURI("show_transport_one.html?compname="+name),"_self");
+							});
+						});
+					}else{
+						alert("error:"+request.status);
+					}
+				}
+			}
+		}
+		getCompUL();
+	</script>
+</body>
+</html>

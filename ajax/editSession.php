@@ -4,9 +4,6 @@ switch ($_GET["flag"]) {
 	case 'set':
 		$key = $_GET['name'];
 		$_SESSION["{$key}"]=$_GET["{$key}"];
-		echo $key;
-		echo $_GET["{$key}"];
-		echo $_SESSION['url_search'];
 		break;
 	case 'set_car':
 		$_SESSION["cartype"]=$_GET["cartype"];

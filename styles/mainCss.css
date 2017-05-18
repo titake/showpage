@@ -68,3 +68,12 @@
 	margin: 0px;
 	padding: 0px;
 }
+.text_normal{
+	color: rgb(60,60,60);
+	font-family: 宋体;
+	font-size: 15px;
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

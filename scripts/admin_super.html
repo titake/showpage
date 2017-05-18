@@ -113,7 +113,7 @@
 			margin: 0px;
 			padding-left: 6px;
 			width: 94px;
-			height: 33.3px;
+			height: 34px;
 			border: solid 1px #aaa;
 			border-left: none;
 			border-radius: 0px 3px 3px 0px;
@@ -1117,9 +1117,10 @@
 		}
 
 	//驾驶员管理
-		function getDriverUl(CarType){
+		function getDriverUl(){
 			$(function(){
-				$("id_title3_right").html("驾驶员列表");
+				$(".view_content").hide();
+				$("#id_title3_right").html("驾驶员列表");
 			})
 			var sql = "select idcard_num,username,sex,job_permi_classify,ifblock,star_polite,star_safe,star_law,star_honest,star_server from tb_driver;";
 			var request = new XMLHttpRequest;
@@ -1132,12 +1133,12 @@
 						var inner="";
 						if (result.length>0) {
 							inner = inner+'<li class="li_content" style="border-bottom:solid 1px #888;justify-content:flex-start;"><p class="text_normal" style="width: 80px;">姓名</p><p class="text_normal" style="width: 40px;margin-left: 10px;">性别</p><p class="text_normal" style="width: 140px;margin-left: 20px;margin-right:25px;">从业资格类别</p><p class="text_normal" style="width: 83px;text-align:center;">文明星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">安全星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">守法星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">诚信星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">服务星</p></li>';
-							for (var i = 0; i<result.length; i++) {
-								var j = "list"+i;
-								inner = inner+'<li class="li_content" index="'+i+'"><p class="text_normal" style="width: 90px;">'+result[j]['username']+'</p><p class="text_normal" style="width: 15px;margin-left: 20px;">'+result[j]['sex']+'</p><p class="text_normal" style="width: 140px;margin-left: 20px;margin-right:25px;">'+result[j]['job_permi_classify']+'</p>';
+							for (var m = 0; m<result.length; m++) {
+								var j = "list"+m;
+								inner = inner+'<li class="li_content" index="'+m+'"><p class="text_normal" style="width: 90px;">'+result[j]['username']+'</p><p class="text_normal" style="width: 15px;margin-left: 20px;">'+result[j]['sex']+'</p><p class="text_normal" style="width: 140px;margin-left: 20px;margin-right:25px;">'+result[j]['job_permi_classify']+'</p>';
 								var ifblock = result[j]['ifblock'];
 								if (ifblock==1) {
-									inner = inner+'<p class="text_normal" style="width: 20px;margin-left: 20px;">该驾驶员在黑名单中';
+									inner = inner+'<p class="text_normal" style="width: 430px;margin-left: 20px;">该驾驶员在黑名单中';
 								}else{
 									var star_polite = result[j]['star_polite'];
 									var i=1;
@@ -1150,14 +1151,16 @@
 										inner = inner+'<img class="img_star" src="../images/star_gray.png">';
 										star_polite++;
 									}
+
 									var star_safe = result[j]['star_safe'];
 									if (star_safe>0) {
 										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
 									}else{
+										star_safe++;
 										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
 									}
 									i=2;
-									while(i<star_safe){
+									while(i<=star_safe){
 										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
 										i++;
 									}
@@ -1171,9 +1174,10 @@
 										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
 									}else{
 										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+										star_law++;
 									}
 									i=2;
-									while(i<star_law){
+									while(i<=star_law){
 										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
 										i++;
 									}
@@ -1187,9 +1191,10 @@
 										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
 									}else{
 										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+										star_honest++
 									}
 									i=2;
-									while(i<star_honest){
+									while(i<=star_honest){
 										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
 										i++;
 									}
@@ -1203,9 +1208,10 @@
 										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
 									}else{
 										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+										star_server++;
 									}
 									i=2;
-									while(i<star_server){
+									while(i<=star_server){
 										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
 										i++;
 									}
@@ -1236,12 +1242,13 @@
 								if (window.confirm("确认删除该驾驶员？")) {
 									var sessionName = "idcard_num"+$(this).parent().attr("index");
 									var request = new XMLHttpRequest;
-									request.open("POST","../ajax/WriteDB.php?sessionName="+name+"&flag=delete_driver",true);
+									request.open("POST","../ajax/WriteDB.php?",true);
 									request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-									request.send("flag=dosql&sql="+sql);
+									request.send("sessionName="+sessionName+"&flag=delete_driver");
 									request.onreadystatechange = function(){
 										if (request.readyState===4) {
 											if (request.status===200) {
+												console.log(request.responseText);
 												var response = JSON.parse(request.responseText);
 												if (response.success==true) {
 													alert("删除成功");
@@ -1276,7 +1283,7 @@
 			var where = document.getElementById("id_where_driver").value;
 			switch(reference){
 				case '姓名':
-					sql = sql+"name like '%"+where+"%';";
+					sql = sql+"username like '%"+where+"%';";
 					break;
 				case '性别':
 					sql = sql+"sex like '%"+where+"%';";
@@ -1301,15 +1308,16 @@
 				if (request.readyState===4) {
 					if (request.status===200) {
 						var result = JSON.parse(request.responseText);
+						console.log(result);
 						var inner="";
 						if (result.length>0) {
 							inner = inner+'<li class="li_content" style="border-bottom:solid 1px #888;justify-content:flex-start;"><p class="text_normal" style="width: 80px;">姓名</p><p class="text_normal" style="width: 40px;margin-left: 10px;">性别</p><p class="text_normal" style="width: 140px;margin-left: 20px;margin-right:25px;">从业资格类别</p><p class="text_normal" style="width: 83px;text-align:center;">文明星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">安全星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">守法星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">诚信星</p><p class="text_normal" style="width: 83px;margin-left:20px;text-align:center;">服务星</p></li>';
-							for (var i = 0; i<result.length; i++) {
-								var j = "list"+i;
-								inner = inner+'<li class="li_content" index="'+i+'"><p class="text_normal" style="width: 90px;">'+result[j]['username']+'</p><p class="text_normal" style="width: 15px;margin-left: 20px;">'+result[j]['sex']+'</p><p class="text_normal" style="width: 140px;margin-left: 20px;margin-right:25px;">'+result[j]['job_permi_classify']+'</p>';
+							for (var m = 0; m<result.length; m++) {
+								var j = "list"+m;
+								inner = inner+'<li class="li_content" index="'+m+'"><p class="text_normal" style="width: 90px;">'+result[j]['username']+'</p><p class="text_normal" style="width: 15px;margin-left: 20px;">'+result[j]['sex']+'</p><p class="text_normal" style="width: 140px;margin-left: 20px;margin-right:25px;">'+result[j]['job_permi_classify']+'</p>';
 								var ifblock = result[j]['ifblock'];
 								if (ifblock==1) {
-									inner = inner+'<p class="text_normal" style="width: 20px;margin-left: 20px;">该驾驶员在黑名单中';
+									inner = inner+'<p class="text_normal" style="width: 430px;margin-left: 20px;">该驾驶员在黑名单中';
 								}else{
 									var star_polite = result[j]['star_polite'];
 									var i=1;
@@ -1322,14 +1330,16 @@
 										inner = inner+'<img class="img_star" src="../images/star_gray.png">';
 										star_polite++;
 									}
+
 									var star_safe = result[j]['star_safe'];
 									if (star_safe>0) {
 										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
 									}else{
+										star_safe++;
 										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
 									}
 									i=2;
-									while(i<star_safe){
+									while(i<=star_safe){
 										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
 										i++;
 									}
@@ -1343,9 +1353,10 @@
 										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
 									}else{
 										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+										star_law++;
 									}
 									i=2;
-									while(i<star_law){
+									while(i<=star_law){
 										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
 										i++;
 									}
@@ -1359,9 +1370,10 @@
 										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
 									}else{
 										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+										star_honest++
 									}
 									i=2;
-									while(i<star_honest){
+									while(i<=star_honest){
 										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
 										i++;
 									}
@@ -1375,9 +1387,10 @@
 										inner = inner+'<img class="img_star" src="../images/star_gold.png" style="margin-left:20px;">';
 									}else{
 										inner = inner+'<img class="img_star" src="../images/star_gray.png" style="margin-left:20px;">';
+										star_server++;
 									}
 									i=2;
-									while(i<star_server){
+									while(i<=star_server){
 										inner = inner+'<img class="img_star" src="../images/star_gold.png">';
 										i++;
 									}
@@ -1408,12 +1421,13 @@
 								if (window.confirm("确认删除该驾驶员？")) {
 									var sessionName = "idcard_num"+$(this).parent().attr("index");
 									var request = new XMLHttpRequest;
-									request.open("POST","../ajax/WriteDB.php?sessionName="+name+"&flag=delete_driver",true);
+									request.open("POST","../ajax/WriteDB.php?",true);
 									request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-									request.send("flag=dosql&sql="+sql);
+									request.send("sessionName="+sessionName+"&flag=delete_driver");
 									request.onreadystatechange = function(){
 										if (request.readyState===4) {
 											if (request.status===200) {
+												console.log(request.responseText);
 												var response = JSON.parse(request.responseText);
 												if (response.success==true) {
 													alert("删除成功");

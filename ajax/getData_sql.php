@@ -168,7 +168,6 @@ switch ($_GET["flag"]) {
 				foreach ($results[$i] as $key => $value) {
 					if (strpos($key,"idcard_num")!==false) {
 						$keyname = "idcard_num".$i;		//将身份证号存在session中
-						
 						$_SESSION[$keyname] = $value; 
 					}else{
 						$info = $info.'"'.$key.'":"'.$value.'",';

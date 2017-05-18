@@ -40,8 +40,36 @@ switch ($_POST["flag"]) {
 		break;
 	case 'delete_driver':
 		session_start();
-		$sql = "delete from tb_driver where idcard_num='{$_SESSION['sessionName']}'";
-		doSQL($sql);
+		$sessionName = $_POST["sessionName"];
+		$sql = "select email from tb_driver where idcard_num='{$_SESSION[$sessionName]}'";
+		$mysqli = connectDb();
+		$result = $mysqli->query($sql);
+		if ($result==false) {
+			$mysqli->close();
+			echo '{"success":false,"reason:"select email from tb_driver error '.$mysqli->errno.$mysqli->error.'"}';
+		}else{
+			if ($result->num_rows<=0) {
+				$mysqli->close();
+				echo '{"success":false,"reason:"not find email from tb_driver"}';
+			}else{
+				$email = $result->fetch_all(MYSQLI_ASSOC)[0]["email"];
+				$sql = "delete from tb_users where email='".$email."';";
+				$result=$mysqli->query($sql);
+				if ($result==false) {
+					$mysqli->close();
+					echo '{"success":false,"reason:"delete from tb_users error '.$mysqli->errno.$mysqli->error.'"}';
+				}else{
+					$sql = "delete from tb_driver where idcard_num='{$_SESSION[$sessionName]}'";
+					$result = $mysqli->query($sql);
+					if ($result ==false) {
+						echo '{"success":false,"reason":"delete from tb_driver'.$mysqli->errno." is ".$mysqli->error.'"}';
+					}else{
+						echo '{"success":true}';
+					}
+					$mysqli->close();
+				}
+			}
+		}
 		break;
 	case 'add_car':
 		addCar();
@@ -149,7 +177,7 @@ function addDriver_super(){
 	$iv = 'titake_iv_codeiv';
 	$idnum_encrypt = openssl_encrypt($idcard_num, $methods[0], $key1,0,$iv);
 	$password = password_hash("123456",PASSWORD_DEFAULT);
-	$sql = "insert tb_users values('{$_POST["email"]}','{$password}','{$_SESSION["userType"]}');";
+	$sql = "insert tb_users values('{$_POST["email"]}','{$password}','驾驶员/教练员');";
 	$result = $mysqli->query($sql);
 	if ($result ==false) {
 		echo '{"success":false,"reason":"insert tb_users '.$mysqli->errno." is ".$mysqli->error.'"}';
