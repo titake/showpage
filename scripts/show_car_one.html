@@ -70,8 +70,9 @@
 		}
 		.img_show{
 			width: 200px;
-			size: contain;
+			height: 200px;
 			position: center;
+			size: contain;
 		}
 		.div_column_center_start{
 			display: flex;
@@ -231,6 +232,7 @@
 		request.onreadystatechange = function(){
 			if (request.readyState===4) {
 				if (request.status===200) {
+					console.log(request.responseText);
 					var result = JSON.parse(request.responseText);
 					if (result.failed==true) {
 						console.log(result.reason);

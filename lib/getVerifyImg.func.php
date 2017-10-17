@@ -42,8 +42,9 @@ function getVerifyImg($type=3,$length=4){
 	for ($i=0; $i <3 ; $i++) { 
 		imageline($image, rand(0,100), rand(0,30), rand(0,100), rand(0,30), $randcolor_other);
 	}
+	// header("Content-type: image/png");
 	header("content-type:image/png");
 	imagepng($image);
 	imagedestroy($image);
 }
-//getVerifyImg();
+getVerifyImg();

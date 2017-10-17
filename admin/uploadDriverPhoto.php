@@ -26,7 +26,3 @@ if(move_uploaded_file($_FILES["photo_driver"]["tmp_name"],$destination_folder.$f
 	$url.="';</script>";
 	echo $url;
 }
-
-
-//留着，回来加个cookie，通过cookie判断usertype
-//

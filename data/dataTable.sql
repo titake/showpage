@@ -308,7 +308,7 @@ CREATE TABLE `tb_misdeedDriver`(
 	`id` int unsigned AUTO_INCREMENT primary key COMMENT '违规编号',
 	`compName` varchar(100) not null COMMENT '所属公司名',
 	`driverName` char(20) not null COMMENT '驾驶员名',
-	`plateNum` char(10) not null COMMENT '驾驶车辆号牌',
+	`plateNum` char(15) not null COMMENT '驾驶车辆号牌',
 	`date` datetime not null COMMENT '违规日期时间',
 	`address` varchar(255) not null COMMENT '违规地点',
 	`reason` varchar(100) not null COMMENT '违规原因',
